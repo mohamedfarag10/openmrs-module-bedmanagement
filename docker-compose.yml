@@ -1,0 +1,43 @@
+name: clarity
+
+services:
+  db:
+    image: mariadb:10.11
+    environment:
+      MARIADB_ROOT_PASSWORD: openmrs_root
+      MARIADB_DATABASE: openmrs
+      MARIADB_USER: openmrs
+      MARIADB_PASSWORD: openmrs
+    command: ["mysqld", "--character-set-server=utf8", "--collation-server=utf8_general_ci"]
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - db-data:/var/lib/mysql
+
+  openmrs:
+    build: .
+    image: clarity/openmrs-module-bedmanagement
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      OMRS_CONFIG_CONNECTION_SERVER: db
+      OMRS_CONFIG_CONNECTION_DATABASE: openmrs
+      OMRS_CONFIG_CONNECTION_USERNAME: openmrs
+      OMRS_CONFIG_CONNECTION_PASSWORD: openmrs
+      OMRS_CONFIG_CONNECTION_ROOT_USERNAME: root
+      OMRS_CONFIG_CONNECTION_ROOT_PASSWORD: openmrs_root
+      OMRS_CONFIG_CREATE_TABLES: "true"
+      OMRS_CONFIG_AUTO_UPDATE_DATABASE: "true"
+      OMRS_CONFIG_MODULE_WEB_ADMIN: "true"
+    ports:
+      - "8080:8080"
+    volumes:
+      - openmrs-data:/openmrs/data
+
+volumes:
+  db-data:
+  openmrs-data:
