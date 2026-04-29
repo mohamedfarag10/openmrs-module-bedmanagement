@@ -6,7 +6,22 @@
       "Bash(docker exec clarity-patient-portal-openmrs-1 *)",
       "Bash(MSYS_NO_PATHCONV=1 docker exec clarity-patient-portal-openmrs-1 *)",
       "Bash(docker restart *)",
-      "Bash(MSYS_NO_PATHCONV=1 docker logs -f --since 10s clarity-patient-portal-openmrs-1)"
+      "Bash(MSYS_NO_PATHCONV=1 docker logs -f --since 10s clarity-patient-portal-openmrs-1)",
+      "Read(//c/Users/NTG/Application Data/OpenMRS/**)",
+      "Read(//c/Users/NTG/AppData/Roaming/OpenMRS/**)",
+      "Read(//c/Users/NTG/.OpenMRS/**)",
+      "Bash(command -v mvn)",
+      "Bash(mvn -v)",
+      "Bash(mvn -o package -DskipTests)",
+      "Bash(rm -f /tmp/bedmanagement.zip)",
+      "Bash(/c/Windows/System32/tar.exe -a -c -f /tmp/bedmanagement.zip build css img *.html manifest.webapp)",
+      "Read(//tmp/**)",
+      "Bash(/c/Windows/System32/tar.exe *)",
+      "PowerShell(Get-Process *)",
+      "PowerShell(Get-WmiObject *)",
+      "PowerShell(Stop-Process *)",
+      "Bash(tasklist)",
+      "Bash(mvn -V -D \"maven.repo.local=C:\\\\Users\\\\NTG\\\\.m2\\\\repository\" -D port=8080 -D serverId=myServer1 org.openmrs.maven.plugins:openmrs-sdk-tomcat9-maven-plugin:6.8.0:run-tomcat)"
     ]
   }
 }

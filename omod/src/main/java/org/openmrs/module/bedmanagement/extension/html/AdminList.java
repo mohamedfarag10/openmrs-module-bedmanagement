@@ -9,21 +9,21 @@ import org.openmrs.module.bedmanagement.constants.BedManagementProperties;
 import org.openmrs.module.web.extension.AdministrationSectionExt;
 
 /**
- * This class defines the links that will appear on the administration page under the
- * "bedmanagement.title" heading.
+ * This class defines the links that will appear on the administration page
+ * under the "bedmanagement.title" heading.
  */
 public class AdminList extends AdministrationSectionExt {
-	
+
 	final String KEY_APP_BASE_URL = "owa.appBaseUrl";
-	
+
 	public Extension.MEDIA_TYPE getMediaType() {
 		return Extension.MEDIA_TYPE.html;
 	}
-	
+
 	public String getTitle() {
 		return "bedmanagement.title";
 	}
-	
+
 	/**
 	 * @see AdministrationSectionExt#getLinks()
 	 */
@@ -35,5 +35,5 @@ public class AdminList extends AdministrationSectionExt {
 		map.put(appBaseUrl + "/bedmanagement/bedTags.html", "bedmanagement.bedTags");
 		return map;
 	}
-	
+
 }

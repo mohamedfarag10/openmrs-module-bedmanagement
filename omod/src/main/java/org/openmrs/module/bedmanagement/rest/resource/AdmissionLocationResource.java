@@ -54,27 +54,28 @@ import java.util.List;
 import java.util.Set;
 
 @Resource(name = RestConstants.VERSION_1
-        + "/admissionLocation", supportedClass = AdmissionLocation.class, supportedOpenmrsVersions = { "1.9.* - 9.*" })
+		+ "/admissionLocation", supportedClass = AdmissionLocation.class, supportedOpenmrsVersions = {"1.9.* - 9.*"})
 
 public class AdmissionLocationResource extends DelegatingCrudResource<AdmissionLocation> {
-	
+
 	@Override
 	protected PageableResult doGetAll(RequestContext context) throws ResponseException {
-		List<AdmissionLocation> admissionLocations = Context.getService(BedManagementService.class).getAdmissionLocations();
+		List<AdmissionLocation> admissionLocations = Context.getService(BedManagementService.class)
+				.getAdmissionLocations();
 		return new NeedsPaging<>(admissionLocations, context);
 	}
-	
+
 	@Override
 	protected PageableResult doSearch(RequestContext context) throws ResponseException {
 		return doGetAll(context);
 	}
-	
+
 	@Override
 	public List<Representation> getAvailableRepresentations() {
 		CustomRepresentation layoutRepresentation = new CustomRepresentation("layout");
 		return Arrays.asList(Representation.DEFAULT, Representation.FULL, layoutRepresentation);
 	}
-	
+
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		if ((rep instanceof DefaultRepresentation) || (rep instanceof RefRepresentation)) {
@@ -98,137 +99,142 @@ public class AdmissionLocationResource extends DelegatingCrudResource<AdmissionL
 			description.addProperty("bedLocationMappings");
 			return description;
 		}
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public Model getGETModel(Representation rep) {
 		ModelImpl modelImpl = ((ModelImpl) super.getGETModel(rep));
 		if (rep instanceof DefaultRepresentation) {
 			modelImpl.property("ward", new StringProperty()).property("totalBeds", new StringProperty())
-			        .property("occupiedBeds", new StringProperty());
+					.property("occupiedBeds", new StringProperty());
 		}
 		if (rep instanceof FullRepresentation) {
 			modelImpl.property("ward", new StringProperty()).property("totalBeds", new StringProperty())
-			        .property("occupiedBeds", new StringProperty()).property("bedLayouts", new StringProperty());
+					.property("occupiedBeds", new StringProperty()).property("bedLayouts", new StringProperty());
 		}
 		if (rep instanceof NamedRepresentation) {
 			modelImpl.property("ward", new StringProperty()).property("bedLocationMappings", new StringProperty());
 		}
-		
+
 		return modelImpl;
 	}
-	
+
 	@PropertyGetter("bedLocationMappings")
 	public Object getBedLocationMappings(AdmissionLocation admissionLocation) throws Exception {
 		List<BedLocationMapping> bedLocationMappings = Context.getService(BedManagementService.class)
-		        .getBedLocationMappingsByLocation(admissionLocation.getWard());
-		
+				.getBedLocationMappingsByLocation(admissionLocation.getWard());
+
 		List<SimpleObject> ret = new ArrayList<SimpleObject>();
 		for (BedLocationMapping bedLocationMapping : bedLocationMappings) {
 			SimpleObject object = new SimpleObject();
 			object.put("rowNumber", bedLocationMapping.getRow());
 			object.put("columnNumber", bedLocationMapping.getColumn());
-			object.put("bedNumber", bedLocationMapping.getBed() != null ? bedLocationMapping.getBed().getBedNumber() : null);
+			object.put("bedNumber",
+					bedLocationMapping.getBed() != null ? bedLocationMapping.getBed().getBedNumber() : null);
 			object.put("bedId", bedLocationMapping.getBed() != null ? bedLocationMapping.getBed().getId() : null);
 			object.put("bedUuid", bedLocationMapping.getBed() != null ? bedLocationMapping.getBed().getUuid() : null);
 			object.put("status", bedLocationMapping.getBed() != null ? bedLocationMapping.getBed().getStatus() : null);
-			object.put("bedType", bedLocationMapping.getBed() != null ? bedLocationMapping.getBed().getBedType() : null);
+			object.put("bedType",
+					bedLocationMapping.getBed() != null ? bedLocationMapping.getBed().getBedType() : null);
 			ret.add(object);
 		}
 		return ret;
 	}
-	
+
 	@Override
 	public AdmissionLocation getByUniqueId(String uuid) {
 		Location location = Context.getService(LocationService.class).getLocationByUuid(uuid);
 		return Context.getService(BedManagementService.class).getAdmissionLocationByLocation(location);
 	}
-	
+
 	@Override
 	public Object create(SimpleObject propertiesToCreate, RequestContext context) throws ResponseException {
 		LocationTag admissionLocationTag = Context.getService(LocationService.class)
-		        .getLocationTagByName(BedManagementApiConstants.LOCATION_TAG_SUPPORTS_ADMISSION);
+				.getLocationTagByName(BedManagementApiConstants.LOCATION_TAG_SUPPORTS_ADMISSION);
 		if (admissionLocationTag == null) {
-			throw new IllegalStateException("Server must be configured with a Location Tag named 'Admission Location'.");
+			throw new IllegalStateException(
+					"Server must be configured with a Location Tag named 'Admission Location'.");
 		}
-		
+
 		if (propertiesToCreate.get("name") == null)
 			throw new ConversionException("The name property is missing");
-		
+
 		Location location = new Location();
 		location.setName((String) propertiesToCreate.get("name"));
 		if (propertiesToCreate.get("description") != null)
 			location.setDescription((String) propertiesToCreate.get("description"));
 		if (propertiesToCreate.get("parentLocationUuid") != null) {
 			Location parentLocation = Context.getService(LocationService.class)
-			        .getLocationByUuid((String) propertiesToCreate.get("parentLocationUuid"));
+					.getLocationByUuid((String) propertiesToCreate.get("parentLocationUuid"));
 			if (parentLocation == null)
 				throw new IllegalPropertyException("Parent location not exist");
 			location.setParentLocation(parentLocation);
 		}
-		
+
 		Set<LocationTag> locationTagSet = new HashSet<LocationTag>();
 		locationTagSet.add(admissionLocationTag);
 		location.setTags(locationTagSet);
-		
+
 		AdmissionLocation admissionLocation = new AdmissionLocation();
 		admissionLocation.setWard(location);
-		
+
 		Context.getService(BedManagementService.class).saveAdmissionLocation(admissionLocation);
 		return ConversionUtil.convertToRepresentation(admissionLocation, context.getRepresentation());
 	}
-	
+
 	@Override
-	public Object update(String uuid, SimpleObject propertiesToUpdate, RequestContext context) throws ResponseException {
+	public Object update(String uuid, SimpleObject propertiesToUpdate, RequestContext context)
+			throws ResponseException {
 		Location location = Context.getService(LocationService.class).getLocationByUuid(uuid);
 		if (location == null)
 			throw new IllegalPropertyException("Location not exist");
-		
+
 		AdmissionLocation admissionLocation = Context.getService(BedManagementService.class)
-		        .getAdmissionLocationByLocation(location);
-		
+				.getAdmissionLocationByLocation(location);
+
 		if (propertiesToUpdate.get("name") != null)
 			admissionLocation.getWard().setName((String) propertiesToUpdate.get("name"));
-		
+
 		if (propertiesToUpdate.get("description") != null)
 			admissionLocation.getWard().setDescription((String) propertiesToUpdate.get("description"));
-		
+
 		if (propertiesToUpdate.get("parentLocationUuid") != null) {
 			Location parentLocation = Context.getService(LocationService.class)
-			        .getLocationByUuid((String) propertiesToUpdate.get("parentLocationUuid"));
+					.getLocationByUuid((String) propertiesToUpdate.get("parentLocationUuid"));
 			if (parentLocation == null)
 				throw new IllegalPropertyException("Parent location not exist");
 			admissionLocation.getWard().setParentLocation(parentLocation);
 		}
-		
+
 		if (propertiesToUpdate.get("bedLayout") != null) {
 			HashMap<String, Integer> bedLayout = propertiesToUpdate.get("bedLayout");
 			Integer row = bedLayout.get("row");
 			Integer column = bedLayout.get("column");
-			Context.getService(BedManagementService.class).setBedLayoutForAdmissionLocation(admissionLocation, row, column);
+			Context.getService(BedManagementService.class).setBedLayoutForAdmissionLocation(admissionLocation, row,
+					column);
 		}
-		
+
 		Context.getService(BedManagementService.class).saveAdmissionLocation(admissionLocation);
 		return ConversionUtil.convertToRepresentation(admissionLocation, context.getRepresentation());
 	}
-	
+
 	@Override
 	protected void delete(AdmissionLocation admissionLocation, String reason, RequestContext requestContext)
-	        throws ResponseException {
+			throws ResponseException {
 		admissionLocation.getWard().setRetired(true);
 		admissionLocation.getWard().setRetireReason(reason);
 		admissionLocation.getWard().setRetiredBy(Context.getAuthenticatedUser());
 		admissionLocation.getWard().setDateRetired(new Date());
 		Context.getService(LocationService.class).saveLocation(admissionLocation.getWard());
 	}
-	
+
 	@Override
 	public void purge(AdmissionLocation admissionLocation, RequestContext requestContext) throws ResponseException {
 		throw new ResourceDoesNotSupportOperationException("purge of admission location not supported");
 	}
-	
+
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
@@ -237,18 +243,18 @@ public class AdmissionLocationResource extends DelegatingCrudResource<AdmissionL
 		description.addProperty("parentLocationUuid");
 		return description;
 	}
-	
+
 	@Override
 	public Model getCREATEModel(Representation rep) {
 		return new ModelImpl().property("name", new StringProperty()).property("description", new StringProperty())
-		        .property("parentLocationUuid", new StringProperty());
+				.property("parentLocationUuid", new StringProperty());
 	}
-	
+
 	@Override
 	public AdmissionLocation newDelegate() {
 		return new AdmissionLocation();
 	}
-	
+
 	@Override
 	public AdmissionLocation save(AdmissionLocation admissionLocation) {
 		return Context.getService(BedManagementService.class).saveAdmissionLocation(admissionLocation);

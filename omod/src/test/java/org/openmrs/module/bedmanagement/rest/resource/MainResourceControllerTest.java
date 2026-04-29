@@ -46,17 +46,18 @@ import java.util.List;
  * Facilitates testing controllers.
  */
 public abstract class MainResourceControllerTest extends BaseModuleWebContextSensitiveTest {
-	
+
 	@Autowired
 	private RequestMappingHandlerAdapter handlerAdapter;
-	
+
 	@Autowired
 	private List<RequestMappingHandlerMapping> handlerMappings;
-	
+
 	/**
 	 * Creates a request from the given parameters.
 	 * <p>
-	 * The requestURI is automatically preceded with "/rest/" + RestConstants.VERSION_1.
+	 * The requestURI is automatically preceded with "/rest/" +
+	 * RestConstants.VERSION_1.
 	 *
 	 * @param method
 	 * @param requestURI
@@ -64,11 +65,11 @@ public abstract class MainResourceControllerTest extends BaseModuleWebContextSen
 	 */
 	public MockHttpServletRequest request(RequestMethod method, String requestURI) {
 		MockHttpServletRequest request = new MockHttpServletRequest(method.toString(),
-		        "/rest/" + getNamespace() + "/" + requestURI);
+				"/rest/" + getNamespace() + "/" + requestURI);
 		request.addHeader("content-type", "application/json");
 		return request;
 	}
-	
+
 	/**
 	 * Override this method to test a different namespace than v1.
 	 * 
@@ -77,19 +78,19 @@ public abstract class MainResourceControllerTest extends BaseModuleWebContextSen
 	public String getNamespace() {
 		return RestConstants.VERSION_1;
 	}
-	
+
 	public static class Parameter {
-		
+
 		public String name;
-		
+
 		public String value;
-		
+
 		public Parameter(String name, String value) {
 			this.name = name;
 			this.value = value;
 		}
 	}
-	
+
 	public MockHttpServletRequest newRequest(RequestMethod method, String requestURI, Parameter... parameters) {
 		MockHttpServletRequest request = request(method, requestURI);
 		for (Parameter parameter : parameters) {
@@ -97,38 +98,36 @@ public abstract class MainResourceControllerTest extends BaseModuleWebContextSen
 		}
 		return request;
 	}
-	
+
 	public MockHttpServletRequest newDeleteRequest(String requestURI, Parameter... parameters) {
 		return newRequest(RequestMethod.DELETE, requestURI, parameters);
 	}
-	
+
 	public MockHttpServletRequest newGetRequest(String requestURI, Parameter... parameters) {
 		return newRequest(RequestMethod.GET, requestURI, parameters);
 	}
-	
+
 	public MockHttpServletRequest newPostRequest(String requestURI, Object content) {
 		MockHttpServletRequest request = request(RequestMethod.POST, requestURI);
 		try {
 			String json = new ObjectMapper().writeValueAsString(content);
 			request.setContent(json.getBytes("UTF-8"));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		return request;
 	}
-	
+
 	public MockHttpServletRequest newPostRequest(String requestURI, String content) {
 		MockHttpServletRequest request = request(RequestMethod.POST, requestURI);
 		try {
 			request.setContent(content.getBytes("UTF-8"));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 		return request;
 	}
-	
+
 	/**
 	 * Passes the given request to a proper controller.
 	 * 
@@ -138,7 +137,7 @@ public abstract class MainResourceControllerTest extends BaseModuleWebContextSen
 	 */
 	public MockHttpServletResponse handle(HttpServletRequest request) throws Exception {
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		
+
 		HandlerExecutionChain handlerExecutionChain = null;
 		for (RequestMappingHandlerMapping handlerMapping : handlerMappings) {
 			handlerExecutionChain = handlerMapping.getHandler(request);
@@ -147,12 +146,12 @@ public abstract class MainResourceControllerTest extends BaseModuleWebContextSen
 			}
 		}
 		Assert.assertNotNull("The request URI does not exist", handlerExecutionChain);
-		
+
 		handlerAdapter.handle(request, response, handlerExecutionChain.getHandler());
-		
+
 		return response;
 	}
-	
+
 	/**
 	 * Deserializes the JSON response.
 	 * 
@@ -163,22 +162,22 @@ public abstract class MainResourceControllerTest extends BaseModuleWebContextSen
 	public SimpleObject deserialize(MockHttpServletResponse response) throws Exception {
 		return new ObjectMapper().readValue(response.getContentAsString(), SimpleObject.class);
 	}
-	
+
 	/**
 	 * @return the URI of the resource
 	 */
 	public abstract String getURI();
-	
+
 	/**
 	 * @return the uuid of an existing object
 	 */
 	public abstract String getUuid();
-	
+
 	/**
 	 * @return the count of all not retired/voided objects
 	 */
 	public abstract long getAllCount();
-	
+
 	/**
 	 * Evaluates an XPath expression on a XML string
 	 * 
@@ -192,7 +191,7 @@ public abstract class MainResourceControllerTest extends BaseModuleWebContextSen
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		return xpath.evaluate(xPath, source);
 	}
-	
+
 	/**
 	 * Prints an XML string indented
 	 * 
@@ -200,15 +199,15 @@ public abstract class MainResourceControllerTest extends BaseModuleWebContextSen
 	 * @throws TransformerException
 	 */
 	protected void printXML(String xml) throws TransformerException {
-		
+
 		Source xmlInput = new StreamSource(new StringReader(xml));
 		StringWriter stringWriter = new StringWriter();
-		
+
 		Transformer transformer = TransformerFactory.newInstance().newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		transformer.transform(xmlInput, new StreamResult(stringWriter));
-		
+
 		System.out.println(stringWriter.toString());
 	}
-	
+
 }

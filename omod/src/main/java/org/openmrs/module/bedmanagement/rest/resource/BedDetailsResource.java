@@ -38,9 +38,9 @@ import java.util.Collections;
 import java.util.List;
 
 @Resource(name = RestConstants.VERSION_1 + "/beds", supportedClass = BedDetails.class, supportedOpenmrsVersions = {
-        "1.9.* - 9.*" })
+		"1.9.* - 9.*"})
 public class BedDetailsResource extends DelegatingCrudResource<BedDetails> {
-	
+
 	@Override
 	public BedDetails getByUniqueId(String id) {
 		BedDetails bedDetails = getBedManagementService().getBedDetailsById(id);
@@ -49,35 +49,35 @@ public class BedDetailsResource extends DelegatingCrudResource<BedDetails> {
 		}
 		return bedDetails;
 	}
-	
+
 	@Override
 	public void delete(String id, String reason, RequestContext requestContext) throws ResponseException {
 		String patientUuid = requestContext.getParameter("patientUuid");
 		getBedManagementService().unAssignPatientFromBed(Context.getPatientService().getPatientByUuid(patientUuid));
 	}
-	
+
 	@Override
 	protected void delete(BedDetails bedDetails, String s, RequestContext requestContext) throws ResponseException {
 		// we use the (String, String, RequestContext) method instead to avoid the error
 		// reported here: https://openmrs.atlassian.net/browse/BED-14
 		throw new ResourceDoesNotSupportOperationException("not supported");
 	}
-	
+
 	@Override
 	public BedDetails newDelegate() {
 		return new BedDetails();
 	}
-	
+
 	@Override
 	public BedDetails save(BedDetails bedDetails) {
 		throw new ResourceDoesNotSupportOperationException("save of bed not supported");
 	}
-	
+
 	@Override
 	public void purge(BedDetails bedDetails, RequestContext requestContext) throws ResponseException {
 		throw new ResourceDoesNotSupportOperationException("purge of bed not supported");
 	}
-	
+
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		if ((rep instanceof DefaultRepresentation) || (rep instanceof RefRepresentation)) {
@@ -100,9 +100,10 @@ public class BedDetailsResource extends DelegatingCrudResource<BedDetails> {
 		}
 		return null;
 	}
-	
+
 	@Override
-	public Object update(String bedId, SimpleObject propertiesToUpdate, RequestContext context) throws ResponseException {
+	public Object update(String bedId, SimpleObject propertiesToUpdate, RequestContext context)
+			throws ResponseException {
 		Patient patient = Context.getPatientService().getPatientByUuid((String) propertiesToUpdate.get("patientUuid"));
 		Object encounterUuid = propertiesToUpdate.get("encounterUuid");
 		Encounter encounter = null;
@@ -112,7 +113,7 @@ public class BedDetailsResource extends DelegatingCrudResource<BedDetails> {
 		BedDetails bedRes = getBedManagementService().assignPatientToBed(patient, encounter, bedId);
 		return ConversionUtil.convertToRepresentation(bedRes, Representation.DEFAULT);
 	}
-	
+
 	@Override
 	protected PageableResult doSearch(RequestContext context) {
 		String patientUuid = context.getParameter("patientUuid");
@@ -124,7 +125,7 @@ public class BedDetailsResource extends DelegatingCrudResource<BedDetails> {
 		}
 		return new NeedsPaging<>(ret, context);
 	}
-	
+
 	BedManagementService getBedManagementService() {
 		return Context.getService(BedManagementService.class);
 	}

@@ -34,36 +34,36 @@ import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOp
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + "/bedTagMap", supportedClass = BedTagMap.class, supportedOpenmrsVersions = {
-        "1.9.* - 9.*" })
+		"1.9.* - 9.*"})
 public class BedTagMapResource extends DataDelegatingCrudResource<BedTagMap> {
-	
+
 	@Override
 	public BedTagMap getByUniqueId(String uniqueId) {
 		BedTagMapService bedTagMapService = Context.getService(BedTagMapService.class);
 		return bedTagMapService.getBedTagMapByUuid(uniqueId);
 	}
-	
+
 	@Override
 	protected void delete(BedTagMap delegate, String reason, RequestContext context) throws ResponseException {
 		BedTagMapService bedTagMapService = Context.getService(BedTagMapService.class);
 		bedTagMapService.delete(delegate, reason);
 	}
-	
+
 	@Override
 	public BedTagMap newDelegate() {
 		return new BedTagMap();
 	}
-	
+
 	@Override
 	public BedTagMap save(BedTagMap delegate) {
 		return Context.getService(BedTagMapService.class).save(delegate);
 	}
-	
+
 	@Override
 	public void purge(BedTagMap delegate, RequestContext context) throws ResponseException {
 		throw new ResourceDoesNotSupportOperationException("purge not allowed on bedTagMap resource");
 	}
-	
+
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		if (rep instanceof CustomRepresentation) {
@@ -79,7 +79,7 @@ public class BedTagMapResource extends DataDelegatingCrudResource<BedTagMap> {
 		}
 		return description;
 	}
-	
+
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() {
 		DelegatingResourceDescription delegatingResourceDescription = new DelegatingResourceDescription();
@@ -87,7 +87,7 @@ public class BedTagMapResource extends DataDelegatingCrudResource<BedTagMap> {
 		delegatingResourceDescription.addRequiredProperty("bedTag");
 		return delegatingResourceDescription;
 	}
-	
+
 	@Override
 	public Model getGETModel(Representation rep) {
 		ModelImpl modelImpl = ((ModelImpl) super.getGETModel(rep));
@@ -96,12 +96,12 @@ public class BedTagMapResource extends DataDelegatingCrudResource<BedTagMap> {
 		}
 		return modelImpl;
 	}
-	
+
 	@Override
 	public Model getCREATEModel(Representation rep) {
 		return new ModelImpl().property("bed", new StringProperty()).property("bedTag", new StringProperty());
 	}
-	
+
 	@PropertyGetter("display")
 	public String getDisplayString(BedTagMap bedTagMap) {
 		return bedTagMap.getBedTag().getName();

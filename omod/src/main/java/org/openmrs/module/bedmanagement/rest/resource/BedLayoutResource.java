@@ -20,28 +20,29 @@ import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOp
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 /**
- * An implementation of Resource to be able to create a representation for a BedLayout
+ * An implementation of Resource to be able to create a representation for a
+ * BedLayout
  */
 @Handler(supports = BedLayout.class, order = 0)
 public class BedLayoutResource extends BaseDelegatingResource<BedLayout> {
-	
+
 	private static final String DEFAULT_PATIENT_REP = "(uuid,person:(gender,age,preferredName:(givenName,familyName),preferredAddress:default),identifiers:(identifier))";
-	
+
 	@Override
 	public BedLayout getByUniqueId(String uniqueId) {
 		throw new ResourceDoesNotSupportOperationException();
 	}
-	
+
 	@Override
 	protected void delete(BedLayout delegate, String reason, RequestContext context) throws ResponseException {
 		throw new ResourceDoesNotSupportOperationException();
 	}
-	
+
 	@Override
 	public void purge(BedLayout delegate, RequestContext context) throws ResponseException {
 		throw new ResourceDoesNotSupportOperationException();
 	}
-	
+
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		if (rep instanceof CustomRepresentation) {
@@ -60,12 +61,12 @@ public class BedLayoutResource extends BaseDelegatingResource<BedLayout> {
 		description.addProperty("bedTagMaps");
 		return description;
 	}
-	
+
 	@Override
 	public BedLayout newDelegate() {
 		throw new ResourceDoesNotSupportOperationException();
 	}
-	
+
 	@Override
 	public BedLayout save(BedLayout delegate) {
 		throw new ResourceDoesNotSupportOperationException();

@@ -47,9 +47,10 @@ import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 import java.util.List;
 
-@Resource(name = RestConstants.VERSION_1 + "/bed", supportedClass = Bed.class, supportedOpenmrsVersions = { "1.9.* - 9.*" })
+@Resource(name = RestConstants.VERSION_1 + "/bed", supportedClass = Bed.class, supportedOpenmrsVersions = {
+		"1.9.* - 9.*"})
 public class BedResource extends DelegatingCrudResource<Bed> {
-	
+
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		if ((rep instanceof DefaultRepresentation) || (rep instanceof RefRepresentation)) {
@@ -76,23 +77,23 @@ public class BedResource extends DelegatingCrudResource<Bed> {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Model getGETModel(Representation rep) {
 		ModelImpl modelImpl = ((ModelImpl) super.getGETModel(rep));
 		if (rep instanceof DefaultRepresentation || rep instanceof RefRepresentation) {
 			modelImpl.property("id", new IntegerProperty()).property("uuid", new StringProperty())
-			        .property("row", new IntegerProperty()).property("column", new IntegerProperty())
-			        .property("bedNumber", new StringProperty()).property("status", new StringProperty());
+					.property("row", new IntegerProperty()).property("column", new IntegerProperty())
+					.property("bedNumber", new StringProperty()).property("status", new StringProperty());
 		}
 		if (rep instanceof FullRepresentation) {
 			modelImpl.property("id", new IntegerProperty()).property("uuid", new StringProperty())
-			        .property("row", new IntegerProperty()).property("column", new IntegerProperty())
-			        .property("bedNumber", new StringProperty()).property("status", new StringProperty());
+					.property("row", new IntegerProperty()).property("column", new IntegerProperty())
+					.property("bedNumber", new StringProperty()).property("status", new StringProperty());
 		}
 		return modelImpl;
 	}
-	
+
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
@@ -104,36 +105,36 @@ public class BedResource extends DelegatingCrudResource<Bed> {
 		description.addProperty("status", Representation.DEFAULT);
 		return description;
 	}
-	
+
 	@Override
 	public Model getCREATEModel(Representation rep) {
 		ModelImpl modelImpl = ((ModelImpl) super.getGETModel(rep));
 		modelImpl.property("id", new IntegerProperty()).property("uuid", new StringProperty())
-		        .property("row", new IntegerProperty()).property("column", new IntegerProperty())
-		        .property("bedNumber", new StringProperty()).property("status", new StringProperty());
+				.property("row", new IntegerProperty()).property("column", new IntegerProperty())
+				.property("bedNumber", new StringProperty()).property("status", new StringProperty());
 		return modelImpl;
 	}
-	
+
 	@PropertyGetter("row")
 	public Integer getRow(Bed bed) {
 		BedLocationMapping bedLocationMapping = Context.getService(BedManagementService.class)
-		        .getBedLocationMappingByBedId(bed.getId());
+				.getBedLocationMappingByBedId(bed.getId());
 		return bedLocationMapping != null ? bedLocationMapping.getRow() : null;
 	}
-	
+
 	@PropertyGetter("column")
 	public Integer getColumn(Bed bed) {
 		BedLocationMapping bedLocationMapping = Context.getService(BedManagementService.class)
-		        .getBedLocationMappingByBedId(bed.getId());
+				.getBedLocationMappingByBedId(bed.getId());
 		return bedLocationMapping != null ? bedLocationMapping.getColumn() : null;
 	}
-	
+
 	@Override
 	protected PageableResult doGetAll(RequestContext context) throws ResponseException {
 		List<Bed> bedList = getBedManagementService().getBeds(null, null);
 		return new NeedsPaging<>(bedList, context);
 	}
-	
+
 	@Override
 	protected PageableResult doSearch(RequestContext context) {
 		BedStatus bedStatus = null;
@@ -145,74 +146,74 @@ public class BedResource extends DelegatingCrudResource<Bed> {
 		List<Bed> bedList = getBedManagementService().getBeds(locationUuid, bedType, bedStatus, null, null);
 		return new NeedsPaging<>(bedList, context);
 	}
-	
+
 	@Override
 	public Bed getByUniqueId(String uuid) {
 		return Context.getService(BedManagementService.class).getBedByUuid(uuid);
 	}
-	
+
 	@Override
 	protected void delete(Bed bed, String reason, RequestContext requestContext) throws ResponseException {
 		try {
 			Context.getService(BedManagementService.class).deleteBed(bed, reason);
-		}
-		catch (BedOccupiedException ex) {
+		} catch (BedOccupiedException ex) {
 			// this is the best available OpenMRS REST exception to ensure this is a 4xx and
 			// not a 5xx
 			throw new IllegalPropertyException(ex);
 		}
 	}
-	
+
 	@Override
 	public Bed newDelegate() {
 		return new Bed();
 	}
-	
+
 	@Override
 	public Object create(SimpleObject propertiesToCreate, RequestContext context) throws ResponseException {
 		if (propertiesToCreate.get("bedNumber") == null || propertiesToCreate.get("bedType") == null)
 			throw new ConversionException("Required parameters:  bedNumber, bedType, row, column, locationUuid");
-		
+
 		Bed bed = this.constructBed(null, propertiesToCreate);
 		Context.getService(BedManagementService.class).saveBed(bed);
 		if (propertiesToCreate.get("row") != null && propertiesToCreate.get("column") != null
-		        && propertiesToCreate.get("locationUuid") != null) {
+				&& propertiesToCreate.get("locationUuid") != null) {
 			String locationUuid = propertiesToCreate.get("locationUuid");
 			Integer row = propertiesToCreate.get("row");
 			Integer column = propertiesToCreate.get("column");
 			BedLocationMapping bedLocationMapping = this.constructBedLocationMapping(bed, locationUuid, row, column);
 			Context.getService(BedManagementService.class).saveBedLocationMapping(bedLocationMapping);
 		}
-		
+
 		return ConversionUtil.convertToRepresentation(bed, Representation.FULL);
 	}
-	
+
 	@Override
-	public Object update(String uuid, SimpleObject propertiesToUpdate, RequestContext context) throws ResponseException {
+	public Object update(String uuid, SimpleObject propertiesToUpdate, RequestContext context)
+			throws ResponseException {
 		Bed bed = this.constructBed(uuid, propertiesToUpdate);
 		Context.getService(BedManagementService.class).saveBed(bed);
 		if (propertiesToUpdate.get("row") != null && propertiesToUpdate.get("column") != null
-		        && propertiesToUpdate.get("locationUuid") != null) {
+				&& propertiesToUpdate.get("locationUuid") != null) {
 			String locationUuid = propertiesToUpdate.get("locationUuid");
 			Integer row = propertiesToUpdate.get("row");
 			Integer column = propertiesToUpdate.get("column");
 			BedLocationMapping bedLocationMapping = this.constructBedLocationMapping(bed, locationUuid, row, column);
 			Context.getService(BedManagementService.class).saveBedLocationMapping(bedLocationMapping);
 		}
-		
+
 		return ConversionUtil.convertToRepresentation(bed, Representation.FULL);
 	}
-	
+
 	@Override
 	public Bed save(Bed bed) {
 		return Context.getService(BedManagementService.class).saveBed(bed);
 	}
-	
+
 	@Override
 	public void purge(Bed bed, RequestContext requestContext) throws ResponseException {
 		throw new ResourceDoesNotSupportOperationException("purge not allowed on bed resource");
 	}
-	
+
 	private Bed constructBed(String uuid, SimpleObject properties) {
 		Bed bed;
 		BedType bedType = null;
@@ -223,43 +224,45 @@ public class BedResource extends DelegatingCrudResource<Bed> {
 				throw new IllegalPropertyException("Invalid bed type name");
 			bedType = bedTypes.get(0);
 		}
-		
+
 		if (uuid != null) {
 			bed = Context.getService(BedManagementService.class).getBedByUuid(uuid);
 			if (bed == null)
 				throw new IllegalPropertyException("Bed not exist");
-			
+
 			if (properties.get("bedNumber") != null)
 				bed.setBedNumber((String) properties.get("bedNumber"));
-			
+
 			if (properties.get("status") != null)
 				bed.setStatus((String) properties.get("status"));
-			
+
 			if (bedType != null) {
 				bed.setBedType(bedType);
 			}
 		} else {
 			bed = new Bed();
-			if (properties.get("bedNumber") == null || properties.get("bedType") == null || properties.get("row") == null
-			        || properties.get("column") == null || properties.get("locationUuid") == null)
-				throw new IllegalPropertyException("Required parameters: bedNumber, bedType, row, column, locationUuid");
+			if (properties.get("bedNumber") == null || properties.get("bedType") == null
+					|| properties.get("row") == null || properties.get("column") == null
+					|| properties.get("locationUuid") == null)
+				throw new IllegalPropertyException(
+						"Required parameters: bedNumber, bedType, row, column, locationUuid");
 			bed.setBedNumber((String) properties.get("bedNumber"));
 			bed.setStatus(properties.get("status") != null ? (String) properties.get("status") : "AVAILABLE");
 			bed.setBedType(bedType);
 		}
-		
+
 		return bed;
 	}
-	
+
 	private BedLocationMapping constructBedLocationMapping(Bed bed, String locationUuid, Integer row, Integer column) {
 		BedLocationMapping bedLocationMapping = Context.getService(BedManagementService.class)
-		        .getBedLocationMappingByBedId(bed.getId());
+				.getBedLocationMappingByBedId(bed.getId());
 		if (bedLocationMapping != null)
 			bedLocationMapping.setBed(null);
-		
+
 		BedLocationMapping existingBedLocationMapping = Context.getService(BedManagementService.class)
-		        .getBedLocationMappingByLocationUuidAndRowColumn(locationUuid, row, column);
-		
+				.getBedLocationMappingByLocationUuidAndRowColumn(locationUuid, row, column);
+
 		if (existingBedLocationMapping == null) {
 			Location location = Context.getService(LocationService.class).getLocationByUuid(locationUuid);
 			existingBedLocationMapping = new BedLocationMapping();
@@ -269,11 +272,11 @@ public class BedResource extends DelegatingCrudResource<Bed> {
 		} else if (existingBedLocationMapping.getBed() != null) {
 			throw new IllegalPropertyException("A bed is already assigned to the given row & column");
 		}
-		
+
 		existingBedLocationMapping.setBed(bed);
 		return existingBedLocationMapping;
 	}
-	
+
 	BedManagementService getBedManagementService() {
 		return Context.getService(BedManagementService.class);
 	}
