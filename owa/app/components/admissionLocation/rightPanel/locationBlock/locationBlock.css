@@ -1,80 +1,165 @@
-.location.block {
-    width: 22.80%;
-    padding: 10px;
-    float: left;
-    position: relative;
-    margin-right: 20px;
-    min-height: 80px;
-    box-shadow: 1px 1px 3px #ccc;
-    border: 1px solid #ccc;
-    margin-top: 20px;
-    word-wrap: break-word;
+.location-card {
+    width: 220px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 16px;
     cursor: pointer;
+    position: relative;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.location.block .block-title {
-    padding: 10px;
-    background: #f9f9f9;
+.location-card:hover {
+    border-color: #007d79;
+    box-shadow: 0 2px 8px rgba(0, 125, 121, 0.14);
 }
 
-.location.block .block-content {
-    padding: 10px;
+.location-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
-.location.block .btn-primary, .location.option .btn-primary {
-    display: inline-block;
-    width: 30%;
-    margin-top: 18px;
-    padding: 30px 0;
+.location-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background-color: #e5f6f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
-.location.block .left-block {
-    width: 80%;
-    float: left;
-    top: 50%;
-    position: absolute;
-    transform: translate(0, -50%);
+.location-card-icon i {
+    font-size: 20px;
+    color: #007d79;
 }
 
-.location.block .left-block span {
-    vertical-align: middle;
+.location-card-menu {
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.15s;
 }
 
-.location.block ul {
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 0;
+.location-card:hover .location-card-menu {
+    opacity: 1;
 }
 
-.location.block ul.right-block li {
-    display: none;
-    text-align: right;
-    padding: 5px 0;
+.location-card-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #525252;
+    font-size: 13px;
+    padding: 0;
 }
 
-.location.block:hover ul.right-block li{
-    display: block;
+.location-card-menu-btn:hover {
+    background-color: #f4f4f4;
+    color: #161616;
 }
 
-.location.block ul.right-block li a {
-    color: #454e59;
+.location-card-menu-btn.delete:hover {
+    background-color: #fff1f1;
+    color: #da1e28;
 }
 
+.location-card-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #161616;
+    line-height: 1.3;
+    word-break: break-word;
+}
+
+.location-card-desc {
+    font-size: 0.8125rem;
+    color: #6f6f6f;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* Add ward dashed card */
+.location-card-add {
+    width: 220px;
+    background-color: transparent;
+    border: 2px dashed #c6c6c6;
+    border-radius: 4px;
+    padding: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 120px;
+    transition: border-color 0.15s;
+}
+
+.location-card-add:hover {
+    border-color: #007d79;
+    background-color: #f0fafa;
+}
+
+.location-card-add-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background-color: #e5f6f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.location-card-add-icon i {
+    font-size: 20px;
+    color: #007d79;
+}
+
+.location-card-add-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #007d79;
+    text-align: center;
+}
+
+/* Legacy block styles (kept for backward compat) */
 .location.option {
     margin-bottom: 20px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .location.option .btn {
-    background: #00AEEF;
-    max-width: 300px;
-    padding: 10px 5px;
-    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background-color: #007d79;
+    color: #ffffff;
+    border: none;
+    border-radius: 2px;
+    font-size: 0.875rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
 }
 
-.location.option .btn:hover {;
-    background: #0780AD;
-    transition: all 0.6s;
-    color: #fff;
+.location.option .btn:hover {
+    background-color: #004144;
 }

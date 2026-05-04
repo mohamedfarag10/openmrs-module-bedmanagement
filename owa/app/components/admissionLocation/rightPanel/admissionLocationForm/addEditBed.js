@@ -40,10 +40,7 @@ export default class AddEditBed extends React.Component {
 
     onChangeRowField() {
         if (this.rowField.value >= 1 && this.rowField.value <= this.props.layoutRow) {
-            this.setState({
-                rowFieldError: '',
-                row: Number(this.rowField.value)
-            });
+            this.setState({ rowFieldError: '', row: Number(this.rowField.value) });
         } else {
             let errorMsg = '';
             if (this.rowField.value == '') {
@@ -53,20 +50,13 @@ export default class AddEditBed extends React.Component {
             } else if (this.rowField.value > this.props.layoutRow) {
                 errorMsg = this.intl.formatMessage({id: 'ROW_SHOULD_GREATER_THAN_LAYOUT_ROW'});
             }
-
-            this.setState({
-                rowFieldError: errorMsg,
-                row: this.rowField.value
-            });
+            this.setState({ rowFieldError: errorMsg, row: this.rowField.value });
         }
     }
 
     onChangeColumnField() {
         if (this.columnField.value >= 1 && this.columnField.value <= this.props.layoutColumn) {
-            this.setState({
-                columnFieldError: '',
-                column: Number(this.columnField.value)
-            });
+            this.setState({ columnFieldError: '', column: Number(this.columnField.value) });
         } else {
             let errorMsg = '';
             if (this.columnField.value == '') {
@@ -76,37 +66,27 @@ export default class AddEditBed extends React.Component {
             } else if (this.columnField.value > this.props.layoutColumn) {
                 errorMsg = this.intl.formatMessage({id: 'COLUMN_SHOULD_GREATER_THAN_LAYOUT_COLUMN'});
             }
-
-            this.setState({
-                columnFieldError: errorMsg,
-                column: this.columnField.value
-            });
+            this.setState({ columnFieldError: errorMsg, column: this.columnField.value });
         }
     }
 
     onChangeBedNumberField() {
-        this.setState({
-            bedNumber: this.bedNumberField.value
-        });
+        this.setState({ bedNumber: this.bedNumberField.value });
     }
 
     onChangeBedType() {
-        this.setState({
-            bedTypeName: this.bedTypeSelector.value
-        });
+        this.setState({ bedTypeName: this.bedTypeSelector.value });
     }
 
     onSubmitHandler(event) {
         event.preventDefault();
         if (this.state.rowFieldError != '' || this.state.columnFieldError != '') {
             const errorMsg = this.intl.formatMessage({id: 'FIX_ERROR_MSG'});
-            this.props.admissionLocationFunctions.notify(errorText, errorMsg);
+            this.props.admissionLocationFunctions.notify('error', errorMsg);
             return;
         }
 
-        this.setState({
-            disableSubmit: true
-        });
+        this.setState({ disableSubmit: true });
         const self = this;
         const parameters = {
             bedNumber: this.state.bedNumber,
@@ -123,11 +103,7 @@ export default class AddEditBed extends React.Component {
             data: parameters
         })
             .then(function(response) {
-                self.setState({
-                    bedUuid: response.data.uuid,
-                    disableSubmit: false
-                });
-
+                self.setState({ bedUuid: response.data.uuid, disableSubmit: false });
                 const sussesMsg = self.intl.formatMessage({id: 'BED_SAVE_MSG'});
                 self.props.admissionLocationFunctions.notify('success', sussesMsg);
                 self.props.admissionLocationFunctions.setState({
@@ -137,10 +113,7 @@ export default class AddEditBed extends React.Component {
                 });
             })
             .catch(function(errorResponse) {
-                self.setState({
-                    disableSubmit: false
-                });
-
+                self.setState({ disableSubmit: false });
                 const error = errorResponse.response.data ? errorResponse.response.data.error : errorResponse;
                 self.props.admissionLocationFunctions.notify('error', error.message.replace(/\[|\]/g, ''));
             });
@@ -156,120 +129,132 @@ export default class AddEditBed extends React.Component {
     }
 
     render() {
+        const isEdit = this.props.operation !== 'add';
+
         if (this.props.bedTypes.length == 0) {
             return (
-                    <div className="main-container">
-                        <p className="error">{this.intl.formatMessage({id:'BED_TYPES_NOT_CONFIGURED_MSG'})}</p>
-                    </div>
-            )
+                <div className="main-container">
+                    <p className="bed-form-error-msg">{this.intl.formatMessage({id: 'BED_TYPES_NOT_CONFIGURED_MSG'})}</p>
+                </div>
+            );
         }
+
         return (
             <div className="main-container">
-                <fieldset className="admission-location-form">
-                    <legend>
-                        &nbsp;{' '}
-                        {this.props.operation == 'add'
-                            ? this.intl.formatMessage({id: 'ADD'})
-                            : this.intl.formatMessage({id: 'EDIT'})}{' '}
-                        {this.intl.formatMessage({id: 'BED'})} &nbsp;
-                    </legend>
-                    <div className="block-content">
+                <div className="bed-form-page">
+                    <div className="bed-form-page-header">
+                        <h1 className="bed-form-title">
+                            {isEdit ? this.intl.formatMessage({id: 'EDIT'}) : this.intl.formatMessage({id: 'ADD'})}{' '}
+                            {this.intl.formatMessage({id: 'BED'})}
+                        </h1>
+                        <p className="bed-form-subtitle">
+                            {isEdit
+                                ? this.intl.formatMessage({id: 'EDIT_BED_SUBTITLE'})
+                                : this.intl.formatMessage({id: 'ADD_BED_SUBTITLE'})}
+                        </p>
+                    </div>
+
+                    <div className="bed-form-card">
                         <form onSubmit={this.onSubmitHandler}>
-                            <div className="form-block">
-                                <label className="form-title inline">
-                                    {this.intl.formatMessage({id: 'LOCATION'})}:
+                            <div className="bed-form-field bed-form-field-full">
+                                <label className="bed-form-label">
+                                    {this.intl.formatMessage({id: 'LOCATION'})}
                                 </label>
-                                <span id="location-name">{this.admissionLocation.name}</span>
-                            </div>
-                            <div className="form-block">
-                                <label className="form-title">{this.intl.formatMessage({id: 'ROW'})}:</label>
-                                <input
-                                    type="number"
-                                    value={this.state.row}
-                                    ref={(input) => {
-                                        this.rowField = input;
-                                    }}
-                                    required={true}
-                                    onChange={this.onChangeRowField}
-                                    id="row-field"
-                                />
-                                {this.state.rowFieldError != '' ? (
-                                    <p className="error">{this.state.rowFieldError}</p>
-                                ) : (
-                                    ''
-                                )}
-                            </div>
-                            <div className="form-block">
-                                <label className="form-title">{this.intl.formatMessage({id: 'COLUMN'})}:</label>
-                                <input
-                                    type="number"
-                                    value={this.state.column}
-                                    ref={(input) => {
-                                        this.columnField = input;
-                                    }}
-                                    required={true}
-                                    onChange={this.onChangeColumnField}
-                                    id="column-field"
-                                />
-                                {this.state.columnFieldError != '' ? (
-                                    <p className="error">{this.state.columnFieldError}</p>
-                                ) : (
-                                    ''
-                                )}
-                            </div>
-                            <div className="form-block">
-                                <label className="form-title">{this.intl.formatMessage({id: 'BED_NUMBER'})}:</label>
-                                <input
-                                    type="text"
-                                    value={this.state.bedNumber}
-                                    ref={(input) => {
-                                        this.bedNumberField = input;
-                                    }}
-                                    required={true}
-                                    onChange={this.onChangeBedNumberField}
-                                    id="bed-number-field"
-                                    maxLength={10}
-                                />
-                            </div>
-                            <div className="form-block">
-                                <label className="form-title">{this.intl.formatMessage({id: 'BED_TYPE'})}:</label>
-                                <select
-                                    onChange={this.onChangeBedType}
-                                    required={true}
-                                    id="bed-type"
-                                    ref={(dropDown) => (this.bedTypeSelector = dropDown)}
-                                    value={this.state.bedTypeName != null ? this.state.bedTypeName : ''}>
-                                    {this.props.bedTypes.map((bedType) => (
-                                        <option key={bedType.uuid} value={bedType.name}>
-                                            {bedType.name}
-                                        </option>
-                                    ))}
-                                </select>
+                                <div className="bed-form-static">{this.admissionLocation.name}</div>
                             </div>
 
-                            <div className="form-block">
-                                <input
-                                    type="submit"
-                                    name="submit"
-                                    value={
-                                        this.state.disableSubmit
-                                            ? this.intl.formatMessage({id: 'SAVING'})
-                                            : this.intl.formatMessage({id: 'SAVE'})
+                            <div className="bed-form-row">
+                                <div className="bed-form-field">
+                                    <label className="bed-form-label">
+                                        {this.intl.formatMessage({id: 'ROW'})}
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className="bed-form-input"
+                                        value={this.state.row}
+                                        ref={(input) => { this.rowField = input; }}
+                                        required={true}
+                                        onChange={this.onChangeRowField}
+                                        id="row-field"
+                                    />
+                                    {this.state.rowFieldError != '' &&
+                                        <p className="bed-form-error">{this.state.rowFieldError}</p>
                                     }
-                                    disabled={this.state.disableSubmit}
-                                    className="form-btn float-left margin-right"
-                                />
-                                <input
+                                </div>
+                                <div className="bed-form-field">
+                                    <label className="bed-form-label">
+                                        {this.intl.formatMessage({id: 'COLUMN'})}
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className="bed-form-input"
+                                        value={this.state.column}
+                                        ref={(input) => { this.columnField = input; }}
+                                        required={true}
+                                        onChange={this.onChangeColumnField}
+                                        id="column-field"
+                                    />
+                                    {this.state.columnFieldError != '' &&
+                                        <p className="bed-form-error">{this.state.columnFieldError}</p>
+                                    }
+                                </div>
+                            </div>
+
+                            <div className="bed-form-row">
+                                <div className="bed-form-field">
+                                    <label className="bed-form-label">
+                                        {this.intl.formatMessage({id: 'BED_NUMBER'})}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="bed-form-input"
+                                        value={this.state.bedNumber}
+                                        ref={(input) => { this.bedNumberField = input; }}
+                                        required={true}
+                                        onChange={this.onChangeBedNumberField}
+                                        id="bed-number-field"
+                                        maxLength={10}
+                                    />
+                                </div>
+                                <div className="bed-form-field">
+                                    <label className="bed-form-label">
+                                        {this.intl.formatMessage({id: 'BED_TYPE'})}
+                                    </label>
+                                    <select
+                                        className="bed-form-select"
+                                        onChange={this.onChangeBedType}
+                                        required={true}
+                                        id="bed-type"
+                                        ref={(dropDown) => (this.bedTypeSelector = dropDown)}
+                                        value={this.state.bedTypeName != null ? this.state.bedTypeName : ''}>
+                                        {this.props.bedTypes.map((bedType) => (
+                                            <option key={bedType.uuid} value={bedType.name}>
+                                                {bedType.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="bed-form-actions">
+                                <button
                                     type="button"
-                                    onClick={this.cancelEventHandler}
-                                    name="cancel"
-                                    value={this.intl.formatMessage({id: 'CANCEL'})}
-                                    className="form-btn float-left"
-                                />
+                                    className="bed-form-cancel-btn"
+                                    onClick={this.cancelEventHandler}>
+                                    {this.intl.formatMessage({id: 'CANCEL'})}
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="bed-form-save-btn"
+                                    disabled={this.state.disableSubmit}>
+                                    {this.state.disableSubmit
+                                        ? this.intl.formatMessage({id: 'SAVING'})
+                                        : this.intl.formatMessage({id: 'SAVE_CHANGES'})}
+                                </button>
                             </div>
                         </form>
                     </div>
-                </fieldset>
+                </div>
             </div>
         );
     }

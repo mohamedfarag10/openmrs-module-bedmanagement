@@ -220,11 +220,9 @@ export default class AdmissionLocationWrapper extends React.Component {
 
     style = {
         wrapper: {
-            marginTop: 10,
-            paddingTop: 20,
-            borderRadius: 5,
-            backgroundColor: '#fff',
-            minHeight: 500
+            display: 'flex',
+            backgroundColor: '#f4f4f4',
+            minHeight: 'calc(100vh - 120px)'
         }
     };
 

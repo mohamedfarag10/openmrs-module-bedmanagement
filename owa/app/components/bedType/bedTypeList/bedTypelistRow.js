@@ -53,19 +53,31 @@ export default class BedTypeListRow extends React.Component {
     }
 
     render() {
+        const { bedType } = this.props;
         return (
             <tr>
-                <td>{this.props.bedType.name}</td>
-                <td>{this.props.bedType.displayName}</td>
-                <td>{this.props.bedType.description}</td>
+                <td>{bedType.name}</td>
+                <td>{bedType.displayName}</td>
                 <td>
-                    <a href="javascript:void(0);" onClick={this.editHandler}>
-                        <i className="icon fa fa-edit" aria-hidden="true" /> {this.intl.formatMessage({id: 'EDIT'})}
-                    </a>
-                    &nbsp; | &nbsp;
-                    <a href="javascript:void(0);" onClick={this.deleteHandler}>
-                        <i className="icon fa fa-trash" aria-hidden="true" /> {this.intl.formatMessage({id: 'DELETE'})}
-                    </a>
+                    {bedType.description ? (
+                        bedType.description
+                    ) : (
+                        <span style={{color: '#a8a8a8', fontStyle: 'italic'}}>
+                            {this.intl.formatMessage({id: 'NO_DESCRIPTION_PROVIDED'})}
+                        </span>
+                    )}
+                </td>
+                <td>
+                    <div className="bed-type-action-btns">
+                        <button className="bed-type-edit-btn" onClick={this.editHandler}>
+                            <i className="fa fa-pencil" aria-hidden="true" />
+                            {this.intl.formatMessage({id: 'EDIT'})}
+                        </button>
+                        <button className="bed-type-delete-btn" onClick={this.deleteHandler}>
+                            <i className="fa fa-trash" aria-hidden="true" />
+                            {this.intl.formatMessage({id: 'DELETE'})}
+                        </button>
+                    </div>
                 </td>
             </tr>
         );

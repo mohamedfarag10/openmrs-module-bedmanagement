@@ -14,7 +14,11 @@ export default class BedBlock extends React.PureComponent {
         this.onDeleteHandler = this.onDeleteHandler.bind(this);
     }
 
-    addEditBedHandler() {
+    addEditBedHandler(event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
         this.props.admissionLocationFunctions.setState({
             activePage: 'addEditBed',
             pageData: {
@@ -49,10 +53,9 @@ export default class BedBlock extends React.PureComponent {
                 })
                 .catch(function(errorResponse) {
                     const error = errorResponse.response.data ? errorResponse.response.data.error : errorResponse;
-                    const errorMessage = error.message.includes("BedOccupiedException") ?
-                                         self.intl.formatMessage({id: 'CANNOT_DELETE_OCCUPIED_BED_ERROR'})
-                                         :
-                                         error.message.replace(/\[|\]/g, '')
+                    const errorMessage = error.message.includes('BedOccupiedException')
+                        ? self.intl.formatMessage({id: 'CANNOT_DELETE_OCCUPIED_BED_ERROR'})
+                        : error.message.replace(/\[|\]/g, '');
                     self.props.admissionLocationFunctions.notify('error', errorMessage);
                 });
         }
@@ -61,39 +64,41 @@ export default class BedBlock extends React.PureComponent {
     getBlock() {
         if (this.props.bed.bedUuid == null) {
             return (
-                <div className="block add-block" onClick={this.addEditBedHandler}>
-                    <div className="left-block">
-                        <i className="fa fa-plus-circle" aria-hidden="true">
-                            &nbsp;
-                        </i>
-                        <span>{this.intl.formatMessage({id: 'ADD_BED'})}</span>
-                    </div>
-                </div>
-            );
-        } else {
-            return (
-                <div className="block existing-bed">
-                    <div className="left-block">
-                        <i className="fa fa-bed" aria-hidden="true">
-                            &nbsp;
-                        </i>
-                        <span>{this.props.bed.bedNumber}</span>
-                    </div>
-                    <ul className="right-block">
-                        <li>
-                            <a href="javascript:void(0);" title="edit" onClick={this.addEditBedHandler}>
-                                <i className="fa fa-pencil" aria-hidden="true" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" title="delete" onClick={this.onDeleteHandler}>
-                                <i className="fa fa-trash" aria-hidden="true" />
-                            </a>
-                        </li>
-                    </ul>
+                <div className="bed-card-add" onClick={this.addEditBedHandler}>
+                    <i className="fa fa-plus bed-card-add-icon" aria-hidden="true" />
+                    <span className="bed-card-add-label">{this.intl.formatMessage({id: 'ADD_BED'})}</span>
                 </div>
             );
         }
+
+        const isOccupied = this.props.bed.status === 'OCCUPIED';
+        return (
+            <div className="bed-card" onClick={this.addEditBedHandler}>
+                <div className="bed-card-icon">
+                    <i className="fa fa-bed" aria-hidden="true" />
+                </div>
+                <div className="bed-card-name">{this.props.bed.bedNumber}</div>
+                <div className={'bed-card-status' + (isOccupied ? ' occupied' : '')}>
+                    {isOccupied
+                        ? this.intl.formatMessage({id: 'OCCUPIED'})
+                        : this.intl.formatMessage({id: 'AVAILABLE'})}
+                </div>
+                <div className="bed-card-actions">
+                    <button
+                        className="bed-card-action-btn"
+                        title="Edit"
+                        onClick={this.addEditBedHandler}>
+                        <i className="fa fa-pencil" aria-hidden="true" />
+                    </button>
+                    <button
+                        className="bed-card-action-btn"
+                        title="Delete"
+                        onClick={this.onDeleteHandler}>
+                        <i className="fa fa-trash" aria-hidden="true" />
+                    </button>
+                </div>
+            </div>
+        );
     }
 
     render() {

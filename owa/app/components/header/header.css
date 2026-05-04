@@ -1,44 +1,80 @@
-ul.title-section {
+nav.app-nav {
+    background-color: #007d79;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    height: 48px;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 100;
+}
+
+.nav-brand {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-right: 32px;
+    white-space: nowrap;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+}
+
+ul.nav-links {
     list-style: none;
     padding: 0;
-    clear: both;
-    font-size: .9em;
-    border-bottom: 1px solid #fff;
-    margin-top: 20px;
+    margin: 0;
+    display: flex;
+    flex: 1;
+    gap: 0;
+    height: 100%;
 }
 
-ul.title-section li {
-    display: inline-block;
-    position: relative;
+ul.nav-links li {
+    display: flex;
+    align-items: stretch;
 }
 
-ul.title-section li:not(:last-child):after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 15%;
-    color: #ccc;
-    height: 70%;
-    border-right: 1px solid #ccc;
+ul.nav-links li a {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 16px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.875rem;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    box-sizing: border-box;
+    transition: color 0.15s;
 }
 
-ul.title-section li a
-{
-    display: block;
-    padding: 5px 10px 5px 5px;
-    color: #454e59;
-    font-size: 14px;
-    font-family: OpenSans, Arial, sans-serif;
+ul.nav-links li a:hover {
+    color: #ffffff;
+    text-decoration: none;
 }
 
-ul.title-section li a i {
-    font-size: 18px;
-}
-
-ul.title-section li a.active {
+ul.nav-links li a.active {
+    color: #ffffff;
     font-weight: 600;
+    border-bottom: 3px solid #ffffff;
 }
 
-ul.title-section li a:hover {
-    text-decoration: underline;
+.nav-return {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.875rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.15s;
+}
+
+.nav-return:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.nav-return i {
+    font-size: 14px;
 }

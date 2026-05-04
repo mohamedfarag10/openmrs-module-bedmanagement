@@ -74,3 +74,4 @@ if ((Test-Path $buildDir) -and (Get-ChildItem -Path $buildDir -Filter '*.js' -Er
 
 Write-Host ""
 Write-Host "Done. Hard-refresh the browser (Ctrl+F5)." -ForegroundColor Green
+c

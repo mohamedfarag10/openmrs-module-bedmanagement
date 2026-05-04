@@ -14,13 +14,9 @@ class Header extends React.Component {
 
     render() {
         return (
-            <nav>
-                <ul className="title-section">
-                    <li>
-                        <a href={this.urlHelper.originPath() + '/openmrs'}>
-                            <i className="fa fa-home" aria-hidden="true" />
-                        </a>
-                    </li>
+            <nav className="app-nav">
+                <span className="nav-brand">Bed Management</span>
+                <ul className="nav-links">
                     <li>
                         <Link
                             to={this.urlHelper.owaPath() + '/admissionLocations.html'}
@@ -43,6 +39,10 @@ class Header extends React.Component {
                         </Link>
                     </li>
                 </ul>
+                <a href={this.urlHelper.originPath() + '/openmrs'} className="nav-return">
+                    <i className="fa fa-arrow-left" aria-hidden="true" />
+                    Return to Admin Dashboard
+                </a>
             </nav>
         );
     }

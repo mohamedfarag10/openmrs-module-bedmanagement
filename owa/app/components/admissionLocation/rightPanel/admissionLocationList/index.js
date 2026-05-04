@@ -31,21 +31,41 @@ export default class AdmissionLocationList extends React.Component {
     addWardClickHandler() {
         this.props.admissionLocationFunctions.setState({
             activePage: 'addEditLocation',
-            pageData: {
-                operation: 'add'
-            },
+            pageData: {operation: 'add'},
             activeUuid: this.props.activeUuid
         });
     }
 
+    getPageHeader() {
+        if (this.props.activeUuid == null) return null;
+        const location = this.props.admissionLocationFunctions.getAdmissionLocationByUuid(this.props.activeUuid);
+        if (!location) return null;
+        return (
+            <div className="location-page-header">
+                <h1 className="location-page-title">{location.name}</h1>
+                {location.description && (
+                    <p className="location-page-subtitle">{location.description}</p>
+                )}
+            </div>
+        );
+    }
+
     getBody() {
         const managingLocationsEnabled = this.props.admissionLocationFunctions.isManagingLocationsEnabled();
-        let addButtonMessage = this.intl.formatMessage({id: this.props.activeUuid == null ? 'ADD_ADMISSION_LOCATION' : 'ADD_WARD'});
+        const addLabel = this.intl.formatMessage({
+            id: this.props.activeUuid == null ? 'ADD_ADMISSION_LOCATION' : 'ADD_WARD'
+        });
+
         if (Object.keys(this.childAdmissionLocations).length == 0 && this.props.activeUuid == null) {
             return managingLocationsEnabled && (
-                <span className="btn btn-primary" onClick={this.addWardClickHandler}>
-                    <i className="icon fa fa-plus" aria-hidden="true" /> {addButtonMessage}
-                </span>
+                <div className="location-cards-grid">
+                    <div className="location-card-add" onClick={this.addWardClickHandler}>
+                        <div className="location-card-add-icon">
+                            <i className="fa fa-plus" aria-hidden="true" />
+                        </div>
+                        <span className="location-card-add-label">{addLabel}</span>
+                    </div>
+                </div>
             );
         } else if (Object.keys(this.childAdmissionLocations).length == 0) {
             return (
@@ -56,7 +76,7 @@ export default class AdmissionLocationList extends React.Component {
             );
         } else {
             return (
-                <div>
+                <div className="location-cards-grid">
                     {Object.keys(this.childAdmissionLocations).map((key) => (
                         <LocationBlock
                             key={key}
@@ -64,11 +84,14 @@ export default class AdmissionLocationList extends React.Component {
                             admissionLocationFunctions={this.props.admissionLocationFunctions}
                         />
                     ))}
-                    {managingLocationsEnabled &&
-                        <span className="btn btn-primary" onClick={this.addWardClickHandler}>
-                            <i className="icon fa fa-plus" aria-hidden="true" /> {addButtonMessage}
-                        </span>
-                    }
+                    {managingLocationsEnabled && (
+                        <div className="location-card-add" onClick={this.addWardClickHandler}>
+                            <div className="location-card-add-icon">
+                                <i className="fa fa-plus" aria-hidden="true" />
+                            </div>
+                            <span className="location-card-add-label">{addLabel}</span>
+                        </div>
+                    )}
                 </div>
             );
         }
@@ -81,6 +104,7 @@ export default class AdmissionLocationList extends React.Component {
                     activeUuid={this.props.activeUuid}
                     admissionLocationFunctions={this.props.admissionLocationFunctions}
                 />
+                {this.getPageHeader()}
                 <div className="main-block">{this.getBody()}</div>
             </div>
         );

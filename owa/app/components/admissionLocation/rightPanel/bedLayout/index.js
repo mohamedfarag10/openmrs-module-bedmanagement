@@ -33,12 +33,7 @@ export default class BedLayout extends React.Component {
             if (nextProps.activeUuid != null) {
                 this.loadAdmissionLocationLayout(nextProps.activeUuid);
             } else {
-                this.setState({
-                    layoutRow: 0,
-                    layoutColumn: 0,
-                    bedlayouts: [],
-                    loadingData: false
-                });
+                this.setState({layoutRow: 0, layoutColumn: 0, bedlayouts: [], loadingData: false});
             }
         }
     }
@@ -46,9 +41,7 @@ export default class BedLayout extends React.Component {
     addWardClickHandler() {
         this.props.admissionLocationFunctions.setState({
             activePage: 'addEditLocation',
-            pageData: {
-                operation: 'add'
-            },
+            pageData: {operation: 'add'},
             activeUuid: this.props.activeUuid
         });
     }
@@ -66,26 +59,18 @@ export default class BedLayout extends React.Component {
 
     deleteBedLayoutClickHandler() {
         const self = this;
-        const parameters = {
-            bedLayout: {
-                row: 0,
-                column: 0
-            }
-        };
+        const parameters = {bedLayout: {row: 0, column: 0}};
         const confirmation = confirm('Are you sure you want to delete bed layout?');
         if (confirmation) {
             axios({
                 method: 'post',
                 url: this.urlHelper.apiBaseUrl() + '/admissionLocation/' + this.props.activeUuid,
-                params: {
-                    v: 'layout'
-                },
+                params: {v: 'layout'},
                 headers: {'Content-Type': 'application/json'},
                 data: parameters
             })
-                .then(function(response) {
+                .then(function() {
                     self.props.admissionLocationFunctions.notify('success', 'Admission location bed layout deleted');
-
                     self.loadAdmissionLocationLayout(self.props.activeUuid);
                 })
                 .catch(function(errorResponse) {
@@ -98,11 +83,7 @@ export default class BedLayout extends React.Component {
     loadAdmissionLocationLayout(locationUuid) {
         const self = this;
         axios
-            .get(this.urlHelper.apiBaseUrl() + '/admissionLocation/' + locationUuid, {
-                params: {
-                    v: 'layout'
-                }
-            })
+            .get(this.urlHelper.apiBaseUrl() + '/admissionLocation/' + locationUuid, {params: {v: 'layout'}})
             .then(function(response) {
                 let layoutRow = 0;
                 let layoutColumn = 0;
@@ -112,56 +93,62 @@ export default class BedLayout extends React.Component {
                         if (typeof bedlayouts[curr.rowNumber] == 'undefined') bedlayouts[curr.rowNumber] = [];
                         if (curr.rowNumber > layoutRow) layoutRow = curr.rowNumber;
                         if (curr.columnNumber > layoutColumn) layoutColumn = curr.columnNumber;
-
                         bedlayouts[curr.rowNumber][curr.columnNumber] = curr;
                         return bedlayouts;
                     },
                     []
                 );
-
-                self.setState({
-                    layoutRow: layoutRow,
-                    layoutColumn: layoutColumn,
-                    bedlayouts: bedlayouts,
-                    loadingData: false
-                });
+                self.setState({layoutRow, layoutColumn, bedlayouts, loadingData: false});
             })
             .catch(function(errorResponse) {
-                self.setState({
-                    loadingData: false
-                });
-
+                self.setState({loadingData: false});
                 const error = errorResponse.response.data ? errorResponse.response.data.error : errorResponse;
                 self.props.admissionLocationFunctions.notify('error', error.message.replace(/\[|\]/g, ''));
             });
     }
 
+    getLocationName() {
+        const location = this.props.admissionLocationFunctions.getAdmissionLocationByUuid(this.props.activeUuid);
+        return location ? location.name : '';
+    }
+
     getBody() {
         const managingLocationsEnabled = this.props.admissionLocationFunctions.isManagingLocationsEnabled();
+
         if (this.state.loadingData == false && this.state.bedlayouts.length == 0) {
             return (
-                <div className="location option">
-                    {managingLocationsEnabled &&
-                        <label className="button" onClick={this.addWardClickHandler}>
-                            Add Child Admission Location
-                        </label>
-                    }
-                    <label className="button" onClick={this.setBedLayoutClickHandler}>
-                        Set Bed Layout
-                    </label>
-                </div>
-            );
-        } else {
-            return (
-                <div className="bed-layout">
+                <div>
+                    <div className="bed-layout-page-header">
+                        <h1 className="bed-layout-location-title">{this.getLocationName()}</h1>
+                    </div>
                     <div className="location option">
-                        <label className="button" onClick={this.setBedLayoutClickHandler}>
-                            Edit Bed Layout
-                        </label>
-                        <label className="button" onClick={this.deleteBedLayoutClickHandler}>
-                            Delete Bed Layout
+                        {managingLocationsEnabled && (
+                            <label className="button" onClick={this.addWardClickHandler}>
+                                Add Child Admission Location
+                            </label>
+                        )}
+                        <label className="button primary" onClick={this.setBedLayoutClickHandler}>
+                            Set Bed Layout
                         </label>
                     </div>
+                </div>
+            );
+        }
+
+        return (
+            <div className="bed-layout">
+                <div className="bed-layout-page-header">
+                    <h1 className="bed-layout-location-title">{this.getLocationName()}</h1>
+                    <div className="bed-layout-action-row">
+                        <button className="bed-layout-edit-btn" onClick={this.setBedLayoutClickHandler}>
+                            Edit Bed Layout
+                        </button>
+                        <button className="bed-layout-delete-btn" onClick={this.deleteBedLayoutClickHandler}>
+                            Delete Bed Layout
+                        </button>
+                    </div>
+                </div>
+                <div className="bed-layout-row">
                     {this.state.bedlayouts.map((rowBeds, row) => (
                         <BedLayoutRow
                             key={row}
@@ -174,8 +161,8 @@ export default class BedLayout extends React.Component {
                         />
                     ))}
                 </div>
-            );
-        }
+            </div>
+        );
     }
 
     render() {

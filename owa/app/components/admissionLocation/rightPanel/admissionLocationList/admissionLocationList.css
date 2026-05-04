@@ -1,20 +1,56 @@
 .main-container {
-    width: 74.80%;
-    float: right;
+    flex: 1;
+    padding: 24px;
+    background-color: #f4f4f4;
+    min-height: calc(100vh - 48px);
+    box-sizing: border-box;
 }
 
-.main-block .block {
-    width: 22.80%;
-    padding: 10px;
-    float: left;
-    position: relative;
-    margin-right: 10px;
-    min-height: 80px;
+.main-block {
+    /* content area */
 }
 
-.main-block .btn-primary {
-    display: inline-block;
-    width: 23.936%;
-    margin-top: 18px;
-    padding: 30px 0;
+.location-page-header {
+    margin-bottom: 20px;
+}
+
+.location-page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #161616;
+    margin: 0 0 4px;
+    line-height: 1.2;
+}
+
+.location-page-subtitle {
+    font-size: 0.875rem;
+    color: #525252;
+    margin: 0;
+}
+
+.location-cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.admission-add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background-color: #007d79;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+.admission-add-btn:hover {
+    background-color: #004144;
 }

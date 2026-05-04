@@ -24,9 +24,7 @@ export default class LocationBlock extends React.PureComponent {
         event.stopPropagation();
         const self = this;
         const confirmationMsg = this.intl.formatMessage(
-            {
-                id: 'DELETE_ADMISSION_LOCATION_CONFIRM_MESSAGE'
-            },
+            {id: 'DELETE_ADMISSION_LOCATION_CONFIRM_MESSAGE'},
             {location_name: this.props.admissionLocation.name}
         );
         const deleteSuccessMsg = this.intl.formatMessage({id: 'DELETE_SUCCESSFULLY'});
@@ -52,9 +50,7 @@ export default class LocationBlock extends React.PureComponent {
         event.stopPropagation();
         this.props.admissionLocationFunctions.setState({
             activePage: 'addEditLocation',
-            pageData: {
-                operation: 'edit'
-            },
+            pageData: {operation: 'edit'},
             activeUuid: this.props.admissionLocation.uuid
         });
     }
@@ -70,29 +66,38 @@ export default class LocationBlock extends React.PureComponent {
 
     render() {
         const managingLocationsEnabled = this.props.admissionLocationFunctions.isManagingLocationsEnabled();
+        const hasChildren = Object.keys(this.childLocations).length > 0;
+        const description = this.props.admissionLocation.description;
+
         return (
-            <div className="location block" onClick={this.onClickHandler}>
-                <div className="left-block">
-                    <span>{this.props.admissionLocation.name}</span>
-                </div>
-                {managingLocationsEnabled &&
-                    <ul className="right-block">
-                        <li>
-                            <a href="javascript:void(0);" title="edit" onClick={this.editWardClickHandler}>
+            <div className="location-card" onClick={this.onClickHandler}>
+                <div className="location-card-top">
+                    <div className="location-card-icon">
+                        <i className={hasChildren ? 'fa fa-folder' : 'fa fa-bed'} aria-hidden="true" />
+                    </div>
+                    {managingLocationsEnabled && (
+                        <div className="location-card-menu">
+                            <button
+                                className="location-card-menu-btn"
+                                title="Edit"
+                                onClick={this.editWardClickHandler}>
                                 <i className="fa fa-pencil" aria-hidden="true" />
-                            </a>
-                        </li>
-                        {Object.keys(this.childLocations).length == 0 ? (
-                            <li>
-                                <a href="javascript:void(0);" title="delete" onClick={this.onDeleteHandler}>
+                            </button>
+                            {!hasChildren && (
+                                <button
+                                    className="location-card-menu-btn delete"
+                                    title="Delete"
+                                    onClick={this.onDeleteHandler}>
                                     <i className="fa fa-trash" aria-hidden="true" />
-                                </a>
-                            </li>
-                        ) : (
-                            ''
-                        )}
-                    </ul>
-                }
+                                </button>
+                            )}
+                        </div>
+                    )}
+                </div>
+                <div className="location-card-name">{this.props.admissionLocation.name}</div>
+                {description && (
+                    <div className="location-card-desc">{description}</div>
+                )}
             </div>
         );
     }

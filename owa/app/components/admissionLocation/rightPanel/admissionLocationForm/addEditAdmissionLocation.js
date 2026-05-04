@@ -53,15 +53,11 @@ export default class AddEditAdmissionLocation extends React.Component {
     }
 
     onChangeNameField() {
-        this.setState({
-            name: this.nameField.value
-        });
+        this.setState({ name: this.nameField.value });
     }
 
     onChangeDescriptionField() {
-        this.setState({
-            description: this.descriptionField.value
-        });
+        this.setState({ description: this.descriptionField.value });
     }
 
     onSelectParentLocation() {
@@ -81,9 +77,7 @@ export default class AddEditAdmissionLocation extends React.Component {
 
     onSubmitHandler(event) {
         event.preventDefault();
-        this.setState({
-            disableSubmit: true
-        });
+        this.setState({ disableSubmit: true });
         const self = this;
         const parameters = {
             parentLocationUuid: this.state.parentAdmissionLocationUuid,
@@ -100,13 +94,10 @@ export default class AddEditAdmissionLocation extends React.Component {
             data: parameters
         })
             .then(function(response) {
-                self.setState({
-                    disableSubmit: false
-                });
+                self.setState({ disableSubmit: false });
                 self.props.admissionLocationFunctions.setState({
                     activeUuid: response.data.ward.uuid
                 });
-
                 const successMsg = self.intl.formatMessage({id: 'ADMISSION_LOCATION_SAVE_MSG'});
                 self.props.admissionLocationFunctions.notify('success', successMsg);
                 self.props.admissionLocationFunctions.reFetchAllAdmissionLocations();
@@ -117,42 +108,44 @@ export default class AddEditAdmissionLocation extends React.Component {
                 });
             })
             .catch(function(errorResponse) {
-                this.setState({
-                    disableSubmit: false
-                });
-
+                self.setState({ disableSubmit: false });
                 const error = errorResponse.response.data ? errorResponse.response.data.error : errorResponse;
                 self.props.admissionLocationFunctions.notify('error', error.message.replace(/\[|\]/g, ''));
             });
     }
 
     render() {
+        const isEdit = this.props.operation !== 'add';
+        const entityLabel = this.intl.formatMessage({
+            id: this.parentAdmissionLocation == null ? 'ADMISSION_LOCATION' : 'WARD'
+        });
+
         return (
             <div className="main-container">
-                <fieldset className="admission-location-form">
-                    <legend>
-                        &nbsp;{' '}
-                        {this.props.operation == 'add'
-                            ? this.intl.formatMessage({id: 'ADD'})
-                            : this.intl.formatMessage({id: 'EDIT'})}{' '}
-                        {this.intl.formatMessage({id: this.parentAdmissionLocation == null ? 'ADMISSION_LOCATION' : 'WARD'})} &nbsp;
-                    </legend>
-                    <div className="block-content">
+                <div className="bed-form-page">
+                    <div className="bed-form-page-header">
+                        <h1 className="bed-form-title">
+                            {isEdit ? this.intl.formatMessage({id: 'EDIT'}) : this.intl.formatMessage({id: 'ADD'})}{' '}
+                            {entityLabel}
+                        </h1>
+                        <p className="bed-form-subtitle">
+                            {isEdit
+                                ? this.intl.formatMessage({id: 'EDIT_ADMISSION_LOCATION_SUBTITLE'})
+                                : this.intl.formatMessage({id: 'ADD_ADMISSION_LOCATION_SUBTITLE'})}
+                        </p>
+                    </div>
+
+                    <div className="bed-form-card">
                         <form onSubmit={this.onSubmitHandler}>
-                            <div className="form-block">
+                            <div className="bed-form-field bed-form-field-full">
+                                <label className="bed-form-label">
+                                    {this.intl.formatMessage({id: 'PARENT_LOCATION'})}
+                                </label>
                                 {this.parentAdmissionLocation != null ? (
-                                    <label className="form-title inline">
-                                        {this.intl.formatMessage({id: 'PARENT_LOCATION'})}:
-                                    </label>
-                                ) : (
-                                    <label className="form-title">
-                                        {this.intl.formatMessage({id: 'PARENT_LOCATION'})}:
-                                    </label>
-                                )}
-                                {this.parentAdmissionLocation != null ? (
-                                    <span>{this.parentAdmissionLocation.name}</span>
+                                    <div className="bed-form-static">{this.parentAdmissionLocation.name}</div>
                                 ) : (
                                     <select
+                                        className="bed-form-select"
                                         name="parent-location"
                                         onChange={this.onSelectParentLocation}
                                         ref={(dropDown) => (this.parentSelector = dropDown)}
@@ -170,52 +163,84 @@ export default class AddEditAdmissionLocation extends React.Component {
                                     </select>
                                 )}
                             </div>
-                            <div className="form-block">
-                                <label className="form-title">{this.intl.formatMessage({id: 'NAME'})}:</label>
+
+                            <div className="bed-form-field bed-form-field-full">
+                                <label className="bed-form-label">
+                                    {this.intl.formatMessage({id: 'NAME'})}
+                                </label>
                                 <input
                                     type="text"
+                                    className="bed-form-input"
                                     onChange={this.onChangeNameField}
                                     value={this.state.name}
                                     required={true}
-                                    ref={(input) => {
-                                        this.nameField = input;
-                                    }}
+                                    ref={(input) => { this.nameField = input; }}
                                 />
                             </div>
-                            <div className="form-block">
-                                <label className="form-title">{this.intl.formatMessage({id: 'DESCRIPTION'})}:</label>
+
+                            <div className="bed-form-field bed-form-field-full">
+                                <label className="bed-form-label">
+                                    {this.intl.formatMessage({id: 'DESCRIPTION'})}
+                                </label>
                                 <textarea
+                                    className="bed-form-textarea"
                                     name="description"
                                     rows="4"
-                                    cols="50"
                                     onChange={this.onChangeDescriptionField}
                                     value={this.state.description}
                                     ref={(textArea) => (this.descriptionField = textArea)}
                                 />
                             </div>
-                            <div className="form-block">
-                                <input
-                                    type="submit"
-                                    name="submit"
-                                    value={
-                                        this.state.disableSubmit
-                                            ? this.intl.formatMessage({id: 'SAVING'})
-                                            : this.intl.formatMessage({id: 'SAVE'})
-                                    }
-                                    disabled={this.state.disableSubmit}
-                                    className="form-btn float-left margin-right"
-                                />
-                                <input
+
+                            <div className="bed-form-actions">
+                                <button
                                     type="button"
-                                    onClick={this.cancelEventHandler}
-                                    name="cancel"
-                                    value={this.intl.formatMessage({id: 'CANCEL'})}
-                                    className="form-btn float-left"
-                                />
+                                    className="bed-form-cancel-btn"
+                                    onClick={this.cancelEventHandler}>
+                                    {this.intl.formatMessage({id: 'CANCEL'})}
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="bed-form-save-btn"
+                                    disabled={this.state.disableSubmit}>
+                                    {this.state.disableSubmit
+                                        ? this.intl.formatMessage({id: 'SAVING'})
+                                        : this.intl.formatMessage({id: 'SAVE_CHANGES'})}
+                                </button>
                             </div>
                         </form>
                     </div>
-                </fieldset>
+
+                    <div className="bed-form-info-cards">
+                        <div className="bed-form-info-card">
+                            <div className="bed-form-info-icon-wrap">
+                                <i className="fa fa-map-marker bed-form-info-icon" aria-hidden="true" />
+                            </div>
+                            <div className="bed-form-info-content">
+                                <div className="bed-form-info-title">{this.intl.formatMessage({id: 'LOCATION'})}</div>
+                                <div className="bed-form-info-text">{this.intl.formatMessage({id: 'LOCATION_INFO_TEXT'})}</div>
+                            </div>
+                        </div>
+                        <div className="bed-form-info-card">
+                            <div className="bed-form-info-icon-wrap">
+                                <i className="fa fa-history bed-form-info-icon" aria-hidden="true" />
+                            </div>
+                            <div className="bed-form-info-content">
+                                <div className="bed-form-info-title">{this.intl.formatMessage({id: 'AUDIT_TRAIL'})}</div>
+                                <div className="bed-form-info-text">{this.intl.formatMessage({id: 'AUDIT_TRAIL_TEXT'})}</div>
+                            </div>
+                        </div>
+                        <div className="bed-form-info-card">
+                            <div className="bed-form-info-icon-wrap">
+                                <i className="fa fa-key bed-form-info-icon" aria-hidden="true" />
+                            </div>
+                            <div className="bed-form-info-content">
+                                <div className="bed-form-info-title">{this.intl.formatMessage({id: 'PERMISSIONS'})}</div>
+                                <div className="bed-form-info-text">{this.intl.formatMessage({id: 'PERMISSIONS_TEXT'})}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

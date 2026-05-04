@@ -77,14 +77,24 @@ export default class LocationHierarchy extends React.Component {
     }
 
     render() {
+        const isRootActive = this.hierarchyFunction.getActiveUuid() == null;
         return (
             <div className="left-container">
+                <div className="left-container-header">
+                    <p className="left-container-title">Location Hierarchy</p>
+                </div>
                 <ul>
-                    <li className="title">
-                        <i className="fa fa-minus-square" onClick={this.onClickIcon} aria-hidden="true" />
+                    <li className={'title' + (isRootActive ? ' active-title' : '')}>
+                        <i className="fa fa-th-large" aria-hidden="true" style={{color: '#007d79', fontSize: '14px'}} />
                         <span className={this.cssClass.getTitleClass()} onClick={this.onClickTitle}>
                             {this.intl.formatMessage({id: 'ADMISSION_LOCATIONS'})}
                         </span>
+                        <i
+                            className={this.props.isOpen ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}
+                            onClick={this.onClickIcon}
+                            aria-hidden="true"
+                            style={{fontSize: '10px', color: '#6f6f6f', cursor: 'pointer'}}
+                        />
                     </li>
                     {Object.keys(this.higherLevelAdmissionLocations).map((uuid) => (
                         <HierarchyItem

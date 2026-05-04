@@ -56,15 +56,17 @@ export default class BedTagListRow extends React.Component {
         return (
             <tr>
                 <td>{this.props.bedTag.name}</td>
-                <td />
                 <td>
-                    <a href="javascript:void(0);" onClick={this.editHandler}>
-                        <i className="icon fa fa-edit" aria-hidden="true" /> {this.intl.formatMessage({id: 'EDIT'})}
-                    </a>
-                    &nbsp; | &nbsp;
-                    <a href="javascript:void(0);" onClick={this.deleteHandler}>
-                        <i className="icon fa fa-trash" aria-hidden="true" /> {this.intl.formatMessage({id: 'DELETE'})}
-                    </a>
+                    <div className="bed-tag-action-btns">
+                        <button className="bed-tag-edit-btn" onClick={this.editHandler}>
+                            <i className="fa fa-pencil" aria-hidden="true" />
+                            {this.intl.formatMessage({id: 'EDIT'})}
+                        </button>
+                        <button className="bed-tag-delete-btn" onClick={this.deleteHandler}>
+                            <i className="fa fa-trash" aria-hidden="true" />
+                            {this.intl.formatMessage({id: 'DELETE'})}
+                        </button>
+                    </div>
                 </td>
             </tr>
         );

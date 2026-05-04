@@ -1,41 +1,136 @@
 .left-container {
-    width: 23.129%;
-    float: left;
-    border-right: 1px solid #999;
-    padding: 5px;
-    min-height: 455px;
-    overflow-x: auto;
+    width: 260px;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    min-height: calc(100vh - 48px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.left-container-header {
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.left-container-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: #161616;
+    margin: 0 0 2px;
+}
+
+.left-container-subtitle {
+    font-size: 0.75rem;
+    color: #6f6f6f;
+    margin: 0;
 }
 
 .left-container ul {
-    margin-left: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.left-container > ul {
+    padding: 8px 0;
+    flex: 1;
 }
 
 .left-container ul li {
     display: block;
-    margin-bottom: 5px;
-    padding: 0 5px;
     white-space: nowrap;
-}
-
-.left-container ul li span {
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.left-container ul li span.active {
-    font-weight: bold;
 }
 
 .left-container ul li.hide {
     display: none;
 }
 
-.left-container ul li i {
-    margin-right: 3px;
+.left-container ul li > ul {
+    padding-left: 16px;
 }
 
-.left-container ul li i.fa-minus-square, .left-container ul li i.fa-plus-square {
+.left-container ul li.title {
+    padding: 8px 16px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-left: 3px solid transparent;
+}
+
+.left-container ul li.title > span {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #161616;
     cursor: pointer;
+    flex: 1;
 }
 
+.left-container ul li.title > span.active {
+    color: #007d79;
+}
+
+.left-container ul li.title.active-title {
+    border-left-color: #007d79;
+    background-color: #e5f6f6;
+}
+
+.left-container ul li span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px 6px 4px;
+    cursor: pointer;
+    font-size: 0.8125rem;
+    color: #393939;
+    border-radius: 2px;
+    white-space: nowrap;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.left-container ul li span:hover {
+    background-color: #f4f4f4;
+    color: #007d79;
+}
+
+.left-container ul li span.active {
+    font-weight: 600;
+    color: #007d79;
+    background-color: #e5f6f6;
+}
+
+.left-container ul li i {
+    margin-right: 2px;
+    color: #6f6f6f;
+    font-size: 12px;
+    cursor: pointer;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.left-container ul li i.fa-minus-square,
+.left-container ul li i.fa-plus-square {
+    cursor: pointer;
+    color: #525252;
+}
+
+.left-container ul li i.fa-caret-right {
+    color: #a8a8a8;
+}
+
+.hierarchy-item-row {
+    display: flex;
+    align-items: center;
+    padding: 2px 8px 2px 0;
+    border-left: 3px solid transparent;
+    margin-left: 8px;
+}
+
+.hierarchy-item-row.active-row {
+    border-left-color: #007d79;
+    background-color: #e5f6f6;
+    border-radius: 0 2px 2px 0;
+}
