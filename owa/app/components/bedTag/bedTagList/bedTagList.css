@@ -1,35 +1,35 @@
-.bed-config-page { padding: 24px; background-color: #f4f4f4; min-height: calc(100vh - 120px); }
+.bed-config-page { padding: 24px; background-color: #f0f4f5; min-height: calc(100vh - 104px); }
 .bed-config-header { margin-bottom: 24px; }
-.bed-config-title { font-size: 1.5rem; font-weight: 600; color: #161616; margin: 0 0 8px; }
-.bed-config-subtitle { font-size: 0.875rem; color: #525252; margin: 0; }
+.bed-config-title { font-size: 2rem; font-weight: 700; color: #071e27; margin: 0 0 8px; }
+.bed-config-subtitle { font-size: 0.875rem; color: #3d4946; margin: 0; }
 
-.bed-tag-card { background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 2px; }
+.bed-tag-card { background-color: #ffffff; border: 1px solid #bcc9c5; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04); overflow: hidden; }
 
-.bed-tag-section-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e0e0e0; }
+.bed-tag-section-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #bcc9c5; }
 .bed-tag-section-title { font-size: 1.1rem; font-weight: 600; color: #161616; margin: 0; }
 
 .bed-tag-search-wrap { position: relative; display: flex; align-items: center; }
-.bed-tag-search-icon { position: absolute; left: 10px; color: #6f6f6f; font-size: 14px; pointer-events: none; }
-.bed-tag-search-input { padding: 6px 10px 6px 32px; border: 1px solid #c6c6c6; border-radius: 2px; font-size: 0.875rem; color: #161616; background-color: #f4f4f4; width: 220px; outline: none; font-family: inherit; }
-.bed-tag-search-input:focus { border-color: #0f62fe; background-color: #ffffff; box-shadow: inset 0 0 0 1px #0f62fe; }
+.bed-tag-search-icon { position: absolute; left: 10px; color: #64748b; font-size: 14px; pointer-events: none; }
+.bed-tag-search-input { padding: 6px 10px 6px 32px; border: 1px solid #bcc9c5; border-radius: 4px; font-size: 0.875rem; color: #161616; background-color: #f0f4f5; width: 220px; outline: none; font-family: inherit; }
+.bed-tag-search-input:focus { border-color: #0d9488; background-color: #ffffff; box-shadow: inset 0 0 0 1px #0d9488; }
 
 .bed-tag-table { width: 100%; border-collapse: collapse; text-align: left; }
-.bed-tag-table thead tr { border-bottom: 1px solid #e0e0e0; }
-.bed-tag-table th { padding: 12px 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #525252; letter-spacing: 0.5px; background-color: #ffffff; }
-.bed-tag-table td { padding: 14px 20px; font-size: 0.875rem; color: #161616; border-bottom: 1px solid #f4f4f4; vertical-align: middle; }
+.bed-tag-table thead tr { border-bottom: 1px solid #bcc9c5; }
+.bed-tag-table th { padding: 12px 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #3d4946; letter-spacing: 0.5px; background-color: #e6f6ff; }
+.bed-tag-table td { padding: 14px 20px; font-size: 0.875rem; color: #161616; border-bottom: 1px solid #f0f4f5; vertical-align: middle; }
 .bed-tag-table tbody tr:last-child td { border-bottom: none; }
-.bed-tag-table tbody tr:hover td { background-color: #f9f9f9; }
+.bed-tag-table tbody tr:hover td { background-color: #f0fdfa; }
 
-.bed-tag-empty { text-align: center; color: #6f6f6f; font-style: italic; padding: 40px 20px !important; }
+.bed-tag-empty { text-align: center; color: #64748b; font-style: italic; padding: 40px 20px !important; }
 
 .bed-tag-action-btns { display: flex; gap: 4px; align-items: center; }
 
-.bed-tag-edit-btn { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: none; border: none; cursor: pointer; font-size: 0.875rem; font-family: inherit; color: #007d79; border-radius: 2px; }
-.bed-tag-edit-btn:hover { background-color: #e5f6f6; color: #004144; }
+.bed-tag-edit-btn { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: none; border: none; cursor: pointer; font-size: 0.875rem; font-family: inherit; color: #0d9488; border-radius: 4px; }
+.bed-tag-edit-btn:hover { background-color: #f0fdfa; color: #0f766e; }
 
-.bed-tag-delete-btn { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: none; border: none; cursor: pointer; font-size: 0.875rem; font-family: inherit; color: #da1e28; border-radius: 2px; }
+.bed-tag-delete-btn { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; background: none; border: none; cursor: pointer; font-size: 0.875rem; font-family: inherit; color: #da1e28; border-radius: 4px; }
 .bed-tag-delete-btn:hover { background-color: #fff1f1; color: #a2191f; }
 
-.bed-tag-add-btn-container { padding: 16px 20px; border-top: 1px solid #e0e0e0; }
-.bed-tag-add-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background-color: #007d79; color: #ffffff; border: none; border-radius: 2px; font-size: 0.875rem; font-family: inherit; font-weight: 500; cursor: pointer; }
-.bed-tag-add-btn:hover { background-color: #004144; }
+.bed-tag-add-btn-container { padding: 16px 20px; background-color: #e6f6ff; border-top: 1px solid #bcc9c5; }
+.bed-tag-add-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background-color: #00685d; color: #ffffff; border: none; border-radius: 4px; font-size: 0.875rem; font-family: inherit; font-weight: 500; cursor: pointer; }
+.bed-tag-add-btn:hover { background-color: #004d44; }

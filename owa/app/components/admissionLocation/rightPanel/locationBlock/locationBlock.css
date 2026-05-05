@@ -1,11 +1,12 @@
 .location-card {
     width: 220px;
     background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
+    border: 1px solid #bcc9c5;
+    border-radius: 8px;
     padding: 16px;
     cursor: pointer;
     position: relative;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
     transition: border-color 0.15s, box-shadow 0.15s;
     box-sizing: border-box;
     display: flex;
@@ -14,8 +15,8 @@
 }
 
 .location-card:hover {
-    border-color: #007d79;
-    box-shadow: 0 2px 8px rgba(0, 125, 121, 0.14);
+    border-color: #0d9488;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15);
 }
 
 .location-card-top {
@@ -28,7 +29,7 @@
     width: 44px;
     height: 44px;
     border-radius: 8px;
-    background-color: #e5f6f6;
+    background-color: #ccfbf1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,7 +38,7 @@
 
 .location-card-icon i {
     font-size: 20px;
-    color: #007d79;
+    color: #0d9488;
 }
 
 .location-card-menu {
@@ -61,13 +62,13 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #525252;
+    color: #64748b;
     font-size: 13px;
     padding: 0;
 }
 
 .location-card-menu-btn:hover {
-    background-color: #f4f4f4;
+    background-color: #f0f4f5;
     color: #161616;
 }
 
@@ -86,17 +87,17 @@
 
 .location-card-desc {
     font-size: 0.8125rem;
-    color: #6f6f6f;
+    color: #64748b;
     line-height: 1.4;
     word-break: break-word;
 }
 
-/* Add ward dashed card */
+/* Add ward card — light blue solid (Figma: rgb(230,246,255)) */
 .location-card-add {
     width: 220px;
-    background-color: transparent;
-    border: 2px dashed #c6c6c6;
-    border-radius: 4px;
+    background-color: #e6f6ff;
+    border: 1px solid #bcc9c5;
+    border-radius: 8px;
     padding: 16px;
     cursor: pointer;
     box-sizing: border-box;
@@ -106,19 +107,19 @@
     justify-content: center;
     gap: 10px;
     min-height: 120px;
-    transition: border-color 0.15s;
+    transition: border-color 0.15s, background-color 0.15s;
 }
 
 .location-card-add:hover {
-    border-color: #007d79;
-    background-color: #f0fafa;
+    border-color: #0d9488;
+    background-color: #ccfbf1;
 }
 
 .location-card-add-icon {
     width: 44px;
     height: 44px;
     border-radius: 8px;
-    background-color: #e5f6f6;
+    background-color: #ccfbf1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,17 +127,17 @@
 
 .location-card-add-icon i {
     font-size: 20px;
-    color: #007d79;
+    color: #0d9488;
 }
 
 .location-card-add-label {
     font-size: 0.875rem;
     font-weight: 600;
-    color: #007d79;
+    color: #0d9488;
     text-align: center;
 }
 
-/* Legacy block styles (kept for backward compat) */
+/* Legacy block styles */
 .location.option {
     margin-bottom: 20px;
     display: flex;
@@ -150,10 +151,10 @@
     align-items: center;
     gap: 6px;
     padding: 8px 16px;
-    background-color: #007d79;
+    background-color: #00685d;
     color: #ffffff;
     border: none;
-    border-radius: 2px;
+    border-radius: 4px;
     font-size: 0.875rem;
     font-family: inherit;
     font-weight: 500;
@@ -161,5 +162,5 @@
 }
 
 .location.option .btn:hover {
-    background-color: #004144;
+    background-color: #004d44;
 }

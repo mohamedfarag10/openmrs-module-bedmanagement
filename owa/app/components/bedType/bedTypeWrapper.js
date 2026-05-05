@@ -83,11 +83,8 @@ export default class BedTypeWrapper extends React.Component {
 
     style = {
         wrapper: {
-            marginTop: 10,
-            paddingTop: 20,
-            borderRadius: 5,
-            backgroundColor: '#fff',
-            minHeight: 500
+            backgroundColor: '#f0f4f5',
+            minHeight: 'calc(100vh - 104px)'
         }
     };
 

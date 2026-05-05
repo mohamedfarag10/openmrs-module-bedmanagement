@@ -16,26 +16,26 @@ ul.breadcrumb-section li {
 ul.breadcrumb-section li:not(:last-child)::after {
     content: '\003e';
     margin: 0 6px;
-    color: #a8a8a8;
+    color: #94a3b8;
     font-size: 11px;
 }
 
 ul.breadcrumb-section li a {
     display: inline-block;
     padding: 3px 4px;
-    font-size: 0.8125rem;
-    color: #525252;
+    font-size: 0.875rem;
+    color: #64748b;
     text-decoration: none;
     border-radius: 2px;
 }
 
 ul.breadcrumb-section li:last-child a {
-    color: #161616;
+    color: #0f766e;
     font-weight: 600;
     pointer-events: none;
 }
 
 ul.breadcrumb-section li a:hover {
-    color: #007d79;
+    color: #0d9488;
     text-decoration: none;
 }

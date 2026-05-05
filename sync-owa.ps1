@@ -1,4 +1,4 @@
-# Sync OWA source -> OpenMRS deployed folder (Windows / PowerShell)
+# Sync OWA source -> OpenMRS Docker container (Windows / PowerShell)
 #
 # Usage:
 #   .\sync-owa.ps1            # fast sync: HTML/CSS/img/manifest + existing build/
@@ -12,15 +12,19 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-$Src  = 'C:\Work\Virtual_Hospital\openmrs-module-bedmanagement\owa'
-$Dest = 'C:\openmrs\data\owa\bedmanagement'
+$OwaDir    = Join-Path $PSScriptRoot 'owa'
+$AppDir    = Join-Path $OwaDir 'app'
+$BuildDir  = Join-Path $AppDir 'build'
+$Container = 'clarity-openmrs-1'
+$ContDest  = '/openmrs/data/owa/bedmanagement'
 
 function Show-Help {
 @"
-sync-owa.ps1 - copy bedmanagement OWA changes to the running OpenMRS server
+sync-owa.ps1 - copy bedmanagement OWA changes into the running Docker container
 
-  Source : $Src
-  Target : $Dest
+  Source    : $AppDir
+  Container : $Container
+  Target    : $ContDest
 
 Usage:
   .\sync-owa.ps1            Fast sync (HTML/CSS/img/manifest + existing build/)
@@ -28,50 +32,74 @@ Usage:
   .\sync-owa.ps1 -Help      Show this help
 
 After running, hard-refresh the browser (Ctrl+F5).
-Note: changes are wiped if Tomcat restarts (the .omod re-extracts on startup).
+Note: changes are wiped if the container is recreated (the .omod re-extracts on startup).
 "@
+}
+
+function Assert-Container {
+    $running = docker inspect --format '{{.State.Running}}' $Container 2>$null
+    if ($running -ne 'true') {
+        Write-Error "Container '$Container' is not running. Start it with: docker compose up -d"
+        exit 1
+    }
+}
+
+function DockCp($local, $remote) {
+    docker cp $local "${Container}:${remote}"
+    if ($LASTEXITCODE -ne 0) { Write-Error "docker cp failed: $local -> $remote"; exit $LASTEXITCODE }
 }
 
 if ($Help) { Show-Help; exit 0 }
 
-if (-not (Test-Path $Src))  { Write-Error "Source folder not found: $Src";  exit 1 }
-if (-not (Test-Path $Dest)) { Write-Error "Deployed folder not found: $Dest`nHas the bedmanagement OWA been installed in OpenMRS?"; exit 1 }
+if (-not (Test-Path $OwaDir)) { Write-Error "Source folder not found: $OwaDir"; exit 1 }
+
+Assert-Container
 
 if ($Build) {
     Write-Host "==> webpack build (one-shot)..." -ForegroundColor Cyan
-    Push-Location $Src
+    $webpack = Join-Path $OwaDir 'node_modules\.bin\webpack.cmd'
+    if (-not (Test-Path $webpack)) {
+        Write-Error "webpack not found at $webpack. Run 'npm install' in $OwaDir first."
+        exit 1
+    }
+    Push-Location $OwaDir
     try {
-        $webpack = Join-Path $Src 'node_modules\.bin\webpack.cmd'
-        if (-not (Test-Path $webpack)) {
-            Write-Error "webpack not found at $webpack. Run 'npm install' in $Src first."
-            exit 1
-        }
         & $webpack -d
         if ($LASTEXITCODE -ne 0) { Write-Error "webpack failed (exit $LASTEXITCODE)"; exit $LASTEXITCODE }
-    } finally {
-        Pop-Location
-    }
+    } finally { Pop-Location }
     Write-Host ""
 }
 
-Write-Host "==> Syncing static assets..." -ForegroundColor Cyan
-Copy-Item -Path (Join-Path $Src 'app\*.html')        -Destination $Dest -Force
-Copy-Item -Path (Join-Path $Src 'app\manifest.webapp') -Destination $Dest -Force
+Write-Host "==> Syncing static assets -> $Container ..." -ForegroundColor Cyan
 
-New-Item -ItemType Directory -Force -Path (Join-Path $Dest 'css') | Out-Null
-New-Item -ItemType Directory -Force -Path (Join-Path $Dest 'img') | Out-Null
-Copy-Item -Path (Join-Path $Src 'app\css\*') -Destination (Join-Path $Dest 'css') -Recurse -Force
-Copy-Item -Path (Join-Path $Src 'app\img\*') -Destination (Join-Path $Dest 'img') -Recurse -Force
+# HTML + manifest
+foreach ($f in (Get-ChildItem (Join-Path $AppDir '*.html'))) {
+    DockCp $f.FullName "$ContDest/$($f.Name)"
+    Write-Host "    $($f.Name)" -ForegroundColor DarkGray
+}
+DockCp (Join-Path $AppDir 'manifest.webapp') "$ContDest/manifest.webapp"
+Write-Host "    manifest.webapp" -ForegroundColor DarkGray
 
-$buildDir = Join-Path $Src 'build'
-if ((Test-Path $buildDir) -and (Get-ChildItem -Path $buildDir -Filter '*.js' -ErrorAction SilentlyContinue)) {
-    Write-Host "==> Syncing build/ bundle..." -ForegroundColor Cyan
-    New-Item -ItemType Directory -Force -Path (Join-Path $Dest 'build') | Out-Null
-    Copy-Item -Path (Join-Path $buildDir '*.js') -Destination (Join-Path $Dest 'build') -Force
+# CSS
+docker exec $Container mkdir -p "$ContDest/css" | Out-Null
+DockCp (Join-Path $AppDir 'css') "$ContDest/"
+Write-Host "    css/" -ForegroundColor DarkGray
+
+# Images
+docker exec $Container mkdir -p "$ContDest/img" | Out-Null
+DockCp (Join-Path $AppDir 'img') "$ContDest/"
+Write-Host "    img/" -ForegroundColor DarkGray
+
+# JS bundle
+if ((Test-Path $BuildDir) -and (Get-ChildItem $BuildDir -Filter '*.js' -ErrorAction SilentlyContinue)) {
+    Write-Host "==> Syncing JS bundle..." -ForegroundColor Cyan
+    docker exec $Container mkdir -p "$ContDest/build" | Out-Null
+    DockCp (Join-Path $BuildDir 'app.js')    "$ContDest/build/app.js"
+    DockCp (Join-Path $BuildDir 'vendor.js') "$ContDest/build/vendor.js"
+    Write-Host "    build/app.js + build/vendor.js" -ForegroundColor DarkGray
 } else {
-    Write-Host "==> Skipping build/ (no bundle found - run with -Build the first time)" -ForegroundColor Yellow
+    Write-Host "==> Skipping build/ (no bundle found - run .\sync-owa.ps1 -Build first)" -ForegroundColor Yellow
 }
 
 Write-Host ""
 Write-Host "Done. Hard-refresh the browser (Ctrl+F5)." -ForegroundColor Green
-c

@@ -1,8 +1,8 @@
 .main-container {
     flex: 1;
     padding: 24px;
-    background-color: #f4f4f4;
-    min-height: calc(100vh - 48px);
+    background-color: #f0f4f5;
+    min-height: calc(100vh - 104px);
     box-sizing: border-box;
 }
 
@@ -15,16 +15,16 @@
 }
 
 .location-page-title {
-    font-size: 1.75rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: #161616;
+    color: #071e27;
     margin: 0 0 4px;
     line-height: 1.2;
 }
 
 .location-page-subtitle {
     font-size: 0.875rem;
-    color: #525252;
+    color: #3d4946;
     margin: 0;
 }
 
@@ -40,7 +40,7 @@
     align-items: center;
     gap: 6px;
     padding: 10px 20px;
-    background-color: #007d79;
+    background-color: #00685d;
     color: #ffffff;
     border: none;
     border-radius: 4px;
@@ -52,5 +52,5 @@
 }
 
 .admission-add-btn:hover {
-    background-color: #004144;
+    background-color: #004d44;
 }

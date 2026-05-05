@@ -1,9 +1,9 @@
 .left-container {
-    width: 260px;
+    width: 256px;
     flex-shrink: 0;
-    background-color: #ffffff;
-    border-right: 1px solid #e0e0e0;
-    min-height: calc(100vh - 48px);
+    background-color: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    min-height: calc(100vh - 104px);
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
@@ -12,7 +12,7 @@
 
 .left-container-header {
     padding: 16px 16px 12px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .left-container-title {
@@ -24,7 +24,7 @@
 
 .left-container-subtitle {
     font-size: 0.75rem;
-    color: #6f6f6f;
+    color: #64748b;
     margin: 0;
 }
 
@@ -69,12 +69,12 @@
 }
 
 .left-container ul li.title > span.active {
-    color: #007d79;
+    color: #0d9488;
 }
 
 .left-container ul li.title.active-title {
-    border-left-color: #007d79;
-    background-color: #e5f6f6;
+    border-left-color: #0d9488;
+    background-color: #f0fdfa;
 }
 
 .left-container ul li span {
@@ -92,19 +92,19 @@
 }
 
 .left-container ul li span:hover {
-    background-color: #f4f4f4;
-    color: #007d79;
+    background-color: #f0fdfa;
+    color: #0d9488;
 }
 
 .left-container ul li span.active {
     font-weight: 600;
-    color: #007d79;
-    background-color: #e5f6f6;
+    color: #0d9488;
+    background-color: #f0fdfa;
 }
 
 .left-container ul li i {
     margin-right: 2px;
-    color: #6f6f6f;
+    color: #64748b;
     font-size: 12px;
     cursor: pointer;
     vertical-align: middle;
@@ -114,11 +114,11 @@
 .left-container ul li i.fa-minus-square,
 .left-container ul li i.fa-plus-square {
     cursor: pointer;
-    color: #525252;
+    color: #64748b;
 }
 
 .left-container ul li i.fa-caret-right {
-    color: #a8a8a8;
+    color: #94a3b8;
 }
 
 .hierarchy-item-row {
@@ -130,7 +130,7 @@
 }
 
 .hierarchy-item-row.active-row {
-    border-left-color: #007d79;
-    background-color: #e5f6f6;
+    border-left-color: #0d9488;
+    background-color: #f0fdfa;
     border-radius: 0 2px 2px 0;
 }

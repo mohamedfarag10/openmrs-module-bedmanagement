@@ -40,15 +40,7 @@ class App extends React.Component {
     render() {
         return (
             <IntlProvider locale={this.state.localeCode} messages={this.state.messages}>
-                <div>
-                    <div className="openmrs-header">
-                        <span className="logo">
-                            <img src="img/openmrs.png" alt="logo" />
-                        </span>
-                        <a href={urlHelper.originPath() + '/openmrs/logout'} className="logout">
-                            <FormattedMessage id="LOGOUT" /> <i className="fa fa-sign-out" aria-hidden="true" />
-                        </a>
-                    </div>
+                <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
                     <Switch>
                         <Route
                             path={urlHelper.owaPath() + '/admissionLocations.html'}
@@ -58,6 +50,14 @@ class App extends React.Component {
                         <Route path={urlHelper.owaPath() + '/bedTags.html'} component={BedTagWrapper} />
                     </Switch>
                     <LocaleList allowedLocales={this.state.allowedLocales} localeCode={this.state.localeCode} />
+                    <footer className="app-footer">
+                        <span className="app-footer-copy">© 2024 Clinical Management System. All rights reserved.</span>
+                        <span className="app-footer-links">
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms of Service</a>
+                            <a href="#">Support</a>
+                        </span>
+                    </footer>
                 </div>
             </IntlProvider>
         );

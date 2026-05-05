@@ -1,5 +1,5 @@
 html {
-    background-color: #f4f4f4;
+    background-color: #f0f4f5;
     font-family: OpenSans, Arial, sans-serif;
     margin: 0;
     max-width: 100%;
@@ -42,9 +42,48 @@ html {
 }
 
 .language-list a {
-    color: #363463;
+    color: #0d9488;
 }
 
 .language-list a.active {
     font-weight: bold;
+}
+
+/* ── Footer (Figma: 40px, white bg, border-top #e2e8f0) ── */
+.app-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    padding: 0 24px;
+    background-color: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    margin-top: auto;
+    flex-shrink: 0;
+}
+
+.app-footer-copy {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.app-footer-links {
+    display: flex;
+    gap: 16px;
+}
+
+.app-footer-links a {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-decoration: none;
+}
+
+.app-footer-links a:hover {
+    color: #0d9488;
+    text-decoration: underline;
+}
+
+/* ── Hide legacy openmrs-header (replaced by modern Header component) ── */
+.openmrs-header {
+    display: none;
 }
