@@ -15,8 +15,11 @@ class Header extends React.Component {
     render() {
         return (
             <nav className="app-nav">
-                <span className="nav-brand">Bed Management</span>
-                <ul className="nav-links">
+                {/* Brand */}
+                <span className="app-brand">Bed Management</span>
+
+                {/* Navigation tabs */}
+                <ul className="title-section">
                     <li>
                         <Link
                             to={this.urlHelper.owaPath() + '/admissionLocations.html'}
@@ -39,10 +42,24 @@ class Header extends React.Component {
                         </Link>
                     </li>
                 </ul>
-                <a href={this.urlHelper.originPath() + '/openmrs'} className="nav-return">
-                    <i className="fa fa-arrow-left" aria-hidden="true" />
-                    Return to Admin Dashboard
-                </a>
+
+                {/* Right actions */}
+                <div className="app-nav-right">
+                    <a
+                        href={this.urlHelper.originPath() + '/openmrs/adminui/adminui.page'}
+                        className="nav-return">
+                        <i className="fa fa-arrow-left" aria-hidden="true" /> Return to Admin Dashboard
+                    </a>
+                    <a href={this.urlHelper.originPath() + '/openmrs'} className="nav-icon-btn" title="Home">
+                        <i className="fa fa-home" aria-hidden="true" />
+                    </a>
+                    <a
+                        href={this.urlHelper.originPath() + '/openmrs/logout'}
+                        className="nav-icon-btn"
+                        title="Logout">
+                        <i className="fa fa-sign-out" aria-hidden="true" />
+                    </a>
+                </div>
             </nav>
         );
     }

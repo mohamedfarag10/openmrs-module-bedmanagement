@@ -24,121 +24,144 @@ export default class AddEditBedTag extends React.Component {
     }
 
     onChangeNameField() {
-        this.setState({ name: this.nameField.value });
+        this.setState({name: this.nameField.value});
     }
 
     cancelEventHandler(event) {
         event.preventDefault();
-        this.props.bedTagFunctions.setState({ activePage: 'listing', pageData: {} });
+        this.props.bedTagFunctions.setState({activePage: 'listing', pageData: {}});
     }
 
     onSubmitHandler(event) {
         event.preventDefault();
-        this.setState({ disableSubmit: true });
-
+        this.setState({disableSubmit: true});
         const self = this;
-        const parameters = { name: this.state.name };
+        const parameters = {name: this.state.name};
 
         axios({
             method: 'post',
-            url: this.urlHelper.apiBaseUrl() + (this.state.uuid != null ? '/bedTag/' + this.state.uuid : '/bedTag'),
+            url:
+                this.urlHelper.apiBaseUrl() +
+                (this.state.uuid != null ? '/bedTag/' + this.state.uuid : '/bedTag'),
             headers: {'Content-Type': 'application/json'},
             data: parameters
         })
             .then(function(response) {
-                self.setState({ uuid: response.data.uuid, disableSubmit: false });
+                self.setState({uuid: response.data.uuid, disableSubmit: false});
                 self.props.bedTagFunctions.fetchBedTags();
                 const successMsg = self.intl.formatMessage({id: 'BED_TAG_SAVE_MSG'});
                 self.props.bedTagFunctions.notify('success', successMsg);
-                self.props.bedTagFunctions.setState({ activePage: 'listing', pageData: {} });
+                self.props.bedTagFunctions.setState({activePage: 'listing', pageData: {}});
             })
             .catch(function(errorResponse) {
-                self.setState({ disableSubmit: false });
-                const error = errorResponse.response.data ? errorResponse.response.data.error : errorResponse;
+                self.setState({disableSubmit: false});
+                const error = errorResponse.response.data
+                    ? errorResponse.response.data.error
+                    : errorResponse;
                 self.props.bedTagFunctions.notify('error', error.message.replace(/\[|\]/g, ''));
             });
     }
 
     render() {
-        const isEdit = this.props.operation !== 'add';
+        const isAdd = this.props.operation == 'add';
+        const saving = this.state.disableSubmit;
 
         return (
-            <div className="bed-form-page">
-                <div className="bed-form-page-header">
-                    <h1 className="bed-form-title">
-                        {isEdit
-                            ? this.intl.formatMessage({id: 'EDIT_BED_TAG_TITLE'})
-                            : this.intl.formatMessage({id: 'ADD_BED_TAG_TITLE'})}
-                    </h1>
-                    <p className="bed-form-subtitle">
-                        {isEdit
-                            ? this.intl.formatMessage({id: 'EDIT_BED_TAG_SUBTITLE'})
-                            : this.intl.formatMessage({id: 'ADD_BED_TAG_SUBTITLE'})}
-                    </p>
+            <div className="bed-tag-form-page">
+                {/* Breadcrumb */}
+                <div className="btg-breadcrumb">
+                    <span>Clinical Settings</span>
+                    <i className="fa fa-chevron-right" />
+                    <span>Bed Configuration</span>
+                    <i className="fa fa-chevron-right" />
+                    <span className="btg-breadcrumb-active">
+                        {isAdd ? 'Add Bed Tag' : 'Edit Bed Tag'}
+                    </span>
                 </div>
 
-                <div className="bed-form-card">
-                    <form onSubmit={this.onSubmitHandler}>
-                        <div className="bed-form-field bed-form-field-full">
-                            <label className="bed-form-label">
+                {/* Main card */}
+                <div className="btg-card">
+                    <h2 className="btg-title">
+                        {isAdd ? 'Add Bed Tag' : 'Edit Bed Tag'}
+                    </h2>
+                    <p className="btg-subtitle">
+                        Define classification tags to categorize and filter hospital beds.
+                    </p>
+
+                    <form onSubmit={this.onSubmitHandler} className="btg-form">
+                        {/* Tag Name */}
+                        <div className="btg-field">
+                            <label className="btg-label" htmlFor="name-field">
                                 {this.intl.formatMessage({id: 'NAME'})}
+                                <span className="btg-required"> *</span>
                             </label>
                             <input
+                                id="name-field"
                                 type="text"
-                                className="bed-form-input"
+                                className="btg-input"
                                 value={this.state.name}
+                                placeholder="e.g., ISOLATION, PEDIATRIC, HIGH_DEPENDENCY"
                                 ref={(input) => { this.nameField = input; }}
                                 required={true}
                                 onChange={this.onChangeNameField}
-                                id="name-field"
                             />
+                            <span className="btg-hint">
+                                Unique tag name used to filter and group beds across the system.
+                            </span>
                         </div>
 
-                        <div className="bed-form-actions">
+                        {/* Action buttons */}
+                        <div className="btg-actions">
                             <button
                                 type="button"
-                                className="bed-form-cancel-btn"
-                                onClick={this.cancelEventHandler}>
-                                {this.intl.formatMessage({id: 'CANCEL'})}
+                                onClick={this.cancelEventHandler}
+                                className="btg-btn btg-btn-cancel">
+                                Cancel
                             </button>
                             <button
                                 type="submit"
-                                className="bed-form-save-btn"
-                                disabled={this.state.disableSubmit}>
-                                {this.state.disableSubmit
-                                    ? this.intl.formatMessage({id: 'SAVING'})
-                                    : this.intl.formatMessage({id: 'SAVE_CHANGES'})}
+                                disabled={saving}
+                                className="btg-btn btg-btn-save">
+                                <i className="fa fa-floppy-o" aria-hidden="true" />
+                                {saving ? ' Saving…' : ' Save Bed Tag'}
                             </button>
                         </div>
                     </form>
                 </div>
 
-                <div className="bed-form-info-cards">
-                    <div className="bed-form-info-card">
-                        <div className="bed-form-info-icon-wrap">
-                            <i className="fa fa-history bed-form-info-icon" aria-hidden="true" />
+                {/* Info cards */}
+                <div className="btg-info-row">
+                    <div className="btg-info-card">
+                        <div className="btg-info-icon">
+                            <i className="fa fa-tag" />
                         </div>
-                        <div className="bed-form-info-content">
-                            <div className="bed-form-info-title">{this.intl.formatMessage({id: 'AUDIT_TRAIL'})}</div>
-                            <div className="bed-form-info-text">{this.intl.formatMessage({id: 'AUDIT_TRAIL_TEXT'})}</div>
-                        </div>
-                    </div>
-                    <div className="bed-form-info-card">
-                        <div className="bed-form-info-icon-wrap">
-                            <i className="fa fa-tag bed-form-info-icon" aria-hidden="true" />
-                        </div>
-                        <div className="bed-form-info-content">
-                            <div className="bed-form-info-title">{this.intl.formatMessage({id: 'ACTIVE_UNITS'})}</div>
-                            <div className="bed-form-info-text">{this.intl.formatMessage({id: 'ACTIVE_UNITS_TEXT'})}</div>
+                        <div>
+                            <div className="btg-info-title">Flexible Tagging</div>
+                            <div className="btg-info-desc">
+                                Multiple tags can be assigned to a single bed for granular classification.
+                            </div>
                         </div>
                     </div>
-                    <div className="bed-form-info-card">
-                        <div className="bed-form-info-icon-wrap">
-                            <i className="fa fa-key bed-form-info-icon" aria-hidden="true" />
+                    <div className="btg-info-card">
+                        <div className="btg-info-icon">
+                            <i className="fa fa-filter" />
                         </div>
-                        <div className="bed-form-info-content">
-                            <div className="bed-form-info-title">{this.intl.formatMessage({id: 'PERMISSIONS'})}</div>
-                            <div className="bed-form-info-text">{this.intl.formatMessage({id: 'PERMISSIONS_TEXT'})}</div>
+                        <div>
+                            <div className="btg-info-title">Quick Filtering</div>
+                            <div className="btg-info-desc">
+                                Tags appear as filters on the admission search and floor map screens.
+                            </div>
+                        </div>
+                    </div>
+                    <div className="btg-info-card">
+                        <div className="btg-info-icon">
+                            <i className="fa fa-history" />
+                        </div>
+                        <div>
+                            <div className="btg-info-title">Audit Logging</div>
+                            <div className="btg-info-desc">
+                                Creation of new bed tags is tracked for administrative compliance auditing.
+                            </div>
                         </div>
                     </div>
                 </div>

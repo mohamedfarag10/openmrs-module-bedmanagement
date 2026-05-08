@@ -1,249 +1,119 @@
-.bed-layout-page-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 24px;
-    gap: 16px;
-}
-
-.bed-layout-location-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #071e27;
-    margin: 0;
-    line-height: 1.2;
-}
-
-.bed-layout-action-row {
-    display: flex;
-    gap: 12px;
-    flex-shrink: 0;
-    align-items: center;
-}
-
-.bed-layout-edit-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
-    background-color: #ffffff;
-    border: 1.5px solid #0d9488;
-    border-radius: 4px;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: #0d9488;
-    cursor: pointer;
-    font-family: inherit;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    transition: background-color 0.15s;
-}
-
-.bed-layout-edit-btn:hover {
-    background-color: #f0fdfa;
-}
-
-.bed-layout-delete-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
-    background-color: #da1e28;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: #ffffff;
-    cursor: pointer;
-    font-family: inherit;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    transition: background-color 0.15s;
-}
-
-.bed-layout-delete-btn:hover {
-    background-color: #a2191f;
-}
-
-.bed-layout {
-    margin-top: 4px;
-}
-
-.bed-layout-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 16px;
-}
-
-/* Bed card */
-.bed-card {
+.main-block .bed-layout .block {
     width: 160px;
     height: 160px;
-    background-color: #ffffff;
-    border: 1px solid #bcc9c5;
-    border-radius: 8px;
-    padding: 16px 12px 14px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    position: relative;
-    cursor: pointer;
-    box-sizing: border-box;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
-    transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.bed-card:hover {
-    border-color: #0d9488;
-    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15);
-}
-
-/* Teal icon square */
-.bed-card-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 10px;
-    background-color: #0d9488;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.bed-card-icon i {
-    font-size: 22px;
-    color: #ffffff;
-}
-
-.bed-card-name {
-    font-size: 0.9375rem;
-    font-weight: 700;
-    color: #161616;
-    text-align: center;
-    line-height: 1.2;
-}
-
-.bed-card-status {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    text-align: center;
-}
-
-.bed-card-status.occupied {
-    color: #da1e28;
-}
-
-/* Edit/delete overlay on hover */
-.bed-card-actions {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    display: none;
-    gap: 2px;
-}
-
-.bed-card:hover .bed-card-actions {
-    display: flex;
-}
-
-.bed-card-action-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.08);
-    border: none;
-    cursor: pointer;
-    color: #ffffff;
-    font-size: 11px;
     padding: 0;
-}
-
-.bed-card-action-btn:hover {
-    background-color: rgba(0, 0, 0, 0.22);
-}
-
-/* Add bed card — solid light-blue background (Figma: rgb(230,246,255)) */
-.bed-card-add {
-    width: 160px;
-    height: 160px;
-    background-color: #e6f6ff;
+    float: left;
+    position: relative;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     border: 1px solid #bcc9c5;
     border-radius: 8px;
-    padding: 16px 12px;
+    margin: 8px;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.bed-layout .block.add-block {
+    cursor: pointer;
+    background: #e6f6ff;
+    border: 2px dashed #bcc9c5;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    cursor: pointer;
-    box-sizing: border-box;
-    transition: border-color 0.15s, background-color 0.15s;
-}
-
-.bed-card-add:hover {
-    border-color: #0d9488;
-    background-color: #ccfbf1;
-}
-
-.bed-card-add-icon {
-    font-size: 22px;
     color: #0d9488;
-}
-
-.bed-card-add-label {
-    font-size: 0.875rem;
+    font-size: 13px;
     font-weight: 500;
-    color: #0d9488;
-    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
 }
 
-/* Empty state options (no layout set) */
-.location.option {
+.bed-layout .block.add-block:hover {
+    border-color: #0d9488;
+    background: #f0fdfa;
+}
+
+.bed-layout .block.existing-bed {
+    background-color: #f0f4f5;
+}
+
+.bed-layout .block .block-title {
+    padding: 10px 12px;
+    background: #e6f6ff;
+    font-size: 12px;
+    font-weight: 600;
+    color: #071e27;
+    border-bottom: 1px solid #bcc9c5;
+}
+
+.bed-layout .block .block-content {
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #3d4946;
+}
+
+.bed-layout .block .left-block {
+    width: 80%;
+    float: left;
+    top: 50%;
+    position: absolute;
+    transform: translate(0, -50%);
+}
+
+.bed-layout .block .right-block {
+    position: absolute;
+    right: 8px;
+}
+
+.bed-layout .block .left-block span {
+    vertical-align: middle;
+}
+
+.bed-layout.block ul {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0;
+}
+
+.bed-layout .block ul.right-block li {
+    display: none;
+    text-align: right;
+    padding: 4px 0 0 0;
+}
+
+.bed-layout .block:hover ul.right-block li {
+    display: block;
+}
+
+.bed-layout .block ul.right-block li a {
+    color: #0d9488;
+    font-size: 12px;
+}
+
+.bed-layout .option {
     margin-bottom: 20px;
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    align-items: center;
+    padding: 12px 0;
 }
 
 .option .button {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 18px;
-    background-color: #ffffff;
-    border: 1px solid #bcc9c5;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    color: #393939;
+    background: #00685d;
+    border: none;
+    padding: 9px 22px;
+    display: inline-block;
+    line-height: 1.2em;
+    color: #fff;
     cursor: pointer;
-    font-family: inherit;
-    line-height: 1.2;
+    min-width: 0;
+    max-width: 300px;
     text-decoration: none;
-    transition: background-color 0.15s;
+    width: auto;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
 }
 
 .option .button:hover {
-    background-color: #f0f4f5;
-    border-color: #94a3b8;
-}
-
-.option .button.primary {
-    background-color: #00685d;
-    color: #ffffff;
-    border-color: #00685d;
-}
-
-.option .button.primary:hover {
-    background-color: #004d44;
-    border-color: #004d44;
+    background: #004d44;
 }

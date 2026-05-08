@@ -1,212 +1,90 @@
-/* Page container */
-.bed-config-page {
-    padding: 24px;
-    background-color: #f0f4f5;
-    min-height: calc(100vh - 104px);
-}
-
-/* Page title area */
-.bed-config-header {
-    margin-bottom: 24px;
-}
-
-.bed-config-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #071e27;
-    margin: 0 0 8px;
-}
-
-.bed-config-subtitle {
-    font-size: 0.875rem;
-    color: #3d4946;
-    margin: 0;
-}
-
-/* White content card */
-.bed-type-card {
-    background-color: #ffffff;
+/* Card container — fieldset reset + card border */
+fieldset.bed-type-listing {
+    width: 90%;
+    max-width: 960px;
+    margin: 24px auto;
+    padding: 0;
     border: 1px solid #bcc9c5;
     border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    background: #fff;
     overflow: hidden;
 }
 
-/* Section header row */
-.bed-type-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 20px;
-    border-bottom: 1px solid #bcc9c5;
-}
-
-.bed-type-section-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #161616;
-    margin: 0;
-}
-
-/* Search input */
-.bed-type-search-wrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.bed-type-search-icon {
-    position: absolute;
-    left: 10px;
-    color: #64748b;
-    font-size: 14px;
-    pointer-events: none;
-}
-
-.bed-type-search-input {
-    padding: 6px 10px 6px 32px;
-    border: 1px solid #bcc9c5;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    color: #161616;
-    background-color: #f0f4f5;
-    width: 220px;
-    outline: none;
-    font-family: inherit;
-}
-
-.bed-type-search-input:focus {
-    border-color: #0d9488;
-    background-color: #ffffff;
-    box-shadow: inset 0 0 0 1px #0d9488;
-}
-
-/* Table */
-.bed-type-table {
+/* Legend as full-width header band */
+fieldset.bed-type-listing legend {
+    display: block;
     width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-}
-
-.bed-type-table thead tr {
-    border-bottom: 1px solid #bcc9c5;
-}
-
-.bed-type-table th {
-    padding: 12px 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #3d4946;
-    letter-spacing: 0.5px;
-    background-color: #e6f6ff;
-}
-
-.bed-type-table th.description {
-    width: 45%;
-}
-
-.bed-type-table td {
+    max-width: 100%;
     padding: 14px 20px;
-    font-size: 0.875rem;
-    color: #161616;
-    border-bottom: 1px solid #f0f4f5;
-    vertical-align: middle;
+    margin: 0;
+    background: #e6f6ff;
+    border-bottom: 1px solid #bcc9c5;
+    font-weight: 600;
+    color: #071e27;
+    font-size: 15px;
+    box-sizing: border-box;
 }
 
-.bed-type-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.bed-type-table tbody tr:hover td {
-    background-color: #f0fdfa;
-}
-
-/* Empty state */
-.bed-type-empty {
-    text-align: center;
-    color: #64748b;
-    font-style: italic;
-    padding: 40px 20px !important;
-}
-
-/* Action buttons container */
-.bed-type-action-btns {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-}
-
-/* Edit button */
-.bed-type-edit-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 12px;
-    background: none;
+/* Table inside the card */
+fieldset.bed-type-listing table {
+    width: 100%;
+    text-align: left;
     border: none;
+    border-collapse: collapse;
+    background-color: transparent;
+    margin-bottom: 0;
+}
+
+fieldset.bed-type-listing table thead tr {
+    background: #e6f6ff;
+}
+
+fieldset.bed-type-listing table tr th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #bcc9c5;
+    color: #3d4946;
+    font-weight: 600;
+    font-size: 13px;
+    padding: .75rem 1rem;
+}
+
+fieldset.bed-type-listing table tr td,
+fieldset.bed-type-listing table tr th {
+    border: 1px solid #e2e8f0;
+    padding: .75rem 1rem;
+    color: #3d4946;
+}
+
+fieldset.bed-type-listing table tr td {
+    background: #fff;
+}
+
+fieldset.bed-type-listing table tr:hover td {
+    background: #f8fafc;
+}
+
+fieldset.bed-type-listing table th.description {
+    width: 50%;
+}
+
+/* Add New button */
+fieldset.bed-type-listing .list-btn {
+    display: inline-block;
+    margin: 16px 20px;
+    background: #00685d;
+    border: none;
+    padding: 9px 22px;
+    line-height: 1.4em;
+    color: #fff;
     cursor: pointer;
-    font-size: 0.875rem;
-    font-family: inherit;
-    color: #0d9488;
     border-radius: 4px;
-    text-decoration: none;
-}
-
-.bed-type-edit-btn:hover {
-    background-color: #f0fdfa;
-    color: #0f766e;
-}
-
-/* Delete button */
-.bed-type-delete-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 12px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 0.875rem;
-    font-family: inherit;
-    color: #da1e28;
-    border-radius: 4px;
-    text-decoration: none;
-}
-
-.bed-type-delete-btn:hover {
-    background-color: #fff1f1;
-    color: #a2191f;
-}
-
-/* Add new button container */
-.bed-type-add-btn-container {
-    padding: 16px 20px;
-    background-color: #e6f6ff;
-    border-top: 1px solid #bcc9c5;
-}
-
-/* Add new bed type primary button */
-.bed-type-add-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 20px;
-    background-color: #00685d;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    font-family: inherit;
+    font-size: 14px;
     font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.15s ease;
+    transition: background 0.2s;
 }
 
-.bed-type-add-btn:hover {
-    background-color: #004d44;
-}
-
-.bed-type-add-btn:active {
-    background-color: #003833;
+fieldset.bed-type-listing .list-btn:hover {
+    background: #004d44;
+    color: #fff;
 }

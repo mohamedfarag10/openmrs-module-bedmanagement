@@ -40,7 +40,7 @@ class App extends React.Component {
     render() {
         return (
             <IntlProvider locale={this.state.localeCode} messages={this.state.messages}>
-                <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
+                <div>
                     <Switch>
                         <Route
                             path={urlHelper.owaPath() + '/admissionLocations.html'}
@@ -49,15 +49,9 @@ class App extends React.Component {
                         <Route path={urlHelper.owaPath() + '/bedTypes.html'} component={BedTypeWrapper} />
                         <Route path={urlHelper.owaPath() + '/bedTags.html'} component={BedTagWrapper} />
                     </Switch>
-                    <LocaleList allowedLocales={this.state.allowedLocales} localeCode={this.state.localeCode} />
-                    <footer className="app-footer">
-                        <span className="app-footer-copy">© 2024 Clinical Management System. All rights reserved.</span>
-                        <span className="app-footer-links">
-                            <a href="#">Privacy Policy</a>
-                            <a href="#">Terms of Service</a>
-                            <a href="#">Support</a>
-                        </span>
-                    </footer>
+                    <div className="app-footer">
+                        <LocaleList allowedLocales={this.state.allowedLocales} localeCode={this.state.localeCode} />
+                    </div>
                 </div>
             </IntlProvider>
         );

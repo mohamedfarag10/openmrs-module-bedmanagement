@@ -1,41 +1,42 @@
 ul.breadcrumb-section {
     list-style: none;
-    padding: 0;
-    margin: 0 0 16px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    padding: 12px 20px;
+    margin: 0;
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 ul.breadcrumb-section li {
-    display: inline-flex;
-    align-items: center;
+    display: inline-block;
     position: relative;
 }
 
-ul.breadcrumb-section li:not(:last-child)::after {
-    content: '\003e';
-    margin: 0 6px;
-    color: #94a3b8;
-    font-size: 11px;
-}
-
 ul.breadcrumb-section li a {
+    padding: 4px 10px;
     display: inline-block;
-    padding: 3px 4px;
-    font-size: 0.875rem;
-    color: #64748b;
+    color: #3d4946;
+    font-size: 13px;
     text-decoration: none;
-    border-radius: 2px;
+    border-radius: 4px;
+    transition: background 0.15s;
 }
 
 ul.breadcrumb-section li:last-child a {
     color: #0f766e;
     font-weight: 600;
-    pointer-events: none;
+}
+
+ul.breadcrumb-section li:not(:last-child):after {
+    content: '\003e';
+    position: absolute;
+    right: -1%;
+    top: 60%;
+    transform: translate(0, -50%);
+    color: #94a3b8;
+    height: 70%;
 }
 
 ul.breadcrumb-section li a:hover {
-    color: #0d9488;
-    text-decoration: none;
+    background: #f0fdfa;
+    color: #0f766e;
 }

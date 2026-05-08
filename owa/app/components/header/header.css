@@ -1,86 +1,116 @@
+/* ── Main nav bar ── */
 nav.app-nav {
+    height: 64px;
     background-color: #0d9488;
     display: flex;
     align-items: center;
-    padding: 0 24px;
-    height: 64px;
-    width: 100%;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 100;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+    gap: 16px;
 }
 
-.nav-brand {
-    font-size: 1.25rem;
+/* Brand name on the left */
+.app-brand {
+    font-size: 18px;
     font-weight: 700;
-    color: #ffffff;
-    margin-right: 32px;
+    color: #fff;
     white-space: nowrap;
-    text-decoration: none;
     letter-spacing: 0.01em;
+    margin-right: 8px;
 }
 
-ul.nav-links {
+/* Nav tabs */
+nav.app-nav ul.title-section {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
+    align-items: center;
+    height: 100%;
     flex: 1;
-    gap: 0;
+    border-bottom: none;
+    margin-top: 0;
+    font-size: 1em;
+}
+
+nav.app-nav ul.title-section li {
+    display: inline-flex;
+    align-items: center;
     height: 100%;
 }
 
-ul.nav-links li {
-    display: flex;
-    align-items: stretch;
-}
-
-ul.nav-links li a {
+nav.app-nav ul.title-section li a {
     display: flex;
     align-items: center;
-    height: 64px;
     padding: 0 16px;
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.875rem;
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    font-family: OpenSans, Arial, sans-serif;
     text-decoration: none;
+    height: 100%;
     border-bottom: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
     box-sizing: border-box;
-    transition: color 0.15s;
 }
 
-ul.nav-links li a:hover {
-    color: #ffffff;
+nav.app-nav ul.title-section li a.active {
+    font-weight: 700;
+    color: #fff;
+    border-bottom: 3px solid #fff;
+}
+
+nav.app-nav ul.title-section li a:hover {
+    color: #fff;
     text-decoration: none;
 }
 
-ul.nav-links li a.active {
-    color: #ffffff;
-    font-weight: 600;
-    border-bottom: 3px solid #ffffff;
-}
-
-.nav-return {
+/* Right side actions */
+.app-nav-right {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 16px;
-    background-color: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 6px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.875rem;
-    font-weight: 500;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+/* "← Return to Admin Dashboard" button */
+.nav-return {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 4px;
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
     text-decoration: none;
+    transition: background 0.2s;
     white-space: nowrap;
-    transition: background-color 0.15s, color 0.15s;
 }
 
 .nav-return:hover {
-    background-color: rgba(255, 255, 255, 0.22);
-    color: #ffffff;
+    background: rgba(255,255,255,0.25);
+    color: #fff;
     text-decoration: none;
 }
 
-.nav-return i {
-    font-size: 14px;
+/* Home / Logout icon buttons */
+.nav-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 4px;
+    color: rgba(255,255,255,0.85);
+    font-size: 17px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.nav-icon-btn:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    text-decoration: none;
 }

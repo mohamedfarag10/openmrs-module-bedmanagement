@@ -1,56 +1,63 @@
 .main-container {
     flex: 1;
-    padding: 24px;
-    background-color: #f0f4f5;
+    min-width: 0;
     min-height: calc(100vh - 104px);
-    box-sizing: border-box;
 }
 
+/* Page title / breadcrumb area */
+.main-container .breadcrumb-section {
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 12px 24px;
+}
+
+/* Location cards grid */
 .main-block {
-    /* content area */
+    padding: 20px 24px;
 }
 
-.location-page-header {
-    margin-bottom: 20px;
+.main-block .block {
+    width: 22%;
+    padding: 10px;
+    float: left;
+    position: relative;
+    margin-right: 12px;
+    min-height: 80px;
+    border: 1px solid #bcc9c5;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    background: #fff;
+    margin-bottom: 12px;
 }
 
-.location-page-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #071e27;
-    margin: 0 0 4px;
-    line-height: 1.2;
-}
-
-.location-page-subtitle {
-    font-size: 0.875rem;
-    color: #3d4946;
-    margin: 0;
-}
-
-.location-cards-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    align-items: flex-start;
-}
-
-.admission-add-btn {
+/* ADD ADMISSION LOCATION / ADD WARD button — override OpenMRS btn-primary */
+.main-block .btn.btn-primary,
+.main-block > .btn.btn-primary {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 10px 20px;
-    background-color: #00685d;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    font-family: inherit;
+    background: #00685d !important;
+    border: none !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+    font-size: 14px;
     font-weight: 500;
+    padding: 9px 20px !important;
     cursor: pointer;
-    margin-top: 16px;
+    width: auto !important;
+    min-width: 0 !important;
+    margin-top: 8px;
+    text-transform: none;
+    letter-spacing: 0;
+    box-shadow: none !important;
+    transition: background 0.2s;
 }
 
-.admission-add-btn:hover {
-    background-color: #004d44;
+.main-block .btn.btn-primary:hover {
+    background: #004d44 !important;
+    color: #fff !important;
+}
+
+.main-block .btn.btn-primary .icon {
+    font-size: 13px;
 }

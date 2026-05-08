@@ -25,21 +25,8 @@ export default class HierarchyItem extends React.Component {
         );
     }
 
-    cssClass = {
-        getIconClass: () => {
-            return Object.keys(this.childAdmissionLocations).length == 0
-                ? 'fa fa-caret-right'
-                : this.props.admissionLocation.isOpen ? 'fa fa-minus-square' : 'fa fa-plus-square';
-        },
-        getTitleClass: () => {
-            return this.props.hierarchyFunction.getActiveUuid() == this.props.admissionLocation.uuid ? 'active' : '';
-        },
-        getItemClass: () => {
-            return !this.props.isParentOpen ? 'hide' : '';
-        }
-    };
-
-    onClickIcon() {
+    onClickIcon(e) {
+        e.stopPropagation();
         this.props.hierarchyFunction.toggleIsOpen(
             this.props.admissionLocation.uuid,
             this.props.admissionLocation.isOpen
@@ -56,26 +43,42 @@ export default class HierarchyItem extends React.Component {
     }
 
     render() {
+        if (!this.props.isParentOpen) return null;
+
+        const hasChildren = Object.keys(this.childAdmissionLocations).length > 0;
+        const isOpen = this.props.admissionLocation.isOpen;
+        const isActive = this.props.hierarchyFunction.getActiveUuid() == this.props.admissionLocation.uuid;
+
+        const iconClass = hasChildren
+            ? `fa fa-chevron-${isOpen ? 'down' : 'right'} tree-icon`
+            : 'fa fa-circle tree-icon leaf';
+
         return (
-            <li className={this.cssClass.getItemClass()}>
-                <ul>
-                    <li>
-                        <i className={this.cssClass.getIconClass()} onClick={this.onClickIcon} aria-hidden="true" />
-                        <span className={this.cssClass.getTitleClass()} onClick={this.onClickTitle}>
-                            {' '}
-                            {this.props.admissionLocation.name}{' '}
-                        </span>
-                    </li>
-                    {Object.keys(this.childAdmissionLocations).map((uuid) => (
-                        <HierarchyItem
-                            key={uuid}
-                            isParentOpen={this.props.admissionLocation.isOpen}
-                            hierarchyFunction={this.props.hierarchyFunction}
-                            admissionLocation={this.childAdmissionLocations[uuid]}
-                        />
-                    ))}
-                </ul>
-            </li>
+            <div>
+                <div
+                    className={`tree-node${isActive ? ' active' : ''}`}
+                    onClick={this.onClickTitle}
+                >
+                    <i
+                        className={iconClass}
+                        onClick={this.onClickIcon}
+                        aria-hidden="true"
+                    />
+                    <span className="tree-label">{this.props.admissionLocation.name}</span>
+                </div>
+                {hasChildren && isOpen && (
+                    <div className="tree-vertical-border">
+                        {Object.keys(this.childAdmissionLocations).map((uuid) => (
+                            <HierarchyItem
+                                key={uuid}
+                                isParentOpen={isOpen}
+                                hierarchyFunction={this.props.hierarchyFunction}
+                                admissionLocation={this.childAdmissionLocations[uuid]}
+                            />
+                        ))}
+                    </div>
+                )}
+            </div>
         );
     }
 }

@@ -1,136 +1,134 @@
 .left-container {
-    width: 256px;
+    width: 320px;
     flex-shrink: 0;
-    background-color: #f8fafc;
-    border-right: 1px solid #e2e8f0;
+    padding: 20px;
     min-height: calc(100vh - 104px);
-    overflow-x: hidden;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.left-container-header {
-    padding: 16px 16px 12px;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.left-container-title {
-    font-size: 0.9375rem;
-    font-weight: 700;
-    color: #161616;
-    margin: 0 0 2px;
-}
-
-.left-container-subtitle {
-    font-size: 0.75rem;
-    color: #64748b;
-    margin: 0;
-}
-
-.left-container ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.left-container > ul {
-    padding: 8px 0;
-    flex: 1;
-}
-
-.left-container ul li {
-    display: block;
-    white-space: nowrap;
-}
-
-.left-container ul li.hide {
-    display: none;
-}
-
-.left-container ul li > ul {
-    padding-left: 16px;
-}
-
-.left-container ul li.title {
-    padding: 8px 16px 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    border-left: 3px solid transparent;
-}
-
-.left-container ul li.title > span {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #161616;
-    cursor: pointer;
-    flex: 1;
-}
-
-.left-container ul li.title > span.active {
-    color: #0d9488;
-}
-
-.left-container ul li.title.active-title {
-    border-left-color: #0d9488;
-    background-color: #f0fdfa;
-}
-
-.left-container ul li span {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 8px 6px 4px;
-    cursor: pointer;
-    font-size: 0.8125rem;
-    color: #393939;
-    border-radius: 2px;
-    white-space: nowrap;
-    width: 100%;
+    background: transparent;
     box-sizing: border-box;
 }
 
-.left-container ul li span:hover {
-    background-color: #f0fdfa;
-    color: #0d9488;
+/* Card wrapper */
+.tree-card {
+    background: #fff;
+    border: 1px solid #bcc9c5;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    padding: 24px;
 }
 
-.left-container ul li span.active {
+/* Heading row: icon + "Location Hierarchy" */
+.tree-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.tree-heading i {
+    color: #00685d;
+    font-size: 16px;
+}
+
+.tree-heading-text {
+    font-size: 20px;
     font-weight: 600;
-    color: #0d9488;
-    background-color: #f0fdfa;
+    color: #00685d;
+    line-height: 1.4;
 }
 
-.left-container ul li i {
-    margin-right: 2px;
-    color: #64748b;
-    font-size: 12px;
+/* Items wrapper */
+.tree-items {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Root node: "Admission Locations" */
+.tree-root-node {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgb(213,236,248);
+    padding: 4px 8px;
+    border-radius: 2px;
     cursor: pointer;
-    vertical-align: middle;
+    user-select: none;
+}
+
+.tree-root-node .tree-icon {
+    color: #00685d;
+    font-size: 11px;
+    width: 16px;
+    text-align: center;
     flex-shrink: 0;
 }
 
-.left-container ul li i.fa-minus-square,
-.left-container ul li i.fa-plus-square {
-    cursor: pointer;
-    color: #64748b;
+.tree-root-node .tree-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #00685d;
 }
 
-.left-container ul li i.fa-caret-right {
-    color: #94a3b8;
+/* First-level children wrapper */
+.tree-children {
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.hierarchy-item-row {
+/* Individual tree node (child / grandchild) */
+.tree-node {
     display: flex;
     align-items: center;
-    padding: 2px 8px 2px 0;
-    border-left: 3px solid transparent;
-    margin-left: 8px;
+    gap: 8px;
+    padding: 4px 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
 }
 
-.hierarchy-item-row.active-row {
-    border-left-color: #0d9488;
-    background-color: #f0fdfa;
-    border-radius: 0 2px 2px 0;
+.tree-node:hover {
+    background: #f0fdfa;
+}
+
+.tree-node.active {
+    background: #f0fdfa;
+}
+
+.tree-node .tree-icon {
+    color: #00685d;
+    font-size: 11px;
+    width: 15px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.tree-node .tree-icon.leaf {
+    visibility: hidden;
+}
+
+.tree-node .tree-label {
+    font-size: 16px;
+    font-weight: 400;
+    color: #3d4946;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tree-node.active .tree-label {
+    font-weight: 600;
+    color: #3d4946;
+}
+
+/* Grandchildren: left vertical border */
+.tree-vertical-border {
+    border-left: 1px solid #bcc9c5;
+    padding: 4px 0 4px 16px;
+    margin-left: 19px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }

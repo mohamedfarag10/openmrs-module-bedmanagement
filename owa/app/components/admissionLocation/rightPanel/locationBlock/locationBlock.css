@@ -1,166 +1,102 @@
-.location-card {
-    width: 220px;
-    background-color: #ffffff;
-    border: 1px solid #bcc9c5;
-    border-radius: 8px;
-    padding: 16px;
-    cursor: pointer;
-    position: relative;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-    transition: border-color 0.15s, box-shadow 0.15s;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.location-card:hover {
-    border-color: #0d9488;
-    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.15);
-}
-
-.location-card-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-
-.location-card-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
-    background-color: #ccfbf1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.location-card-icon i {
-    font-size: 20px;
-    color: #0d9488;
-}
-
-.location-card-menu {
-    display: flex;
-    gap: 2px;
-    opacity: 0;
-    transition: opacity 0.15s;
-}
-
-.location-card:hover .location-card-menu {
-    opacity: 1;
-}
-
-.location-card-menu-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 4px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #64748b;
-    font-size: 13px;
+.location.block {
+    width: 22.80%;
     padding: 0;
-}
-
-.location-card-menu-btn:hover {
-    background-color: #f0f4f5;
-    color: #161616;
-}
-
-.location-card-menu-btn.delete:hover {
-    background-color: #fff1f1;
-    color: #da1e28;
-}
-
-.location-card-name {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: #161616;
-    line-height: 1.3;
-    word-break: break-word;
-}
-
-.location-card-desc {
-    font-size: 0.8125rem;
-    color: #64748b;
-    line-height: 1.4;
-    word-break: break-word;
-}
-
-/* Add ward card — light blue solid (Figma: rgb(230,246,255)) */
-.location-card-add {
-    width: 220px;
-    background-color: #e6f6ff;
+    float: left;
+    position: relative;
+    margin-right: 16px;
+    min-height: 80px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     border: 1px solid #bcc9c5;
     border-radius: 8px;
-    padding: 16px;
+    margin-top: 16px;
+    word-wrap: break-word;
     cursor: pointer;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    min-height: 120px;
-    transition: border-color 0.15s, background-color 0.15s;
+    background: #fff;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
 }
 
-.location-card-add:hover {
-    border-color: #0d9488;
-    background-color: #ccfbf1;
+.location.block:hover {
+    box-shadow: 0 3px 8px rgba(0,0,0,0.13);
 }
 
-.location-card-add-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
-    background-color: #ccfbf1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.location-card-add-icon i {
-    font-size: 20px;
-    color: #0d9488;
-}
-
-.location-card-add-label {
-    font-size: 0.875rem;
+.location.block .block-title {
+    padding: 10px 12px;
+    background: #e6f6ff;
+    border-bottom: 1px solid #bcc9c5;
+    font-size: 13px;
     font-weight: 600;
-    color: #0d9488;
-    text-align: center;
+    color: #071e27;
 }
 
-/* Legacy block styles */
+.location.block .block-content {
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #3d4946;
+}
+
+.location.block .btn-primary, .location.option .btn-primary {
+    display: inline-block;
+    width: 30%;
+    margin-top: 18px;
+    padding: 30px 0;
+}
+
+.location.block .left-block {
+    width: 80%;
+    float: left;
+    top: 50%;
+    position: absolute;
+    transform: translate(0, -50%);
+}
+
+.location.block .left-block span {
+    vertical-align: middle;
+}
+
+.location.block ul {
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0;
+}
+
+.location.block ul.right-block li {
+    display: none;
+    text-align: right;
+    padding: 4px 0;
+}
+
+.location.block:hover ul.right-block li {
+    display: block;
+}
+
+.location.block ul.right-block li a {
+    color: #0d9488;
+    font-size: 12px;
+}
+
 .location.option {
     margin-bottom: 20px;
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
+    padding: 12px 0;
 }
 
 .location.option .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    background-color: #00685d;
-    color: #ffffff;
+    background: #00685d;
     border: none;
+    max-width: 300px;
+    padding: 9px 22px;
+    margin-right: 10px;
+    color: #fff;
     border-radius: 4px;
-    font-size: 0.875rem;
-    font-family: inherit;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
 .location.option .btn:hover {
-    background-color: #004d44;
+    background: #004d44;
+    color: #fff;
 }
