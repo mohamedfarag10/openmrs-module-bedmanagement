@@ -1,41 +1,134 @@
 .left-container {
-    width: 23.129%;
-    float: left;
-    border-right: 1px solid #999;
-    padding: 5px;
-    min-height: 455px;
-    overflow-x: auto;
+    width: 320px;
+    flex-shrink: 0;
+    padding: 20px;
+    min-height: calc(100vh - 104px);
+    background: transparent;
+    box-sizing: border-box;
 }
 
-.left-container ul {
-    margin-left: 15px;
+/* Card wrapper */
+.tree-card {
+    background: #fff;
+    border: 1px solid #bcc9c5;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    padding: 24px;
 }
 
-.left-container ul li {
-    display: block;
-    margin-bottom: 5px;
-    padding: 0 5px;
-    white-space: nowrap;
+/* Heading row: icon + "Location Hierarchy" */
+.tree-heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
 }
 
-.left-container ul li span {
+.tree-heading i {
+    color: #00685d;
+    font-size: 16px;
+}
+
+.tree-heading-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: #00685d;
+    line-height: 1.4;
+}
+
+/* Items wrapper */
+.tree-items {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Root node: "Admission Locations" */
+.tree-root-node {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgb(213,236,248);
+    padding: 4px 8px;
+    border-radius: 2px;
     cursor: pointer;
-    white-space: nowrap;
+    user-select: none;
 }
 
-.left-container ul li span.active {
-    font-weight: bold;
+.tree-root-node .tree-icon {
+    color: #00685d;
+    font-size: 11px;
+    width: 16px;
+    text-align: center;
+    flex-shrink: 0;
 }
 
-.left-container ul li.hide {
-    display: none;
+.tree-root-node .tree-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #00685d;
 }
 
-.left-container ul li i {
-    margin-right: 3px;
+/* First-level children wrapper */
+.tree-children {
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.left-container ul li i.fa-minus-square, .left-container ul li i.fa-plus-square {
+/* Individual tree node (child / grandchild) */
+.tree-node {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    border-radius: 2px;
     cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
 }
 
+.tree-node:hover {
+    background: #f0fdfa;
+}
+
+.tree-node.active {
+    background: #f0fdfa;
+}
+
+.tree-node .tree-icon {
+    color: #00685d;
+    font-size: 11px;
+    width: 15px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.tree-node .tree-icon.leaf {
+    visibility: hidden;
+}
+
+.tree-node .tree-label {
+    font-size: 16px;
+    font-weight: 400;
+    color: #3d4946;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tree-node.active .tree-label {
+    font-weight: 600;
+    color: #3d4946;
+}
+
+/* Grandchildren: left vertical border */
+.tree-vertical-border {
+    border-left: 1px solid #bcc9c5;
+    padding: 4px 0 4px 16px;
+    margin-left: 19px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

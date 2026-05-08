@@ -1,44 +1,116 @@
-ul.title-section {
+/* ── Main nav bar ── */
+nav.app-nav {
+    height: 64px;
+    background-color: #0d9488;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+    gap: 16px;
+}
+
+/* Brand name on the left */
+.app-brand {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+    margin-right: 8px;
+}
+
+/* Nav tabs */
+nav.app-nav ul.title-section {
     list-style: none;
     padding: 0;
-    clear: both;
-    font-size: .9em;
-    border-bottom: 1px solid #fff;
-    margin-top: 20px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex: 1;
+    border-bottom: none;
+    margin-top: 0;
+    font-size: 1em;
 }
 
-ul.title-section li {
-    display: inline-block;
-    position: relative;
+nav.app-nav ul.title-section li {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
 }
 
-ul.title-section li:not(:last-child):after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 15%;
-    color: #ccc;
-    height: 70%;
-    border-right: 1px solid #ccc;
-}
-
-ul.title-section li a
-{
-    display: block;
-    padding: 5px 10px 5px 5px;
-    color: #454e59;
+nav.app-nav ul.title-section li a {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    color: rgba(255,255,255,0.8);
     font-size: 14px;
     font-family: OpenSans, Arial, sans-serif;
+    text-decoration: none;
+    height: 100%;
+    border-bottom: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    box-sizing: border-box;
 }
 
-ul.title-section li a i {
-    font-size: 18px;
+nav.app-nav ul.title-section li a.active {
+    font-weight: 700;
+    color: #fff;
+    border-bottom: 3px solid #fff;
 }
 
-ul.title-section li a.active {
-    font-weight: 600;
+nav.app-nav ul.title-section li a:hover {
+    color: #fff;
+    text-decoration: none;
 }
 
-ul.title-section li a:hover {
-    text-decoration: underline;
+/* Right side actions */
+.app-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+/* "← Return to Admin Dashboard" button */
+.nav-return {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 4px;
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.nav-return:hover {
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Home / Logout icon buttons */
+.nav-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 4px;
+    color: rgba(255,255,255,0.85);
+    font-size: 17px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.nav-icon-btn:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    text-decoration: none;
 }

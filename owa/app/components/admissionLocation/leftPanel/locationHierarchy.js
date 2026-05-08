@@ -51,13 +51,8 @@ export default class LocationHierarchy extends React.Component {
         }
     };
 
-    cssClass = {
-        getTitleClass: () => {
-            return this.hierarchyFunction.getActiveUuid() == null ? 'active' : '';
-        }
-    };
-
-    onClickIcon() {
+    onClickIcon(e) {
+        e.stopPropagation();
         this.hierarchyFunction.toggleIsOpen(null, this.props.isOpen);
     }
 
@@ -77,24 +72,44 @@ export default class LocationHierarchy extends React.Component {
     }
 
     render() {
+        const isRootActive = this.hierarchyFunction.getActiveUuid() == null;
+        const isOpen = this.props.isOpen;
+
         return (
             <div className="left-container">
-                <ul>
-                    <li className="title">
-                        <i className="fa fa-minus-square" onClick={this.onClickIcon} aria-hidden="true" />
-                        <span className={this.cssClass.getTitleClass()} onClick={this.onClickTitle}>
-                            {this.intl.formatMessage({id: 'ADMISSION_LOCATIONS'})}
-                        </span>
-                    </li>
-                    {Object.keys(this.higherLevelAdmissionLocations).map((uuid) => (
-                        <HierarchyItem
-                            key={uuid}
-                            isParentOpen={this.props.isOpen}
-                            hierarchyFunction={this.hierarchyFunction}
-                            admissionLocation={this.higherLevelAdmissionLocations[uuid]}
-                        />
-                    ))}
-                </ul>
+                <div className="tree-card">
+                    <div className="tree-heading">
+                        <i className="fa fa-sitemap" aria-hidden="true" />
+                        <span className="tree-heading-text">Location Hierarchy</span>
+                    </div>
+                    <div className="tree-items">
+                        <div
+                            className={`tree-root-node${isRootActive ? ' active' : ''}`}
+                            onClick={this.onClickTitle}
+                        >
+                            <i
+                                className={`fa fa-chevron-${isOpen ? 'down' : 'right'} tree-icon`}
+                                onClick={this.onClickIcon}
+                                aria-hidden="true"
+                            />
+                            <span className="tree-label">
+                                {this.intl.formatMessage({id: 'ADMISSION_LOCATIONS'})}
+                            </span>
+                        </div>
+                        {isOpen && (
+                            <div className="tree-children">
+                                {Object.keys(this.higherLevelAdmissionLocations).map((uuid) => (
+                                    <HierarchyItem
+                                        key={uuid}
+                                        isParentOpen={isOpen}
+                                        hierarchyFunction={this.hierarchyFunction}
+                                        admissionLocation={this.higherLevelAdmissionLocations[uuid]}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
         );
     }

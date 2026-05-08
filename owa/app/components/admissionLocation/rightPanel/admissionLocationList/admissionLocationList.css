@@ -1,20 +1,63 @@
 .main-container {
-    width: 74.80%;
-    float: right;
+    flex: 1;
+    min-width: 0;
+    min-height: calc(100vh - 104px);
+}
+
+/* Page title / breadcrumb area */
+.main-container .breadcrumb-section {
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 12px 24px;
+}
+
+/* Location cards grid */
+.main-block {
+    padding: 20px 24px;
 }
 
 .main-block .block {
-    width: 22.80%;
+    width: 22%;
     padding: 10px;
     float: left;
     position: relative;
-    margin-right: 10px;
+    margin-right: 12px;
     min-height: 80px;
+    border: 1px solid #bcc9c5;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    background: #fff;
+    margin-bottom: 12px;
 }
 
-.main-block .btn-primary {
-    display: inline-block;
-    width: 23.936%;
-    margin-top: 18px;
-    padding: 30px 0;
+/* ADD ADMISSION LOCATION / ADD WARD button — override OpenMRS btn-primary */
+.main-block .btn.btn-primary,
+.main-block > .btn.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #00685d !important;
+    border: none !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 9px 20px !important;
+    cursor: pointer;
+    width: auto !important;
+    min-width: 0 !important;
+    margin-top: 8px;
+    text-transform: none;
+    letter-spacing: 0;
+    box-shadow: none !important;
+    transition: background 0.2s;
+}
+
+.main-block .btn.btn-primary:hover {
+    background: #004d44 !important;
+    color: #fff !important;
+}
+
+.main-block .btn.btn-primary .icon {
+    font-size: 13px;
 }

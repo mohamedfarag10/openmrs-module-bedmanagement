@@ -41,14 +41,6 @@ class App extends React.Component {
         return (
             <IntlProvider locale={this.state.localeCode} messages={this.state.messages}>
                 <div>
-                    <div className="openmrs-header">
-                        <span className="logo">
-                            <img src="img/openmrs.png" alt="logo" />
-                        </span>
-                        <a href={urlHelper.originPath() + '/openmrs/logout'} className="logout">
-                            <FormattedMessage id="LOGOUT" /> <i className="fa fa-sign-out" aria-hidden="true" />
-                        </a>
-                    </div>
                     <Switch>
                         <Route
                             path={urlHelper.owaPath() + '/admissionLocations.html'}
@@ -57,7 +49,9 @@ class App extends React.Component {
                         <Route path={urlHelper.owaPath() + '/bedTypes.html'} component={BedTypeWrapper} />
                         <Route path={urlHelper.owaPath() + '/bedTags.html'} component={BedTagWrapper} />
                     </Switch>
-                    <LocaleList allowedLocales={this.state.allowedLocales} localeCode={this.state.localeCode} />
+                    <div className="app-footer">
+                        <LocaleList allowedLocales={this.state.allowedLocales} localeCode={this.state.localeCode} />
+                    </div>
                 </div>
             </IntlProvider>
         );

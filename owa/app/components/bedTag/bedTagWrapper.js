@@ -4,6 +4,7 @@ import axios from 'axios';
 import _ from 'lodash';
 
 import Header from 'components/header';
+import LocationSidebar from 'components/admissionLocation/leftPanel/locationSidebar';
 import BedTagList from 'components/bedTag/bedTagList';
 import AddEditBedTag from 'components/bedTag/bedTagForm/addEditBedTag';
 import UrlHelper from 'utilities/urlHelper';
@@ -78,11 +79,13 @@ export default class BedTagWrapper extends React.Component {
 
     style = {
         wrapper: {
-            marginTop: 10,
-            paddingTop: 20,
-            borderRadius: 5,
-            backgroundColor: '#fff',
-            minHeight: 500
+            backgroundColor: '#f0f4f5',
+            minHeight: 'calc(100vh - 104px)',
+            display: 'flex'
+        },
+        content: {
+            flex: 1,
+            minWidth: 0
         }
     };
 
@@ -92,15 +95,18 @@ export default class BedTagWrapper extends React.Component {
                 <ReactNotify ref="notificator" />
                 <Header path={this.props.match.path} />
                 <div style={this.style.wrapper}>
-                    {this.state.activePage == 'listing' ? (
-                        <BedTagList bedTags={this.state.bedTags} bedTagFunctions={this.bedTagFunctions} />
-                    ) : (
-                        <AddEditBedTag
-                            bedTagFunctions={this.bedTagFunctions}
-                            bedTagUuid={this.state.pageData.bedTagUuid}
-                            operation={this.state.pageData.operation}
-                        />
-                    )}
+                    <LocationSidebar />
+                    <div style={this.style.content}>
+                        {this.state.activePage == 'listing' ? (
+                            <BedTagList bedTags={this.state.bedTags} bedTagFunctions={this.bedTagFunctions} />
+                        ) : (
+                            <AddEditBedTag
+                                bedTagFunctions={this.bedTagFunctions}
+                                bedTagUuid={this.state.pageData.bedTagUuid}
+                                operation={this.state.pageData.operation}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
         );

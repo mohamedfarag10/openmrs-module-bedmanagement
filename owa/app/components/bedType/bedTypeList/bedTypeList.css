@@ -1,61 +1,90 @@
-.bed-type-listing {
-    width: 80%;
-    margin: 10px auto;
-    padding: 20px;
+/* Card container — fieldset reset + card border */
+fieldset.bed-type-listing {
+    width: 90%;
+    max-width: 960px;
+    margin: 24px auto;
+    padding: 0;
+    border: 1px solid #bcc9c5;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    background: #fff;
+    overflow: hidden;
 }
 
-.bed-type-listing .block-title {
-    padding: 10px;
-    background: #f9f9f9;
+/* Legend as full-width header band */
+fieldset.bed-type-listing legend {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 14px 20px;
+    margin: 0;
+    background: #e6f6ff;
+    border-bottom: 1px solid #bcc9c5;
+    font-weight: 600;
+    color: #071e27;
+    font-size: 15px;
+    box-sizing: border-box;
 }
 
-.bed-type-listing .block-content {
-    padding: 10px;
-}
-
-.bed-type-listing table {
+/* Table inside the card */
+fieldset.bed-type-listing table {
     width: 100%;
     text-align: left;
     border: none;
     border-collapse: collapse;
     background-color: transparent;
-    margin-bottom: 10px;
+    margin-bottom: 0;
 }
 
-.bed-type-listing table tr th {
+fieldset.bed-type-listing table thead tr {
+    background: #e6f6ff;
+}
+
+fieldset.bed-type-listing table tr th {
     vertical-align: bottom;
-    border-bottom: 2px solid #eceeef;
+    border-bottom: 2px solid #bcc9c5;
+    color: #3d4946;
+    font-weight: 600;
+    font-size: 13px;
+    padding: .75rem 1rem;
 }
 
-.bed-type-listing table tr td,
-.bed-type-listing table tr th {
-    border: 1px solid #eceeef;
-    padding: .75rem;
+fieldset.bed-type-listing table tr td,
+fieldset.bed-type-listing table tr th {
+    border: 1px solid #e2e8f0;
+    padding: .75rem 1rem;
+    color: #3d4946;
 }
 
-.bed-type-listing table th.description{
+fieldset.bed-type-listing table tr td {
+    background: #fff;
+}
+
+fieldset.bed-type-listing table tr:hover td {
+    background: #f8fafc;
+}
+
+fieldset.bed-type-listing table th.description {
     width: 50%;
 }
 
-.bed-type-listing .list-btn {
-    background: -owg-linear-gradient(top,#fff,#ddd);
-    background: -webkit-linear-gradient(top,#fff,#ddd);
-    background: linear-gradient(top,#fff,#ddd);
-    border: 1px solid #ddd;
-    padding: 8px 20px;
+/* Add New button */
+fieldset.bed-type-listing .list-btn {
     display: inline-block;
-    line-height: 1.2em;
-    color: #363463;
+    margin: 16px 20px;
+    background: #00685d;
+    border: none;
+    padding: 9px 22px;
+    line-height: 1.4em;
+    color: #fff;
     cursor: pointer;
-    min-width: 0;
-    max-width: 300px;
-    text-decoration: none;
-    width: auto;
     border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
 }
 
-.bed-type-listing .list-btn:hover {
-    background: #e2e2e2;
-    border-color: #d0d0d0;
+fieldset.bed-type-listing .list-btn:hover {
+    background: #004d44;
+    color: #fff;
 }
-

@@ -1,31 +1,53 @@
 .main-block .bed-layout .block {
-    width: 14%;
-    padding: 0 10px 0 10px;
+    width: 160px;
+    height: 160px;
+    padding: 0;
     float: left;
     position: relative;
-    margin-right: 20px;
-    min-height: 55px;
-    box-shadow: 1px 1px 3px #ccc;
-    border: 1px solid #ccc;
-    margin: 10px 5px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border: 1px solid #bcc9c5;
+    border-radius: 8px;
+    margin: 8px;
     word-wrap: break-word;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .bed-layout .block.add-block {
     cursor: pointer;
+    background: #e6f6ff;
+    border: 2px dashed #bcc9c5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0d9488;
+    font-size: 13px;
+    font-weight: 500;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.bed-layout .block.add-block:hover {
+    border-color: #0d9488;
+    background: #f0fdfa;
 }
 
 .bed-layout .block.existing-bed {
-    background-color: #d3d3d3;
+    background-color: #f0f4f5;
 }
 
 .bed-layout .block .block-title {
-    padding: 10px;
-    background: #f9f9f9;
+    padding: 10px 12px;
+    background: #e6f6ff;
+    font-size: 12px;
+    font-weight: 600;
+    color: #071e27;
+    border-bottom: 1px solid #bcc9c5;
 }
 
 .bed-layout .block .block-content {
-    padding: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #3d4946;
 }
 
 .bed-layout .block .left-block {
@@ -38,7 +60,7 @@
 
 .bed-layout .block .right-block {
     position: absolute;
-    right: 10px;
+    right: 8px;
 }
 
 .bed-layout .block .left-block span {
@@ -56,30 +78,30 @@
 .bed-layout .block ul.right-block li {
     display: none;
     text-align: right;
-    padding: 5px 0 0 0;
+    padding: 4px 0 0 0;
 }
 
-.bed-layout .block:hover ul.right-block li{
+.bed-layout .block:hover ul.right-block li {
     display: block;
 }
 
 .bed-layout .block ul.right-block li a {
-    color: #454e59;
+    color: #0d9488;
+    font-size: 12px;
 }
 
 .bed-layout .option {
     margin-bottom: 20px;
+    padding: 12px 0;
 }
 
 .option .button {
-    background: -owg-linear-gradient(top,#fff,#ddd);
-    background: -webkit-linear-gradient(top,#fff,#ddd);
-    background: linear-gradient(top,#fff,#ddd);
-    border: 1px solid #ddd;
-    padding: 8px 20px;
+    background: #00685d;
+    border: none;
+    padding: 9px 22px;
     display: inline-block;
     line-height: 1.2em;
-    color: #363463;
+    color: #fff;
     cursor: pointer;
     min-width: 0;
     max-width: 300px;
@@ -87,9 +109,11 @@
     width: auto;
     border-radius: 4px;
     margin-left: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
 }
 
-.option .button:hover {;
-    background: #e2e2e2;
-    border-color: #d0d0d0;
+.option .button:hover {
+    background: #004d44;
 }

@@ -1,19 +1,33 @@
 .main-container {
-    width: 74.80%;
-    float: right;
+    flex: 1;
+    min-width: 0;
 }
 
 .admission-location-form {
-    margin: 20px;
-    padding: 20px;
+    margin: 24px;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.admission-location-form .block-title {
+    padding: 14px 20px;
+    background: #e6f6ff;
+    border-bottom: 1px solid #bcc9c5;
+    font-weight: 600;
+    color: #071e27;
+    font-size: 15px;
 }
 
 .admission-location-form .block-content {
-    padding: 10px;
+    padding: 24px;
 }
 
 .admission-location-form .form-block {
-    margin-bottom: 10px;
+    margin-bottom: 16px;
 }
 
 .admission-location-form .form-block input[type="text"],
@@ -23,48 +37,61 @@
     float: left;
     width: calc(100% - 200px);
     margin-bottom: 10px;
+    border: 1px solid #bcc9c5;
+    border-radius: 4px;
+    padding: 8px 10px;
+    color: #3d4946;
+    font-size: 14px;
+}
+
+.admission-location-form .form-block input:focus,
+.admission-location-form .form-block select:focus,
+.admission-location-form .form-block textarea:focus {
+    outline: none;
+    border-color: #0d9488;
+    box-shadow: 0 0 0 2px rgba(13,148,136,0.12);
 }
 
 .admission-location-form label.form-title {
     display: block;
-    font-size: 16px;
-    text-transform: capitalize;
+    font-size: 14px;
+    color: #3d4946;
     text-align: left;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-weight: 500;
 }
 
-.admission-location-form label.form-title.inline{
+.admission-location-form label.form-title.inline {
     display: inline-block;
     margin-right: 10px;
 }
 
 .admission-location-form .form-block .form-btn {
-    background: -owg-linear-gradient(top,#fff,#ddd);
-    background: -webkit-linear-gradient(top,#fff,#ddd);
-    background: linear-gradient(top,#fff,#ddd);
-    border: 1px solid #ddd;
-    padding: 8px 20px;
+    background: #00685d;
+    border: none;
+    padding: 9px 22px;
     display: inline-block;
     line-height: 1.2em;
-    color: #363463;
+    color: #fff;
     cursor: pointer;
     min-width: 0;
     max-width: 300px;
     text-decoration: none;
     width: auto;
     border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+    margin-right: 8px;
 }
 
 .admission-location-form .form-block .form-btn:hover {
-    background: #e2e2e2;
-    border-color: #d0d0d0;
+    background: #004d44;
 }
 
 .admission-location-form .form-block .form-btn:disabled {
-    background: #eee;
-    border: 1px solid #ccc;
-    color: #ccc;
-    cursor: default;
+    background: #e2e8f0;
+    color: #94a3b8;
     cursor: not-allowed;
 }
 

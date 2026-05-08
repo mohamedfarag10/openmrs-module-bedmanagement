@@ -4,6 +4,7 @@ import axios from 'axios';
 import _ from 'lodash';
 
 import Header from 'components/header';
+import LocationSidebar from 'components/admissionLocation/leftPanel/locationSidebar';
 import BedTypeList from 'components/bedType/bedTypeList';
 import AddEditBedType from 'components/bedType/bedTypeForm/addEditBedType';
 import UrlHelper from 'utilities/urlHelper';
@@ -83,11 +84,13 @@ export default class BedTypeWrapper extends React.Component {
 
     style = {
         wrapper: {
-            marginTop: 10,
-            paddingTop: 20,
-            borderRadius: 5,
-            backgroundColor: '#fff',
-            minHeight: 500
+            backgroundColor: '#f0f4f5',
+            minHeight: 'calc(100vh - 104px)',
+            display: 'flex'
+        },
+        content: {
+            flex: 1,
+            minWidth: 0
         }
     };
 
@@ -97,15 +100,18 @@ export default class BedTypeWrapper extends React.Component {
                 <ReactNotify ref="notificator" />
                 <Header path={this.props.match.path} />
                 <div style={this.style.wrapper}>
-                    {this.state.activePage == 'listing' ? (
-                        <BedTypeList bedTypes={this.state.bedTypes} bedTypeFunctions={this.bedTypeFunctions} />
-                    ) : (
-                        <AddEditBedType
-                            bedTypeFunctions={this.bedTypeFunctions}
-                            bedTypeUuid={this.state.pageData.bedTypeUuid}
-                            operation={this.state.pageData.operation}
-                        />
-                    )}
+                    <LocationSidebar />
+                    <div style={this.style.content}>
+                        {this.state.activePage == 'listing' ? (
+                            <BedTypeList bedTypes={this.state.bedTypes} bedTypeFunctions={this.bedTypeFunctions} />
+                        ) : (
+                            <AddEditBedType
+                                bedTypeFunctions={this.bedTypeFunctions}
+                                bedTypeUuid={this.state.pageData.bedTypeUuid}
+                                operation={this.state.pageData.operation}
+                            />
+                        )}
+                    </div>
                 </div>
             </div>
         );

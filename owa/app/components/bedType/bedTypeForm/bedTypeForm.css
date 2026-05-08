@@ -1,68 +1,238 @@
+/* ── Legacy classes (kept for backward compat) ── */
 .form-container {
-    width: 80%;
+    width: 90%;
+    max-width: 800px;
+    margin: 24px auto;
+}
+
+/* ── New Figma-matched BTF classes ── */
+
+/* Page wrapper */
+.bed-type-form-page {
+    padding: 24px 28px;
+    max-width: 860px;
     margin: 0 auto;
 }
 
-.bed-type-form {
-    margin: 20px;
-    padding: 20px;
+/* Breadcrumb */
+.btf-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 20px;
 }
 
-.bed-type-form .block-content {
-    padding: 10px;
+.btf-breadcrumb span {
+    color: #64748b;
 }
 
-.bed-type-form .form-block {
-    margin-bottom: 10px;
+.btf-breadcrumb span.btf-breadcrumb-active {
+    color: #0d9488;
+    font-weight: 600;
 }
 
-.bed-type-form .form-block input[type="text"],
-.bed-type-form .form-block input[type="number"],
-.bed-type-form .form-block select,
-.bed-type-form .form-block textarea {
-    float: left;
-    width: calc(100% - 200px);
+.btf-breadcrumb i {
+    font-size: 10px;
+    color: #94a3b8;
 }
 
-.bed-type-form label.form-title {
-    display: block;
-    font-size: 16px;
-    text-transform: capitalize;
-    text-align: left;
-    margin-bottom: 10px;
+/* Main card */
+.btf-card {
+    background: #fff;
+    border: 1px solid #bcc9c5;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    padding: 28px 32px 24px;
+    margin-bottom: 20px;
 }
 
-.bed-type-form label.form-title.inline{
-    display: inline-block;
-    margin-right: 10px;
+.btf-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #071e27;
+    margin: 0 0 6px;
 }
 
-.bed-type-form .form-block .form-btn {
-    background: -owg-linear-gradient(top,#fff,#ddd);
-    background: -webkit-linear-gradient(top,#fff,#ddd);
-    background: linear-gradient(top,#fff,#ddd);
-    border: 1px solid #ddd;
-    padding: 8px 20px;
-    display: inline-block;
-    line-height: 1.2em;
-    color: #363463;
+.btf-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0 0 24px;
+}
+
+/* Form */
+.btf-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Field block */
+.btf-field {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label */
+.btf-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3d4946;
+    margin-bottom: 6px;
+}
+
+.btf-required {
+    color: #e53e3e;
+}
+
+/* Text inputs */
+.btf-input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #bcc9c5;
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: #071e27;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.btf-input:focus {
+    outline: none;
+    border-color: #0d9488;
+    box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+}
+
+.btf-input::placeholder {
+    color: #94a3b8;
+}
+
+/* Textarea */
+.btf-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #bcc9c5;
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: #071e27;
+    background: #fff;
+    resize: vertical;
+    font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.btf-textarea:focus {
+    outline: none;
+    border-color: #0d9488;
+    box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+}
+
+.btf-textarea::placeholder {
+    color: #94a3b8;
+}
+
+/* Hint text below inputs */
+.btf-hint {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 5px;
+}
+
+/* Action buttons row */
+.btf-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.btf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 22px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    min-width: 0;
-    max-width: 300px;
+    transition: background 0.2s, color 0.2s;
     text-decoration: none;
-    width: auto;
-    border-radius: 4px;
+    line-height: 1.3;
 }
 
-.bed-type-form .form-block .form-btn:hover {
-    background: #e2e2e2;
-    border-color: #d0d0d0;
+.btf-btn-cancel {
+    background: #f1f5f9;
+    color: #3d4946;
+    border: 1px solid #bcc9c5;
 }
 
-.bed-type-form .form-block .form-btn:disabled {
-    background: #eee;
-    border: 1px solid #ccc;
-    color: #ccc;
-    cursor: default;
+.btf-btn-cancel:hover {
+    background: #e2e8f0;
+    color: #071e27;
+}
+
+.btf-btn-save {
+    background: #00685d;
+    color: #fff;
+}
+
+.btf-btn-save:hover {
+    background: #004d44;
+    color: #fff;
+}
+
+.btf-btn-save:disabled {
+    background: #e2e8f0;
+    color: #94a3b8;
     cursor: not-allowed;
+}
+
+/* Info cards row */
+.btf-info-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 0;
+}
+
+.btf-info-card {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid #bcc9c5;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 16px 18px;
+}
+
+.btf-info-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #e6f6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0d9488;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.btf-info-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #071e27;
+    margin-bottom: 4px;
+}
+
+.btf-info-desc {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.5;
 }

@@ -1,7 +1,29 @@
-ul.breadcrumb-section li a {
-    padding: 10px 15px;
+ul.breadcrumb-section {
+    list-style: none;
+    padding: 12px 20px;
+    margin: 0;
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+ul.breadcrumb-section li {
     display: inline-block;
-    color: #454e59;
+    position: relative;
+}
+
+ul.breadcrumb-section li a {
+    padding: 4px 10px;
+    display: inline-block;
+    color: #3d4946;
+    font-size: 13px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.15s;
+}
+
+ul.breadcrumb-section li:last-child a {
+    color: #0f766e;
+    font-weight: 600;
 }
 
 ul.breadcrumb-section li:not(:last-child):after {
@@ -10,20 +32,11 @@ ul.breadcrumb-section li:not(:last-child):after {
     right: -1%;
     top: 60%;
     transform: translate(0, -50%);
-    color: #454e59;
+    color: #94a3b8;
     height: 70%;
 }
 
 ul.breadcrumb-section li a:hover {
-    background: #f9f9f9;
-}
-
-ul.breadcrumb-section {
-    list-style: none;
-    padding: 0;
-}
-
-ul.breadcrumb-section li {
-    display: inline-block;
-    position: relative;
+    background: #f0fdfa;
+    color: #0f766e;
 }
