@@ -1,5 +1,5 @@
 .left-container {
-    width: 320px;
+    width: 256px;
     flex-shrink: 0;
     padding: 20px;
     min-height: calc(100vh - 104px);
