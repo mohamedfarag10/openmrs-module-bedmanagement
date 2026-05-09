@@ -88,21 +88,18 @@ export default class AdmissionLocationWrapper extends React.Component {
 
     fetchAllVisitLocations(self) {
         axios
-            .get(this.urlHelper.apiBaseUrl() + '/location?tag=Visit%20Location&v=full')
+            .get(this.urlHelper.apiBaseUrl() + '/location?v=full&limit=100')
             .then(function (visitLocationsResponse) {
-                const visitLocationUuidList =
-                    _.map(visitLocationsResponse.data.results, (location) => location.uuid);
                 const visitLocations = _.reduce(
                     visitLocationsResponse.data.results,
                     (acc, curr) => {
-                        if (_.includes(visitLocationUuidList, curr.uuid)) {
+                        if (!curr.retired) {
                             acc[curr.uuid] = {
                                 uuid: curr.uuid,
                                 name: curr.name,
                                 description: curr.description
                             };
                         }
-
                         return acc;
                     },
                     {}
@@ -110,7 +107,9 @@ export default class AdmissionLocationWrapper extends React.Component {
                 self.setState({visitLocations: visitLocations});
             })
             .catch(function (errorResponse) {
-                const error = errorResponse.response.data ? errorResponse.response.data.error : errorResponse;
+                const error = errorResponse.response && errorResponse.response.data
+                    ? errorResponse.response.data.error
+                    : errorResponse;
                 self.admissionLocationFunctions.notify('error', error.message.replace(/\[|\]/g, ''));
             });
     }
