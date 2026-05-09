@@ -1,16 +1,17 @@
 # dev-build.ps1 - Development rebuild script
 #
-# FAST mode (default, ~10-15 sec):
+# FAST mode (default, ~15 sec):
 #   Rebuilds webpack JS/CSS bundle and hot-copies app.js + vendor.js
-#   into the running Docker container. Just refresh the browser.
+#   directly into the running Docker container. Just refresh the browser.
 #
 # FULL mode (-Full flag, ~5-10 min):
-#   Runs docker compose build (Maven + webpack inside Docker) then
-#   restarts the container. Use when you change Java or HTML files.
+#   Rebuilds the Docker image (Maven + webpack inside Docker), clears the
+#   old OWA from the persistent volume so OpenMRS re-extracts the new one,
+#   then restarts the container.
 #
 # Usage:
 #   .\dev-build.ps1          # fast: webpack + docker cp
-#   .\dev-build.ps1 -Full    # full: docker compose build + up
+#   .\dev-build.ps1 -Full    # full: docker compose build + clean + up
 
 param(
     [switch]$Full
@@ -21,6 +22,7 @@ $ROOT      = $PSScriptRoot
 $OWA_DIR   = Join-Path $ROOT "owa"
 $BUILD_DIR = Join-Path $OWA_DIR "app\build"
 $CONTAINER = "clarity-openmrs-1"
+$VOLUME    = "clarity_openmrs-data"
 
 function Write-Step {
     param([string]$msg)
@@ -41,17 +43,34 @@ function Write-Fail {
 
 # --- FULL mode ---------------------------------------------------
 if ($Full) {
-    Write-Step "FULL rebuild: docker compose build"
+    Write-Step "Step 1/4 - Building Docker image (Maven + webpack)"
     Set-Location $ROOT
     docker compose build
     if ($LASTEXITCODE -ne 0) { Write-Fail "docker compose build failed" }
+    Write-OK "Docker image built"
 
-    Write-Step "Starting containers"
+    Write-Step "Step 2/4 - Stopping containers"
+    docker compose down
+    if ($LASTEXITCODE -ne 0) { Write-Fail "docker compose down failed" }
+    Write-OK "Containers stopped"
+
+    Write-Step "Step 3/4 - Clearing old OWA from volume"
+    # This forces OpenMRS to re-extract the fresh OWA from the new .omod
+    docker run --rm -v "${VOLUME}:/data" alpine sh -c "rm -rf /data/owa"
+    if ($LASTEXITCODE -ne 0) { Write-Fail "Failed to clear OWA from volume" }
+    Write-OK "Old OWA files removed from volume"
+
+    Write-Step "Step 4/4 - Starting containers"
     docker compose up -d
     if ($LASTEXITCODE -ne 0) { Write-Fail "docker compose up failed" }
+    Write-OK "Containers started"
 
-    Write-OK "Done. OpenMRS is starting at http://localhost:8080/openmrs"
-    Write-Host "    (First boot takes ~2-3 minutes for DB setup)" -ForegroundColor Yellow
+    Write-Host ""
+    Write-Host "============================================================" -ForegroundColor Green
+    Write-Host "  Done! OpenMRS is starting up..." -ForegroundColor Green
+    Write-Host "  Wait 2-3 minutes for first boot, then open:" -ForegroundColor Green
+    Write-Host "  http://localhost:8080/openmrs" -ForegroundColor Green
+    Write-Host "============================================================" -ForegroundColor Green
     exit 0
 }
 
@@ -68,7 +87,7 @@ Set-Location $ROOT
 
 $running = docker ps --filter "name=$CONTAINER" --filter "status=running" -q 2>$null
 if (-not $running) {
-    Write-Host "    Container '$CONTAINER' is not running. Starting containers..." -ForegroundColor Yellow
+    Write-Host "    Container '$CONTAINER' is not running. Starting..." -ForegroundColor Yellow
     docker compose up -d
     if ($LASTEXITCODE -ne 0) { Write-Fail "docker compose up failed" }
     Write-Host "    Waiting 15s for OpenMRS to start..." -ForegroundColor Yellow
@@ -80,7 +99,7 @@ if (-not $owaAppJs) {
     Write-Host ""
     Write-Host "    Cannot find OWA app.js in the container yet." -ForegroundColor Yellow
     Write-Host "    OpenMRS may still be deploying the module." -ForegroundColor Yellow
-    Write-Host "    Wait ~30 seconds and try again, or run: .\dev-build.ps1 -Full" -ForegroundColor Yellow
+    Write-Host "    Wait ~30 sec and try again, or run: .\dev-build.ps1 -Full" -ForegroundColor Yellow
     exit 1
 }
 
@@ -98,5 +117,5 @@ Write-OK "Copied app.js and vendor.js"
 Write-Host ""
 Write-Host "============================================================" -ForegroundColor Green
 Write-Host "  Done! Refresh your browser to see the changes." -ForegroundColor Green
-Write-Host "  URL: http://localhost:8080/openmrs/owa/bedManagement/admissionLocations.html" -ForegroundColor Green
+Write-Host "  http://localhost:8080/openmrs/owa/bedManagement/admissionLocations.html" -ForegroundColor Green
 Write-Host "============================================================" -ForegroundColor Green
