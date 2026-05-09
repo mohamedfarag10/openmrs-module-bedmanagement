@@ -88,6 +88,9 @@ export default {
         LOCATION_INFO_TEXT: 'This location will be linked to the selected parent and used for bed assignments.',
         EDIT_BED_SUBTITLE: 'Update the position and classification of this bed.',
         ADD_BED_SUBTITLE: 'Assign a new bed to a position in the ward layout.',
-        SET_LAYOUT_SUBTITLE: 'Configure the row and column grid dimensions for this ward.'
+        SET_LAYOUT_SUBTITLE: 'Configure the row and column grid dimensions for this ward.',
+        SAVE_LAYOUT: 'Save Layout',
+        OCCUPIED: 'Occupied',
+        AVAILABLE: 'Available'
     }
 };

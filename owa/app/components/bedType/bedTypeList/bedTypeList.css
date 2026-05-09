@@ -1,90 +1,197 @@
-/* Card container — fieldset reset + card border */
-fieldset.bed-type-listing {
-    width: 90%;
-    max-width: 960px;
-    margin: 24px auto;
-    padding: 0;
-    border: 1px solid #bcc9c5;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    background: #fff;
-    overflow: hidden;
-}
-
-/* Legend as full-width header band */
-fieldset.bed-type-listing legend {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    padding: 14px 20px;
-    margin: 0;
-    background: #e6f6ff;
-    border-bottom: 1px solid #bcc9c5;
-    font-weight: 600;
-    color: #071e27;
-    font-size: 15px;
+/* ── Page wrapper ── */
+.bed-config-page {
+    padding: 24px 28px;
+    min-height: calc(100vh - 104px);
     box-sizing: border-box;
 }
 
-/* Table inside the card */
-fieldset.bed-type-listing table {
-    width: 100%;
-    text-align: left;
-    border: none;
-    border-collapse: collapse;
-    background-color: transparent;
-    margin-bottom: 0;
+/* ── Page header ── */
+.bed-config-header {
+    margin-bottom: 20px;
 }
 
-fieldset.bed-type-listing table thead tr {
+.bed-config-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #071e27;
+    margin: 0 0 6px;
+}
+
+.bed-config-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+}
+
+/* ── Card ── */
+.bed-type-card {
+    background: #fff;
+    border: 1px solid #bcc9c5;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+/* ── Card section header ── */
+.bed-type-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background: #e6f6ff;
+    border-bottom: 1px solid #bcc9c5;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.bed-type-section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #071e27;
+    margin: 0;
+}
+
+/* ── Search ── */
+.bed-type-search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.bed-type-search-icon {
+    position: absolute;
+    left: 10px;
+    color: #94a3b8;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.bed-type-search-input {
+    border: 1px solid #bcc9c5;
+    border-radius: 4px;
+    padding: 7px 10px 7px 30px;
+    font-size: 13px;
+    color: #3d4946;
+    background: #fff;
+    width: 200px;
+    transition: border-color 0.15s;
+}
+
+.bed-type-search-input:focus {
+    outline: none;
+    border-color: #0d9488;
+}
+
+/* ── Table ── */
+.bed-type-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.bed-type-table thead tr {
     background: #e6f6ff;
 }
 
-fieldset.bed-type-listing table tr th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #bcc9c5;
-    color: #3d4946;
-    font-weight: 600;
+.bed-type-table thead th {
+    padding: 10px 16px;
     font-size: 13px;
-    padding: .75rem 1rem;
-}
-
-fieldset.bed-type-listing table tr td,
-fieldset.bed-type-listing table tr th {
-    border: 1px solid #e2e8f0;
-    padding: .75rem 1rem;
+    font-weight: 600;
     color: #3d4946;
+    border-bottom: 2px solid #bcc9c5;
+    white-space: nowrap;
 }
 
-fieldset.bed-type-listing table tr td {
+.bed-type-table thead th.description {
+    width: 40%;
+}
+
+.bed-type-table tbody td {
+    padding: 10px 16px;
+    font-size: 13px;
+    color: #3d4946;
+    border-bottom: 1px solid #e2e8f0;
     background: #fff;
+    vertical-align: middle;
 }
 
-fieldset.bed-type-listing table tr:hover td {
+.bed-type-table tbody tr:hover td {
     background: #f8fafc;
 }
 
-fieldset.bed-type-listing table th.description {
-    width: 50%;
+.bed-type-table tbody tr:last-child td {
+    border-bottom: none;
 }
 
-/* Add New button */
-fieldset.bed-type-listing .list-btn {
-    display: inline-block;
-    margin: 16px 20px;
+/* ── Empty state ── */
+.bed-type-empty {
+    text-align: center;
+    color: #94a3b8;
+    font-style: italic;
+    padding: 24px 0 !important;
+}
+
+/* ── Add button row ── */
+.bed-type-add-btn-container {
+    padding: 14px 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.bed-type-add-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     background: #00685d;
-    border: none;
-    padding: 9px 22px;
-    line-height: 1.4em;
     color: #fff;
-    cursor: pointer;
+    border: none;
     border-radius: 4px;
+    padding: 9px 20px;
     font-size: 14px;
     font-weight: 500;
+    cursor: pointer;
     transition: background 0.2s;
 }
 
-fieldset.bed-type-listing .list-btn:hover {
+.bed-type-add-btn:hover {
     background: #004d44;
-    color: #fff;
+}
+
+/* ── Row action buttons ── */
+.bed-type-action-btns {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.bed-type-edit-btn,
+.bed-type-delete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.bed-type-edit-btn {
+    background: #e6f6ff;
+    color: #0d9488;
+}
+
+.bed-type-edit-btn:hover {
+    background: #ccfbf1;
+    color: #0f766e;
+}
+
+.bed-type-delete-btn {
+    background: #fff0f0;
+    color: #dc2626;
+}
+
+.bed-type-delete-btn:hover {
+    background: #fee2e2;
+    color: #b91c1c;
 }

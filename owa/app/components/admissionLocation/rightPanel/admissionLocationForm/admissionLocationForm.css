@@ -1,103 +1,304 @@
 .main-container {
     flex: 1;
     min-width: 0;
+    min-height: calc(100vh - 104px);
 }
 
-.admission-location-form {
-    margin: 24px;
-    padding: 0;
+/* ── Form page wrapper ── */
+.bed-form-page {
+    padding: 24px 28px;
+    max-width: 860px;
+}
+
+/* ── Page header ── */
+.bed-form-page-header {
+    margin-bottom: 20px;
+}
+
+.bed-form-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #071e27;
+    margin: 0 0 4px;
+}
+
+.bed-form-subtitle {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+}
+
+.bed-form-badge {
+    display: inline-block;
+    background: #e6f6ff;
+    color: #0d9488;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 2px 10px;
+    letter-spacing: 0.02em;
+    vertical-align: middle;
+}
+
+/* ── Main card ── */
+.bed-form-card {
     background: #fff;
-    border: 1px solid #f1f5f9;
+    border: 1px solid #bcc9c5;
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    overflow: hidden;
+    padding: 28px 28px 24px;
+    margin-bottom: 20px;
 }
 
-.admission-location-form .block-title {
-    padding: 14px 20px;
-    background: #e6f6ff;
-    border-bottom: 1px solid #bcc9c5;
+/* ── Field ── */
+.bed-form-field {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.bed-form-field-full {
+    width: 100%;
+}
+
+/* ── Two-column row ── */
+.bed-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+/* ── Label ── */
+.bed-form-label {
+    font-size: 13px;
     font-weight: 600;
-    color: #071e27;
-    font-size: 15px;
-}
-
-.admission-location-form .block-content {
-    padding: 24px;
-}
-
-.admission-location-form .form-block {
-    margin-bottom: 16px;
-}
-
-.admission-location-form .form-block input[type="text"],
-.admission-location-form .form-block input[type="number"],
-.admission-location-form .form-block select,
-.admission-location-form .form-block textarea {
-    float: left;
-    width: calc(100% - 200px);
-    margin-bottom: 10px;
-    border: 1px solid #bcc9c5;
-    border-radius: 4px;
-    padding: 8px 10px;
     color: #3d4946;
-    font-size: 14px;
+    margin-bottom: 6px;
 }
 
-.admission-location-form .form-block input:focus,
-.admission-location-form .form-block select:focus,
-.admission-location-form .form-block textarea:focus {
+/* ── Static text (read-only value) ── */
+.bed-form-static {
+    padding: 9px 12px;
+    background: #f8fafc;
+    border: 1px solid #bcc9c5;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #3d4946;
+}
+
+/* ── Inputs / Selects ── */
+.bed-form-input,
+.bed-form-select {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #bcc9c5;
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: #071e27;
+    background: #fff;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.bed-form-input:focus,
+.bed-form-select:focus {
     outline: none;
     border-color: #0d9488;
-    box-shadow: 0 0 0 2px rgba(13,148,136,0.12);
+    box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
 }
 
-.admission-location-form label.form-title {
-    display: block;
+.bed-form-input::placeholder {
+    color: #94a3b8;
+}
+
+/* ── Textarea ── */
+.bed-form-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #bcc9c5;
+    border-radius: 6px;
+    padding: 9px 12px;
     font-size: 14px;
+    color: #071e27;
+    background: #fff;
+    resize: vertical;
+    font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.bed-form-textarea:focus {
+    outline: none;
+    border-color: #0d9488;
+    box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+}
+
+/* ── Validation errors ── */
+.bed-form-error {
+    font-size: 12px;
+    color: #dc2626;
+    margin: 4px 0 0;
+}
+
+.bed-form-error-msg {
+    padding: 24px;
+    color: #dc2626;
+    font-size: 14px;
+}
+
+/* ── Action buttons ── */
+.bed-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.bed-form-cancel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f1f5f9;
     color: #3d4946;
-    text-align: left;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.admission-location-form label.form-title.inline {
-    display: inline-block;
-    margin-right: 10px;
-}
-
-.admission-location-form .form-block .form-btn {
-    background: #00685d;
-    border: none;
+    border: 1px solid #bcc9c5;
+    border-radius: 6px;
     padding: 9px 22px;
-    display: inline-block;
-    line-height: 1.2em;
-    color: #fff;
-    cursor: pointer;
-    min-width: 0;
-    max-width: 300px;
-    text-decoration: none;
-    width: auto;
-    border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
-    transition: background 0.2s;
-    margin-right: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
 }
 
-.admission-location-form .form-block .form-btn:hover {
+.bed-form-cancel-btn:hover {
+    background: #e2e8f0;
+    color: #071e27;
+}
+
+.bed-form-save-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #00685d;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 22px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.bed-form-save-btn:hover {
     background: #004d44;
 }
 
-.admission-location-form .form-block .form-btn:disabled {
+.bed-form-save-btn:disabled {
     background: #e2e8f0;
     color: #94a3b8;
     cursor: not-allowed;
 }
 
-.admission-location-form p.error {
-    clear: both;
+/* ── Info cards row (addEditAdmissionLocation) ── */
+.bed-form-info-cards {
+    display: flex;
+    gap: 14px;
+}
+
+.bed-form-info-card {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid #bcc9c5;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 16px 18px;
+}
+
+.bed-form-info-icon-wrap {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #ccfbf1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.bed-form-info-icon {
+    color: #0d9488;
+    font-size: 15px;
+}
+
+.bed-form-info-content {
+    flex: 1;
+}
+
+.bed-form-info-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #071e27;
+    margin-bottom: 4px;
+}
+
+.bed-form-info-text {
     font-size: 12px;
-    padding: 5px 0;
-    color: #f36363;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+/* ── Location display (setBedLayout) ── */
+.bed-form-location-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8fafc;
+    border: 1px solid #bcc9c5;
+    border-radius: 6px;
+    padding: 12px 16px;
+}
+
+.bed-form-location-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.bed-form-location-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #071e27;
+}
+
+/* ── Info box (setBedLayout hint) ── */
+.bed-form-info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: #e6f6ff;
+    border: 1px solid #bcc9c5;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #3d4946;
+    margin-bottom: 18px;
+}
+
+.bed-form-info-box i {
+    color: #0d9488;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+/* ── Audit note ── */
+.bed-form-audit-note {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 12px;
+    text-align: center;
 }

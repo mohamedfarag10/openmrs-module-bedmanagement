@@ -1,102 +1,77 @@
-.location.block {
-    width: 22.80%;
-    padding: 0;
-    float: left;
-    position: relative;
-    margin-right: 16px;
-    min-height: 80px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+/* ── Location card ── */
+.location-card {
+    background: #fff;
     border: 1px solid #bcc9c5;
     border-radius: 8px;
-    margin-top: 16px;
-    word-wrap: break-word;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    width: calc(25% - 12px);
+    min-width: 180px;
     cursor: pointer;
-    background: #fff;
     overflow: hidden;
     transition: box-shadow 0.2s;
+    box-sizing: border-box;
 }
 
-.location.block:hover {
-    box-shadow: 0 3px 8px rgba(0,0,0,0.13);
+.location-card:hover {
+    box-shadow: 0 3px 10px rgba(0,0,0,0.13);
 }
 
-.location.block .block-title {
+.location-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 10px 12px;
     background: #e6f6ff;
     border-bottom: 1px solid #bcc9c5;
+}
+
+.location-card-icon {
+    font-size: 18px;
+    color: #0d9488;
+}
+
+.location-card-menu {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.location-card:hover .location-card-menu {
+    opacity: 1;
+}
+
+.location-card-menu-btn {
+    background: none;
+    border: none;
+    padding: 4px 6px;
+    border-radius: 4px;
+    color: #64748b;
+    cursor: pointer;
     font-size: 13px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.location-card-menu-btn:hover {
+    background: rgba(0,0,0,0.06);
+    color: #0d9488;
+}
+
+.location-card-menu-btn.delete:hover {
+    color: #dc2626;
+}
+
+.location-card-name {
+    padding: 12px 12px 6px;
+    font-size: 14px;
     font-weight: 600;
     color: #071e27;
+    word-break: break-word;
 }
 
-.location.block .block-content {
-    padding: 10px 12px;
-    font-size: 13px;
-    color: #3d4946;
-}
-
-.location.block .btn-primary, .location.option .btn-primary {
-    display: inline-block;
-    width: 30%;
-    margin-top: 18px;
-    padding: 30px 0;
-}
-
-.location.block .left-block {
-    width: 80%;
-    float: left;
-    top: 50%;
-    position: absolute;
-    transform: translate(0, -50%);
-}
-
-.location.block .left-block span {
-    vertical-align: middle;
-}
-
-.location.block ul {
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 0;
-}
-
-.location.block ul.right-block li {
-    display: none;
-    text-align: right;
-    padding: 4px 0;
-}
-
-.location.block:hover ul.right-block li {
-    display: block;
-}
-
-.location.block ul.right-block li a {
-    color: #0d9488;
+.location-card-desc {
+    padding: 0 12px 12px;
     font-size: 12px;
-}
-
-.location.option {
-    margin-bottom: 20px;
-    padding: 12px 0;
-}
-
-.location.option .btn {
-    background: #00685d;
-    border: none;
-    max-width: 300px;
-    padding: 9px 22px;
-    margin-right: 10px;
-    color: #fff;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.location.option .btn:hover {
-    background: #004d44;
-    color: #fff;
+    color: #64748b;
+    word-break: break-word;
 }

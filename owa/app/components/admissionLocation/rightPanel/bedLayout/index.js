@@ -121,15 +121,17 @@ export default class BedLayout extends React.Component {
                     <div className="bed-layout-page-header">
                         <h1 className="bed-layout-location-title">{this.getLocationName()}</h1>
                     </div>
-                    <div className="location option">
+                    <div className="bed-layout-empty-actions">
                         {managingLocationsEnabled && (
-                            <label className="button" onClick={this.addWardClickHandler}>
+                            <button className="bed-layout-empty-btn secondary" onClick={this.addWardClickHandler}>
+                                <i className="fa fa-plus" aria-hidden="true" />
                                 Add Child Admission Location
-                            </label>
+                            </button>
                         )}
-                        <label className="button primary" onClick={this.setBedLayoutClickHandler}>
+                        <button className="bed-layout-empty-btn primary" onClick={this.setBedLayoutClickHandler}>
+                            <i className="fa fa-th" aria-hidden="true" />
                             Set Bed Layout
-                        </label>
+                        </button>
                     </div>
                 </div>
             );

@@ -4,60 +4,75 @@
     min-height: calc(100vh - 104px);
 }
 
-/* Page title / breadcrumb area */
-.main-container .breadcrumb-section {
-    background: #fff;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 12px 24px;
+/* ── Location page header ── */
+.location-page-header {
+    padding: 16px 24px 0;
 }
 
-/* Location cards grid */
-.main-block {
-    padding: 20px 24px;
+.location-page-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #071e27;
+    margin: 0 0 4px;
 }
 
-.main-block .block {
-    width: 22%;
-    padding: 10px;
-    float: left;
-    position: relative;
-    margin-right: 12px;
-    min-height: 80px;
-    border: 1px solid #bcc9c5;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    background: #fff;
-    margin-bottom: 12px;
-}
-
-/* ADD ADMISSION LOCATION / ADD WARD button — override OpenMRS btn-primary */
-.main-block .btn.btn-primary,
-.main-block > .btn.btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: #00685d !important;
-    border: none !important;
-    border-radius: 4px !important;
-    color: #fff !important;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 9px 20px !important;
-    cursor: pointer;
-    width: auto !important;
-    min-width: 0 !important;
-    margin-top: 8px;
-    text-transform: none;
-    letter-spacing: 0;
-    box-shadow: none !important;
-    transition: background 0.2s;
-}
-
-.main-block .btn.btn-primary:hover {
-    background: #004d44 !important;
-    color: #fff !important;
-}
-
-.main-block .btn.btn-primary .icon {
+.location-page-subtitle {
     font-size: 13px;
+    color: #64748b;
+    margin: 0 0 8px;
+}
+
+/* ── Main content block ── */
+.main-block {
+    padding: 16px 24px;
+}
+
+/* ── Location cards grid ── */
+.location-cards-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+/* ── Add location card (dashed) ── */
+.location-card-add {
+    background: #fff;
+    border: 2px dashed #bcc9c5;
+    border-radius: 8px;
+    width: calc(25% - 12px);
+    min-width: 180px;
+    min-height: 110px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: border-color 0.2s, background 0.2s;
+    box-sizing: border-box;
+}
+
+.location-card-add:hover {
+    border-color: #0d9488;
+    background: #f0fdfa;
+}
+
+.location-card-add-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e6f6ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0d9488;
+    font-size: 14px;
+}
+
+.location-card-add-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #0d9488;
+    text-align: center;
+    padding: 0 8px;
 }
