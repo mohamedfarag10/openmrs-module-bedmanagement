@@ -12,6 +12,10 @@ import UrlHelper from 'utilities/urlHelper';
 import messages from 'i18n/messages';
 
 const urlHelper = new UrlHelper();
+
+// Languages that read right-to-left
+const RTL_LOCALES = ['ar', 'he', 'fa', 'ur'];
+
 require('./app.css');
 require('babel-polyfill');
 class App extends React.Component {
@@ -37,10 +41,26 @@ class App extends React.Component {
         };
     }
 
+    isRTL() {
+        return RTL_LOCALES.includes(this.state.localeCode);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.localeCode !== this.state.localeCode) {
+            document.documentElement.dir = this.isRTL() ? 'rtl' : 'ltr';
+            document.documentElement.lang = this.state.localeCode;
+        }
+    }
+
+    componentDidMount() {
+        document.documentElement.dir = this.isRTL() ? 'rtl' : 'ltr';
+        document.documentElement.lang = this.state.localeCode;
+    }
+
     render() {
         return (
             <IntlProvider locale={this.state.localeCode} messages={this.state.messages}>
-                <div>
+                <div dir={this.isRTL() ? 'rtl' : 'ltr'}>
                     <Switch>
                         <Route
                             path={urlHelper.owaPath() + '/admissionLocations.html'}
