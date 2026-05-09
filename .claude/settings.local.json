@@ -29,7 +29,21 @@
       "Bash(ls \"/c/Users/mohamedfarag/openmrs/myserver/owa/bedmanagement/\")",
       "Bash(cp \"C:\\\\work\\\\openmrs-module-bedmanagement\\\\.claude\\\\worktrees\\\\wonderful-banach-5617ff\\\\owa\\\\app\\\\build\\\\app.js\" \"C:\\\\Users\\\\mohamedfarag\\\\openmrs\\\\myserver\\\\owa\\\\bedmanagement\\\\build\\\\app.js\")",
       "Bash(cp \"C:\\\\work\\\\openmrs-module-bedmanagement\\\\.claude\\\\worktrees\\\\wonderful-banach-5617ff\\\\owa\\\\app\\\\build\\\\vendor.js\" \"C:\\\\Users\\\\mohamedfarag\\\\openmrs\\\\myserver\\\\owa\\\\bedmanagement\\\\build\\\\vendor.js\")",
-      "Bash(node -e \"console.log\\(Date.now\\(\\)\\)\")"
+      "Bash(node -e \"console.log\\(Date.now\\(\\)\\)\")",
+      "Bash(python -c \"import sys,json; data=json.load\\(sys.stdin\\); print\\(json.dumps\\({'name': data.get\\('name'\\), 'pages': [{'id': p['id'], 'name': p['name'], 'children_count': len\\(p.get\\('children', []\\)\\)} for p in data.get\\('document', {}\\).get\\('children', []\\)], 'styles': list\\(data.get\\('styles', {}\\).items\\(\\)\\)[:30]}, indent=2\\)\\)\")",
+      "Bash(curl -s -H \"X-Figma-Token: figd_bhQFYDNEmcfF328o7ZwLB33ewMTE-xSFXvf1uhmQ\" \"https://api.figma.com/v1/files/jUpKr3enL0e3VnpF4pfjuZ?depth=2\" -o \"C:\\\\work\\\\openmrs-module-bedmanagement\\\\tempfigma_data.json\")",
+      "Bash(curl -s -H \"X-Figma-Token: figd_bhQFYDNEmcfF328o7ZwLB33ewMTE-xSFXvf1uhmQ\" \"https://api.figma.com/v1/files/jUpKr3enL0e3VnpF4pfjuZ\" -o \"C:\\\\work\\\\openmrs-module-bedmanagement\\\\tempfigma_data.json\")",
+      "Bash(curl -s -H \"X-Figma-Token: figd_bhQFYDNEmcfF328o7ZwLB33ewMTE-xSFXvf1uhmQ\" \"https://api.figma.com/v1/files/jUpKr3enL0e3VnpF4pfjuZ?depth=3\" -o \"C:\\\\work\\\\openmrs-module-bedmanagement\\\\tempfigma_data.json\")",
+      "Bash(curl -s -H \"X-Figma-Token: figd_bhQFYDNEmcfF328o7ZwLB33ewMTE-xSFXvf1uhmQ\" \"https://api.figma.com/v1/files/jUpKr3enL0e3VnpF4pfjuZ?depth=1\" -o \"C:\\\\work\\\\openmrs-module-bedmanagement\\\\tempfigma_data.json\")",
+      "Bash(curl *)",
+      "PowerShell(Set-Location \"C:\\\\work\\\\openmrs-module-bedmanagement\\\\owa\"; $env:NODE_PATH = \"./app\"; npx webpack -p 2>&1 | Select-Object -Last 20)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "PowerShell(Set-Location \"C:\\\\work\\\\openmrs-module-bedmanagement\\\\owa\"; $env:NODE_PATH = \"./app\"; npx webpack -p 2>&1 | Select-Object -Last 8)",
+      "Bash(Remove-Item -Force \"C:\\\\work\\\\openmrs-module-bedmanagement\\\\owa\\\\app\\\\components\\\\__tests__\\\\admissionLocation\\\\rightPanel\\\\bedLayout\\\\__snapshots__\\\\bedLayout-test.js.snap\" -ErrorAction SilentlyContinue)",
+      "Bash(Remove-Item -Force \"C:\\\\work\\\\openmrs-module-bedmanagement\\\\owa\\\\app\\\\components\\\\__tests__\\\\admissionLocation\\\\rightPanel\\\\admissionLocationList\\\\__snapshots__\\\\admissionLocationList-test.js.snap\" -ErrorAction SilentlyContinue)",
+      "Bash(Remove-Item -Force \"C:\\\\work\\\\openmrs-module-bedmanagement\\\\owa\\\\app\\\\components\\\\__tests__\\\\admissionLocation\\\\rightPanel\\\\locationBlock\\\\__snapshots__\\\\locationBlock-test.js.snap\" -ErrorAction SilentlyContinue)",
+      "Bash(Write-Host \"Done\")"
     ]
   }
 }

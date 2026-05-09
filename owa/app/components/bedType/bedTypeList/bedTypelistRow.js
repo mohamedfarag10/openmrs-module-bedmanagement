@@ -53,6 +53,7 @@ export default class BedTypeListRow extends React.Component {
     }
 
     render() {
+        this.intl = this.context.intl;
         const { bedType } = this.props;
         return (
             <tr>

@@ -30,6 +30,7 @@ export default class BedTypeList extends React.Component {
     }
 
     render() {
+        this.intl = this.context.intl;
         const { filterText } = this.state;
         const filteredBedTypes = this.props.bedTypes.filter((bt) => {
             const q = filterText.toLowerCase();

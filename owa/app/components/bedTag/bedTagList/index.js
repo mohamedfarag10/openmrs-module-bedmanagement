@@ -27,6 +27,7 @@ export default class BedTagList extends React.Component {
     }
 
     render() {
+        this.intl = this.context.intl;
         const { filterText } = this.state;
         const filteredBedTags = this.props.bedTags.filter((bt) => {
             return !filterText || (bt.name || '').toLowerCase().includes(filterText.toLowerCase());

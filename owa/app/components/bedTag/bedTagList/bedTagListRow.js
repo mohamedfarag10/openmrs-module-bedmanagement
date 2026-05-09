@@ -53,6 +53,7 @@ export default class BedTagListRow extends React.Component {
     }
 
     render() {
+        this.intl = this.context.intl;
         return (
             <tr>
                 <td>{this.props.bedTag.name}</td>
