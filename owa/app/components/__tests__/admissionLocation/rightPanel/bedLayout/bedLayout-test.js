@@ -169,7 +169,7 @@ describe('BedLayout', () => {
         notYetSetBedLayout.update();
 
         notYetSetBedLayout
-            .find('label')
+            .find('button')
             .at(0)
             .simulate('click');
         expect(sypAddWardClickHandler).toHaveBeenCalled();
@@ -182,7 +182,7 @@ describe('BedLayout', () => {
         });
 
         notYetSetBedLayout
-            .find('label')
+            .find('button')
             .at(1)
             .simulate('click');
         expect(sypSetBedLayoutClickHandler).toHaveBeenCalled();
