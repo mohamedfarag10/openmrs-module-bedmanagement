@@ -98,6 +98,7 @@ export default class AdmissionLocationList extends React.Component {
     }
 
     render() {
+        this.intl = this.context.intl;
         return (
             <div className="main-container">
                 <Breadcrumb

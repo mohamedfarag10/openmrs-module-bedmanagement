@@ -27,6 +27,7 @@ export default class Breadcrumb extends React.PureComponent {
     }
 
     render() {
+        this.intl = this.context.intl;
         return (
             <ul className="breadcrumb-section">
                 <li>

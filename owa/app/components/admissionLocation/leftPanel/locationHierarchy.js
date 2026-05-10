@@ -72,6 +72,7 @@ export default class LocationHierarchy extends React.Component {
     }
 
     render() {
+        this.intl = this.context.intl;
         const isRootActive = this.hierarchyFunction.getActiveUuid() == null;
         const isOpen = this.props.isOpen;
 

@@ -115,6 +115,7 @@ export default class AddEditAdmissionLocation extends React.Component {
     }
 
     render() {
+        this.intl = this.context.intl;
         const isEdit = this.props.operation !== 'add';
         const entityLabel = this.intl.formatMessage({
             id: this.parentAdmissionLocation == null ? 'ADMISSION_LOCATION' : 'WARD'

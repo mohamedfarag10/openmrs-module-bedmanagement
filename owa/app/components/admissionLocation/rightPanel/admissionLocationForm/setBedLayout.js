@@ -113,6 +113,7 @@ export default class SetBedLayout extends React.Component {
     }
 
     render() {
+        this.intl = this.context.intl;
         return (
             <div className="main-container">
                 <div className="bed-form-page">

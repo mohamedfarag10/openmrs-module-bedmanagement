@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import _ from 'lodash';
 import AdmissionLocationHelper from 'utilities/admissionLocationHelper';
@@ -116,15 +117,22 @@ export default class LocationSidebar extends React.Component {
     }
 
     render() {
+        const intl = this.context.intl;
         const {isOpen, admissionLocations} = this.state;
         const higherLevel = this.admissionLocationHelper.getHigherLevelAdmissionLocations(admissionLocations);
+        const locationHierarchyLabel = intl
+            ? intl.formatMessage({id: 'LOCATION_HIERARCHY'})
+            : 'Location Hierarchy';
+        const admissionLocationsLabel = intl
+            ? intl.formatMessage({id: 'ADMISSION_LOCATIONS'})
+            : 'Admission Locations';
 
         return (
             <div className="left-container">
                 <div className="tree-card">
                     <div className="tree-heading">
                         <i className="fa fa-sitemap" aria-hidden="true" />
-                        <span className="tree-heading-text">Location Hierarchy</span>
+                        <span className="tree-heading-text">{locationHierarchyLabel}</span>
                     </div>
                     <div className="tree-items">
                         <div className="tree-root-node" onClick={this.toggleRoot}>
@@ -132,7 +140,7 @@ export default class LocationSidebar extends React.Component {
                                 className={`fa fa-chevron-${isOpen ? 'down' : 'right'} tree-icon`}
                                 aria-hidden="true"
                             />
-                            <span className="tree-label">Admission Locations</span>
+                            <span className="tree-label">{admissionLocationsLabel}</span>
                         </div>
                         {isOpen && (
                             <div className="tree-children">
@@ -152,3 +160,7 @@ export default class LocationSidebar extends React.Component {
         );
     }
 }
+
+LocationSidebar.contextTypes = {
+    intl: PropTypes.object
+};

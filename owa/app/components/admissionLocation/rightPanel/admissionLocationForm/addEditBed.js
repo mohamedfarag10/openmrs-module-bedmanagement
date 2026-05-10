@@ -129,6 +129,7 @@ export default class AddEditBed extends React.Component {
     }
 
     render() {
+        this.intl = this.context.intl;
         const isEdit = this.props.operation !== 'add';
 
         if (this.props.bedTypes.length == 0) {

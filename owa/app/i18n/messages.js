@@ -91,7 +91,8 @@ export default {
         SET_LAYOUT_SUBTITLE: 'Configure the row and column grid dimensions for this ward.',
         SAVE_LAYOUT: 'Save Layout',
         OCCUPIED: 'Occupied',
-        AVAILABLE: 'Available'
+        AVAILABLE: 'Available',
+        LOCATION_HIERARCHY: 'Location Hierarchy'
     },
 
     ar: {
@@ -185,6 +186,7 @@ export default {
         SET_LAYOUT_SUBTITLE: 'تهيئة أبعاد شبكة الصفوف والأعمدة لهذا الجناح.',
         SAVE_LAYOUT: 'حفظ التخطيط',
         OCCUPIED: 'مشغول',
-        AVAILABLE: 'متاح'
+        AVAILABLE: 'متاح',
+        LOCATION_HIERARCHY: 'التسلسل الهرمي للمواقع'
     }
 };

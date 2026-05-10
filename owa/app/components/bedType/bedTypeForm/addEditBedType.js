@@ -80,6 +80,7 @@ export default class AddEditBedType extends React.Component {
     }
 
     render() {
+        this.intl = this.context.intl;
         const isAdd = this.props.operation == 'add';
         const saving = this.state.disableSubmit;
 
