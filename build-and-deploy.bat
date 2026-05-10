@@ -29,11 +29,20 @@ echo.
 echo [3/3] Updating cache-busting version...
 for /f %%i in ('node -e "process.stdout.write(String(Date.now()).slice(0,-3))"') do set VER=%%i
 
-powershell -Command "(Get-Content 'C:\Users\mohamedfarag\openmrs\myserver\owa\bedmanagement\admissionLocations.html') -replace 'vendor\.js\?v=\d+', 'vendor.js?v=%VER%' -replace 'app\.js\?v=\d+', 'app.js?v=%VER%' -replace 'vendor\.js\"', 'vendor.js?v=%VER%\"' -replace 'app\.js\"', 'app.js?v=%VER%\"' | Set-Content 'C:\Users\mohamedfarag\openmrs\myserver\owa\bedmanagement\admissionLocations.html'"
+set HTML_DIR=C:\Users\mohamedfarag\openmrs\myserver\owa\bedmanagement
 
-powershell -Command "(Get-Content 'C:\Users\mohamedfarag\openmrs\myserver\owa\bedmanagement\bedTypes.html') -replace 'vendor\.js\?v=\d+', 'vendor.js?v=%VER%' -replace 'app\.js\?v=\d+', 'app.js?v=%VER%' -replace 'vendor\.js\"', 'vendor.js?v=%VER%\"' -replace 'app\.js\"', 'app.js?v=%VER%\"' | Set-Content 'C:\Users\mohamedfarag\openmrs\myserver\owa\bedmanagement\bedTypes.html'"
-
-powershell -Command "(Get-Content 'C:\Users\mohamedfarag\openmrs\myserver\owa\bedmanagement\bedTags.html') -replace 'vendor\.js\?v=\d+', 'vendor.js?v=%VER%' -replace 'app\.js\?v=\d+', 'app.js?v=%VER%' -replace 'vendor\.js\"', 'vendor.js?v=%VER%\"' -replace 'app\.js\"', 'app.js?v=%VER%\"' | Set-Content 'C:\Users\mohamedfarag\openmrs\myserver\owa\bedmanagement\bedTags.html'"
+node -e "^
+var fs=require('fs');^
+var ver='%VER%';^
+var files=['admissionLocations.html','bedTypes.html','bedTags.html'];^
+files.forEach(function(f){^
+  var p='%HTML_DIR%\\\\'+f;^
+  var c=fs.readFileSync(p,'utf8');^
+  c=c.replace(/vendor\.js(\?v=\d+)?/g,'vendor.js?v='+ver);^
+  c=c.replace(/app\.js(\?v=\d+)?/g,'app.js?v='+ver);^
+  fs.writeFileSync(p,c,'utf8');^
+  console.log('Updated: '+f);^
+});"
 
 echo.
 echo ========================================
