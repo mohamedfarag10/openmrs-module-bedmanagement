@@ -95,11 +95,15 @@ export default class BedTypeWrapper extends React.Component {
     };
 
     render() {
+        const isRTL = document.documentElement.dir === 'rtl';
+        const wrapperStyle = Object.assign({}, this.style.wrapper, {
+            flexDirection: isRTL ? 'row-reverse' : 'row'
+        });
         return (
             <div>
                 <ReactNotify ref="notificator" />
                 <Header path={this.props.match.path} />
-                <div style={this.style.wrapper} className="page-wrapper">
+                <div style={wrapperStyle} className="page-wrapper">
                     <LocationSidebar />
                     <div style={this.style.content}>
                         {this.state.activePage == 'listing' ? (
