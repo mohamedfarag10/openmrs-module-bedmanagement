@@ -59,15 +59,9 @@ body {
     flex-direction: row-reverse;
 }
 
-/* Sidebar RTL */
-[dir="rtl"] .left-container {
-    order: 2;
-}
-
-[dir="rtl"] .main-container,
-[dir="rtl"] .bed-type-content,
-[dir="rtl"] .bed-tag-content {
-    order: 1;
+/* Sidebar RTL — reverse flex so sidebar moves to the right */
+[dir="rtl"] .page-wrapper {
+    flex-direction: row-reverse;
 }
 
 [dir="rtl"] .tree-icon {

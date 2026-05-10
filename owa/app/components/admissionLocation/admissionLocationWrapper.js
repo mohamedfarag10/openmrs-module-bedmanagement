@@ -270,7 +270,7 @@ export default class AdmissionLocationWrapper extends React.Component {
             <div>
                 <ReactNotify ref="notificator"/>
                 <Header path={this.props.match.path}/>
-                <div style={this.style.wrapper}>
+                <div style={this.style.wrapper} className="page-wrapper">
                     <LocationHierarchy
                         admissionLocationFunctions={this.admissionLocationFunctions}
                         isOpen={this.state.isOpen}

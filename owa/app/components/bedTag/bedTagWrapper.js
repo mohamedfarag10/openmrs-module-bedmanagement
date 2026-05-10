@@ -94,7 +94,7 @@ export default class BedTagWrapper extends React.Component {
             <div>
                 <ReactNotify ref="notificator" />
                 <Header path={this.props.match.path} />
-                <div style={this.style.wrapper}>
+                <div style={this.style.wrapper} className="page-wrapper">
                     <LocationSidebar />
                     <div style={this.style.content}>
                         {this.state.activePage == 'listing' ? (
