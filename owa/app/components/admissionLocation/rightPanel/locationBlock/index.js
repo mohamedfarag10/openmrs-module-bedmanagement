@@ -65,6 +65,7 @@ export default class LocationBlock extends React.PureComponent {
     }
 
     render() {
+        this.intl = this.context.intl;
         const managingLocationsEnabled = this.props.admissionLocationFunctions.isManagingLocationsEnabled();
         const hasChildren = Object.keys(this.childLocations).length > 0;
         const description = this.props.admissionLocation.description;

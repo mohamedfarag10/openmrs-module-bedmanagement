@@ -81,7 +81,7 @@ export default class LocationHierarchy extends React.Component {
                 <div className="tree-card">
                     <div className="tree-heading">
                         <i className="fa fa-sitemap" aria-hidden="true" />
-                        <span className="tree-heading-text">Location Hierarchy</span>
+                        <span className="tree-heading-text">{this.intl.formatMessage({id: 'LOCATION_HIERARCHY'})}</span>
                     </div>
                     <div className="tree-items">
                         <div

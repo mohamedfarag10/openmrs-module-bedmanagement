@@ -60,7 +60,7 @@ export default class BedLayout extends React.Component {
     deleteBedLayoutClickHandler() {
         const self = this;
         const parameters = {bedLayout: {row: 0, column: 0}};
-        const confirmation = confirm('Are you sure you want to delete bed layout?');
+        const confirmation = confirm(this.intl.formatMessage({id: 'DELETE_BED_LAYOUT_CONFIRM'}));
         if (confirmation) {
             axios({
                 method: 'post',
@@ -70,7 +70,7 @@ export default class BedLayout extends React.Component {
                 data: parameters
             })
                 .then(function() {
-                    self.props.admissionLocationFunctions.notify('success', 'Admission location bed layout deleted');
+                    self.props.admissionLocationFunctions.notify('success', self.intl.formatMessage({id: 'BED_LAYOUT_DELETE_MSG'}));
                     self.loadAdmissionLocationLayout(self.props.activeUuid);
                 })
                 .catch(function(errorResponse) {
@@ -125,12 +125,12 @@ export default class BedLayout extends React.Component {
                         {managingLocationsEnabled && (
                             <button className="bed-layout-empty-btn secondary" onClick={this.addWardClickHandler}>
                                 <i className="fa fa-plus" aria-hidden="true" />
-                                Add Child Admission Location
+                                {this.intl.formatMessage({id: 'ADD_CHILD_ADMISSION_LOCATION'})}
                             </button>
                         )}
                         <button className="bed-layout-empty-btn primary" onClick={this.setBedLayoutClickHandler}>
                             <i className="fa fa-th" aria-hidden="true" />
-                            Set Bed Layout
+                            {this.intl.formatMessage({id: 'SET_BED_LAYOUT'})}
                         </button>
                     </div>
                 </div>
@@ -143,10 +143,10 @@ export default class BedLayout extends React.Component {
                     <h1 className="bed-layout-location-title">{this.getLocationName()}</h1>
                     <div className="bed-layout-action-row">
                         <button className="bed-layout-edit-btn" onClick={this.setBedLayoutClickHandler}>
-                            Edit Bed Layout
+                            {this.intl.formatMessage({id: 'EDIT_BED_LAYOUT'})}
                         </button>
                         <button className="bed-layout-delete-btn" onClick={this.deleteBedLayoutClickHandler}>
-                            Delete Bed Layout
+                            {this.intl.formatMessage({id: 'DELETE_BED_LAYOUT'})}
                         </button>
                     </div>
                 </div>
@@ -168,6 +168,7 @@ export default class BedLayout extends React.Component {
     }
 
     render() {
+        this.intl = this.context.intl;
         return this.getBody();
     }
 }

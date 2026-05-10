@@ -92,7 +92,13 @@ export default {
         SAVE_LAYOUT: 'Save Layout',
         OCCUPIED: 'Occupied',
         AVAILABLE: 'Available',
-        LOCATION_HIERARCHY: 'Location Hierarchy'
+        LOCATION_HIERARCHY: 'Location Hierarchy',
+        ADD_CHILD_ADMISSION_LOCATION: 'Add Child Admission Location',
+        SET_BED_LAYOUT: 'Set Bed Layout',
+        EDIT_BED_LAYOUT: 'Edit Bed Layout',
+        DELETE_BED_LAYOUT: 'Delete Bed Layout',
+        DELETE_BED_LAYOUT_CONFIRM: 'Are you sure you want to delete bed layout?',
+        BED_LAYOUT_DELETE_MSG: 'Admission location bed layout deleted'
     },
 
     ar: {
@@ -187,6 +193,12 @@ export default {
         SAVE_LAYOUT: 'حفظ التخطيط',
         OCCUPIED: 'مشغول',
         AVAILABLE: 'متاح',
-        LOCATION_HIERARCHY: 'التسلسل الهرمي للمواقع'
+        LOCATION_HIERARCHY: 'التسلسل الهرمي للمواقع',
+        ADD_CHILD_ADMISSION_LOCATION: 'إضافة موقع استقبال فرعي',
+        SET_BED_LAYOUT: 'ضبط تخطيط الأسرة',
+        EDIT_BED_LAYOUT: 'تعديل تخطيط الأسرة',
+        DELETE_BED_LAYOUT: 'حذف تخطيط الأسرة',
+        DELETE_BED_LAYOUT_CONFIRM: 'هل أنت متأكد من حذف تخطيط الأسرة؟',
+        BED_LAYOUT_DELETE_MSG: 'تم حذف تخطيط أسرة موقع الاستقبال'
     }
 };
