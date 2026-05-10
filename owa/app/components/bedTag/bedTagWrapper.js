@@ -90,7 +90,8 @@ export default class BedTagWrapper extends React.Component {
     };
 
     render() {
-        const isRTL = document.documentElement.dir === 'rtl';
+        const locale = this.context.intl ? this.context.intl.locale : 'en';
+        const isRTL = ['ar', 'he', 'fa', 'ur'].includes(locale);
         const wrapperStyle = Object.assign({}, this.style.wrapper, {
             flexDirection: isRTL ? 'row-reverse' : 'row'
         });
